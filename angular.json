@@ -84,6 +84,7 @@
             "assets": [
               "src/assets",
               "src/assets/img/favicon.png"
+              
             ]
           }
         },
