@@ -17,17 +17,28 @@
   <div class="main">
     <div class="section section-images">
         <div class="container">
-            <div class="row">
+            <div class="row justify-content-center">
+                <div class="alert alert-danger" role="alert">
+                    <h4 style="text-align: center;">
+                        AQUÍ ESTÁ!
+                        <P>Este es el especial del día...</P>  
+                    </h4>
+                </div>
                 <div class="col-md-12">
-                    <h1 class="h1-seo" style="text-align: center;">Plato del Dia aquí</h1>
+                    <h1 class="h1-seo" style="text-align: center;"></h1>
                 </div>
             </div>
         </div>
     </div>
+  </div>
     <div class="section" id="carousel">
         <div class="container">
             <div class="title">
-                <h1 class="h1-seo" style="text-align: center;">Platos</h1>
+                <div class="alert alert-warning" role="alert">
+                    <h4 style="text-align: center;">
+                        NUESTROS PLATOS 
+                    </h4>
+                </div>
             </div>
             <div class="row justify-content-center">
                 <div class="col-8">
@@ -41,13 +52,13 @@
                       <ng-template ngbSlide>
                         <img class="d-block" src="assets/img/bg3.jpg" alt="Second slide">
                         <div class="carousel-caption d-none d-md-block">
-                            <h5>Somewhere Beyond, United States</h5>
+                            <h5>Sancocho, El más típico</h5>
                         </div>
                       </ng-template>
                       <ng-template ngbSlide>
                         <img class="d-block" src="assets/img/bg4.jpg" alt="Third slide">
                         <div class="carousel-caption d-none d-md-block">
-                            <h5>Yellowstone National Park, United States</h5>
+                            <h5>Ajiaco, El regional santefereño</h5>
                         </div>
                       </ng-template>
                   </ngb-carousel>
@@ -55,248 +66,14 @@
             </div>
         </div>
     </div>
-      <app-basicelements></app-basicelements>
-      
-      <div class="section section-tabs">
-          <div class="container">
-              <div class="row">
-                  <div class="col-md-10 ml-auto col-xl-6 mr-auto">
-                      <p class="category">Tabs with Icons on Card</p>
-                      <!-- Nav tabs -->
-
-                      <div class="card">
-                        <div class="nav-tabs-navigation">
-                            <div class="nav-tabs-wrapper">
-                                <ngb-tabset [justify]="'center'" class="text-center">
-                                    <ngb-tab>
-                                      <ng-template ngbTabTitle>
-                                        <i class="now-ui-icons objects_umbrella-13"></i> Home
-                                      </ng-template>
-                                        <ng-template ngbTabContent>
-                                          <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
-                                        </ng-template>
-                                    </ngb-tab>
-                                    <ngb-tab>
-                                      <ng-template ngbTabTitle>
-                                        <i class="now-ui-icons shopping_cart-simple"></i> Profile
-                                      </ng-template>
-                                        <ng-template ngbTabContent>
-                                            <p> I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. </p>
-                                        </ng-template>
-                                    </ngb-tab>
-                                    <ngb-tab>
-                                      <ng-template ngbTabTitle>
-                                          <i class="now-ui-icons shopping_shop"></i> Messages
-                                      </ng-template>
-                                        <ng-template ngbTabContent>
-                                            <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
-                                        </ng-template>
-                                    </ngb-tab>
-                                    <ngb-tab>
-                                      <ng-template ngbTabTitle>
-                                        <i class="now-ui-icons ui-2_settings-90"></i> Settings
-                                      </ng-template>
-                                        <ng-template ngbTabContent>
-                                          <p>
-                                              "I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at."
-                                          </p>
-                                        </ng-template>
-                                    </ngb-tab>
-                                </ngb-tabset>
-                            </div>
-                        </div>
-                      </div>
-                  </div>
-                  <div class="col-md-10 ml-auto col-xl-6 mr-auto">
-                      <p class="category">Tabs with Background on Card</p>
-                      <!-- Tabs with Background on Card -->
-                      <div class="card">
-                        <div class="nav-tabs-navigation" data-tabs-color="orange">
-                            <div class="nav-tabs-wrapper">
-                                <ngb-tabset [justify]="'center'" class="text-center" >
-                                    <ngb-tab title="Home">
-                                      <ng-template ngbTabContent>
-                                        <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
-                                      </ng-template>
-                                    </ngb-tab>
-                                    <ngb-tab title="Profile">
-                                      <ng-template ngbTabContent>
-                                          <p> I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. </p>
-                                      </ng-template>
-                                    </ngb-tab>
-                                    <ngb-tab title="Messages">
-                                      <ng-template ngbTabContent>
-                                          <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
-                                      </ng-template>
-                                    </ngb-tab>
-                                    <ngb-tab title="Settings">
-                                        <ng-template ngbTabContent>
-                                          <p>
-                                              "I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at."
-                                          </p>
-                                        </ng-template>
-                                    </ngb-tab>
-                                </ngb-tabset>
-                            </div>
-                        </div>
-                      </div>
-                      <!-- End Tabs on plain Card -->
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="section section-pagination">
-          <div class="container">
-              <div class="row">
-                  <div class="col-md-6">
-                      <h4>Progress Bars</h4>
-                      <div class="progress-container">
-                        <span class="progress-badge">Default</span>
-
-                        <ngb-progressbar [value]="25"><span class="progress-value">25%</span></ngb-progressbar><br>
-                      </div>
-                      <div class="progress-container progress-primary">
-                          <span class="progress-badge">Primary</span>
-                          <ngb-progressbar [value]="60"><span class="progress-value">60%</span></ngb-progressbar><br>
-                      </div>
-                      <br />
-                      <h4>Navigation Pills</h4>
-                      <ngb-tabset type="pills" class="nav nav-pills nav-pills-primary justify-content-start tab-space nav-pills-just-icons">
-                          <ngb-tab>
-                            <ng-template ngbTabTitle>
-                              <i class="far fa-gem"></i>
-                            </ng-template>
-                              <ng-template ngbTabContent>
-                              </ng-template>
-                          </ngb-tab>
-                          <ngb-tab>
-                            <ng-template ngbTabTitle>
-                              <i class="fa fa-thermometer-full"></i>
-                            </ng-template>
-                              <ng-template ngbTabContent>
-                              </ng-template>
-                          </ngb-tab>
-                          <ngb-tab>
-                              <ng-template ngbTabTitle>
-                                <i class="fa fa-suitcase"></i>
-                              </ng-template>
-                              <ng-template ngbTabContent>
-                              </ng-template>
-                          </ngb-tab>
-                          <ngb-tab [disabled]="true">
-                              <ng-template ngbTabTitle>
-                                <i class="fa fa-exclamation"></i>
-                              </ng-template>
-                              <ng-template ngbTabContent>
-                              </ng-template>
-                          </ngb-tab>
-                      </ngb-tabset>
-                  </div>
-                  <div class="col-md-6">
-                      <h4>Pagination</h4>
-                      <ngb-pagination [collectionSize]="50" [(page)]="page" aria-label="Default pagination" class="pagination-primary"></ngb-pagination>
-                      <br/>
-                      <ngb-pagination [collectionSize]="50" [(page)]="page2" aria-label="Default pagination"></ngb-pagination>
-                      <br>
-                      <h4>Labels</h4>
-                      <span class="badge badge-default">Default</span>
-                      <span class="badge badge-primary">Primary</span>
-                      <span class="badge badge-success">Success</span>
-                      <span class="badge badge-info">Info</span>
-                      <span class="badge badge-warning">Warning</span>
-                      <span class="badge badge-danger">Danger</span>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="section" id="notifications">
-          <div class="container">
-            <h4>Notifications</h4>
-          </div>
-          <app-notification></app-notification>
-      </div>
-      <app-typography></app-typography>
-      <div class="section">
-          <div class="container text-center">
-              <div class="row justify-content-md-center">
-              </div>
-          </div>
-      </div>
-      <div class="section section-signup" style="background-image: url('assets/img/bg11.jpg'); background-size: cover; background-position: top center; min-height: 700px;">
-          <div class="container login-page">
-            <div class="row">
-              <div class="col-md-4 content-center ml-auto mr-auto">
-                  <div class="card card-login card-plain">
-                      <form class="form" method="" action="">
-                          <div class="header header-primary text-center">
-                              <div class="col-md-12">
-                                  <img src="assets/img/tato_logo.png" alt="">
-                              </div>
-                          </div>
-                          <div class="content">
-                            <div class="input-group form-group-no-border input-lg" [ngClass]="{'input-group-focus':focus===true}">
-                              <div class="input-group-prepend">
-                                  <span class="input-group-text">  <i class="now-ui-icons users_circle-08"></i></span>
-                              </div>
-                                <input type="text" class="form-control" placeholder="Nombre de Usuario" (focus)="focus=true" (blur)="focus=false" >
-                            </div>
-                            <div class="input-group form-group-no-border input-lg" [ngClass]="{'input-group-focus':focus1===true}">
-                              <div class="input-group-prepend">
-                                  <span class="input-group-text"><i class="now-ui-icons text_caps-small"></i></span>
-                              </div>
-                                <input type="password" placeholder="Contraseña" class="form-control" (focus)="focus1=true" (blur)="focus1=false"/>
-                            </div>
-                          </div>
-                          <div class="footer text-center">
-                              <a href="#pablo" class="btn btn-danger btn-round btn-lg btn-block">Acceder</a>
-                          </div>
-                          <div class="text-center">
-                              <h6>
-                                  <a href="#pablo" class="link">Crear Cuenta</a>
-                              </h6>
-                          </div>
-                      </form>
-                  </div>
-              </div>
+    <footer class="footer col-md-12" data-background-color="black" style="text-align: center;">
+        <div class="container">
+            <div class="copyright">
+                &copy;
+                {{data | date: 'yyyy'}}, Diseñado por
+                <a href="https://instagram.com/kingcordoba" target="_blank">Mateo</a>. Codeado por
+                <a href="https://instagram.com/anthonyurrego" target="_blank">Anthony Urrego</a>.
             </div>
-              <div class="col text-center">
-                  <a [routerLink]="['/examples/login']" class="btn btn-simple btn-round btn-white btn-lg">View Login Page</a>
-              </div>
-          </div>
-      </div>
-      <div class="section section-examples" data-background-color="black">
-      </div>
-      <div class="section section-download" id="#download-section" data-background-color="black">
-          <div class="container">
-              <div class="row justify-content-md-center">
-                <div class="row text-center mt-5">
-                <div class="row justify-content-md-center sharing-area text-center">
-                    <div class="col-md-12">
-                        <a href="pedidos.component" class="btn btn-neutral btn-round btn-lg" target="_blank">
-                            <i class="now-ui-icons arrows-1_share-66"></i> Hacer Pedido
-                        </a>
-                    </div>
-                  <div class="text-center col-md-12 col-lg-8">
-                    <a target="_blank" href="https://www.facebook.com/" class="btn btn-neutral btn-icon btn-facebook btn-round btn-lg" rel="tooltip" title="Like us">
-                      <i class="fab fa-facebook-square"></i>
-                    </a>
-                    <a target="_blank" href="https://instagram.com/anthonyurrego" class="btn btn-neutral btn-icon btn-instagram btn-round btn-lg" rel="tooltip" title="Star on Github">
-                      <i class="fab fa-instagram"></i>
-                    </a>
-                  </div>
-                  <footer class="footer" data-background-color="black">
-                      <div class="container">
-                          <div class="copyright">
-                              &copy;
-                            {{data | date: 'yyyy'}}, Diseñado por
-                              <a href="https://instagram.com/kingcordoba" target="_blank">Mateo</a>. Codeado por
-                              <a href="https://instagram.com/anthonyurrego" target="_blank">Anthony Urrego</a>.
-                          </div>
-                      </div>
-                  </footer>
-                </div>
-              </div>              
-          </div>
-      </div>
-  </div>
+        </div>
+    </footer>            
 </div>
