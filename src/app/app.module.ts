@@ -10,12 +10,14 @@ import { ExamplesModule } from './examples/examples.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { InicioComponent } from './web/inicio/inicio.component';
+import { LoginComponent } from './web/login/login.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         NavbarComponent,
-        InicioComponent
+        InicioComponent,
+        LoginComponent
     ],
     imports: [
         BrowserAnimationsModule,
