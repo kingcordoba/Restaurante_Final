@@ -1,25 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavbarComponent } from './navbar.component';
+import { PruComponent } from './pru.component';
 
-describe('NavbarComponent', () => {
-  let component: NavbarComponent;
-  let fixture: ComponentFixture<NavbarComponent>;
+describe('PruComponent', () => {
+  let component: PruComponent;
+  let fixture: ComponentFixture<PruComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NavbarComponent ]
+      declarations: [ PruComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NavbarComponent);
+    fixture = TestBed.createComponent(PruComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });
