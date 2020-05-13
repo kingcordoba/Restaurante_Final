@@ -4,8 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { InicioComponent } from './inicio/inicio.component';
 import { LoginComponent } from './login/login.component';
-import { PruComponent } from './pru/pru.component';
-
 
 // *******************************************************************************
 //
@@ -14,7 +12,7 @@ import { PruComponent } from './pru/pru.component';
   imports: [RouterModule.forChild([
     { path: '', component: InicioComponent },
     { path: 'index', component: InicioComponent },
-    { path: 'pru', component: PruComponent }
+    { path: 'login', component: LoginComponent }
   ])],
   exports: [RouterModule]
 })

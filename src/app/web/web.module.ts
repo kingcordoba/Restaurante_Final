@@ -4,22 +4,25 @@ import { RouterModule } from '@angular/router';
 
 import { InicioComponent } from './inicio/inicio.component';
 import { LoginComponent } from './login/login.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { WebRoutingModule } from './web.routing';
-import { PruComponent } from './pru/pru.component';
+import { WebComponent } from './web.component';
 
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
+    NgbModule,
 
     WebRoutingModule
   ],
   declarations: [
     InicioComponent,
     LoginComponent,
-    PruComponent,
+    WebComponent,
+    
   ]
 })
 export class WebModule { }
