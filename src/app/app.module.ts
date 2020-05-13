@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app.routing';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './web/navbar/navbar.component';
+import { LayoutModule } from './layout/layout.module';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { NavbarComponent } from './web/navbar/navbar.component';
         /* RouterModule, */
 
         AppRoutingModule,
+        LayoutModule
     ],
     providers: [],
     bootstrap: [

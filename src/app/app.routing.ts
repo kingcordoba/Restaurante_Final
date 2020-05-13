@@ -8,9 +8,7 @@ import { InicioComponent } from './web/inicio/inicio.component';
 
 
 const routes: Routes =[
-    { path: 'web', component: Layout2Component, pathMatch: 'full', children: [
-        { path: '', component: InicioComponent },
-    ]},
+    { path: '', component: Layout2Component, loadChildren: './web/web.module#WebModule'},
 ];
 
 @NgModule({
