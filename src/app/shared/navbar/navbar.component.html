@@ -13,27 +13,42 @@
         <div class="collapse navbar-collapse" data-nav-image="assets/img/blurred-image-1.jpg" data-color="orange">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="examples/login">
-                        <p>Acceder</p>
+                    <!-- DALE PLAY -->
+                    <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                        ACCEDER
+                    </a>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Accede a Tu Cuenta</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                            ...
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary">Entrar</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <p>Los Deliciosos</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link btn btn-neutral" href="" target="_blank">
-                        <i class="now-ui-icons arrows-1_share-66"></i>
-                        <p>Hacer Pedido</p>
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        <p>Haz Tu Pedido</p>
                     </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" rel="tooltip" title="Danos un Like" data-placement="bottom" href="https://www.facebook.com/" target="_blank">
-                    <i class="fab fa-facebook-square"></i>
-                    <p class="d-lg-none d-xl-none">Facebook</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" rel="tooltip" title="Siguenos en Insta" data-placement="bottom" href="https://www.instagram.com/" target="_blank">
-                    <i class="fab fa-instagram"></i>
-                    <p class="d-lg-none d-xl-none">Instagram</p>
-                  </a>
                 </li>
             </ul>
         </div>
