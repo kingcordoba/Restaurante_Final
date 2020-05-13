@@ -21,12 +21,14 @@
               "src/assets/img/favicon.png"
             ],
             "styles": [
-              "src/styles.scss",
-              "src/assets/sass/now-ui-kit.scss",
-              "src/assets/css/demo.css"
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.css",
+              "src/assets/sass/now-ui-kit.scss"
             ],
             "scripts": [
-              "node_modules/rellax/rellax.min.js"
+              "node_modules/rellax/rellax.min.js",
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.js"
             ]
           },
           "configurations": {
