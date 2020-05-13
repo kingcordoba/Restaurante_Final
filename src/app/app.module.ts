@@ -2,33 +2,31 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RouterModule } from '@angular/router';
+/* import { RouterModule } from '@angular/router'; */
 import { AppRoutingModule } from './app.routing';
-import { ComponentsModule } from './components/components.module';
-import { ExamplesModule } from './examples/examples.module';
 
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { InicioComponent } from './web/inicio/inicio.component';
-import { LoginComponent } from './web/login/login.component';
+import { NavbarComponent } from './web/navbar/navbar.component';
+import { LayoutModule } from './layout/layout.module';
+
 
 @NgModule({
     declarations: [
         AppComponent,
-        NavbarComponent,
-        InicioComponent,
-        LoginComponent
+        NavbarComponent
     ],
     imports: [
         BrowserAnimationsModule,
         NgbModule,
         FormsModule,
-        RouterModule,
+        /* RouterModule, */
+
         AppRoutingModule,
-        ComponentsModule,
-        ExamplesModule
+        LayoutModule
     ],
     providers: [],
-    bootstrap: [AppComponent]
+    bootstrap: [
+        AppComponent
+    ]
 })
 export class AppModule { }
