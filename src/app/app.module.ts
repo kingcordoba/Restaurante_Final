@@ -7,12 +7,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { WebModule } from './web/web.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @NgModule({
     declarations: [
         AppComponent,
-        DashboardComponent,
     ],
     imports: [
         BrowserAnimationsModule,
@@ -21,7 +20,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
         NgbModule,
 
         AppRoutingModule,
-        WebModule
+        WebModule,
+        DashboardModule
     ],
     providers: [],
     bootstrap: [

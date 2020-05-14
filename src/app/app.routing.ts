@@ -7,7 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes =[
     { path: '', component: WebComponent, loadChildren: './web/web.module#WebModule'},
-    { path: 'dashboard', component: DashboardComponent},
+    { path: 'dashboard', component: DashboardComponent, loadChildren: './dashboard/dashboard.module#DashboardModule'},
 ];
 
 @NgModule({
