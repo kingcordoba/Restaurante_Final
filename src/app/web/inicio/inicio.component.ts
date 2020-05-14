@@ -15,7 +15,6 @@ import { GetProductosService } from '../../services/get-productos.service';
   `]
 })
 export class InicioComponent implements OnInit, OnDestroy {
-  data : Date = new Date();
 
   imagenesSlider: object[] = [];
 

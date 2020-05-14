@@ -6,8 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../../../assets/sass/now-ui-kit.scss']
 })
 export class LoginComponent implements OnInit {
-
-  data : Date = new Date();
   focus;
   focus1;
 

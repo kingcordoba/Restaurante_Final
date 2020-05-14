@@ -12,6 +12,7 @@ import { WebRoutingModule } from './web.routing';
 import { WebComponent } from './web.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     WebComponent,
     NavbarComponent,
     PlatosComponent,
-    CarritoCompraComponent
+    CarritoCompraComponent,
+    FooterComponent
   ],
   providers: []
 })

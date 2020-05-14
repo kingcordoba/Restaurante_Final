@@ -9,6 +9,7 @@ import { DashboardRoutingModule } from './dashboard.routing';
 import { DashboardComponent } from './dashboard.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SidebarComponent,
     InicioComponent,
     DashboardComponent,
+    FooterComponent,
   ]
 })
 export class DashboardModule { }
