@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from '../../app.service';
 
 @Component({
   selector: 'app-login',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../../../assets/sass/now-ui-kit.scss']
 })
 export class LoginComponent implements OnInit {
+  data : Date = new Date();
   focus;
   focus1;
 
-  constructor() { }
+  constructor(
+    private appService: AppService
+  ) {
+    this.appService.pageTitle = 'Inicio Sesión';
+  }
 
   ngOnInit() {
     /* var body = document.getElementsByTagName('body')[0];

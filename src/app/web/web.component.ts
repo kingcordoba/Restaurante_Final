@@ -26,18 +26,17 @@ export class WebComponent implements OnInit {
       const number = window.scrollY;
       var _location = this.location.path();
       _location = _location.split('/')[1];
+
+      navbar.classList.remove('navbar-transparent');
       
-      if (_location !== 'platos') {
+      if (_location === undefined || _location === 'login') {
         if (number > 150 || window.pageYOffset > 150) {
           navbar.classList.remove('navbar-transparent');
-        } else if (_location !== 'login') {
+        }else {
           // remove logic
           navbar.classList.add('navbar-transparent');
         }
-      }else{
-        navbar.classList.remove('navbar-transparent');
       }
     });
-    
   }
 }

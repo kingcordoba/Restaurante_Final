@@ -3,11 +3,15 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { WebComponent } from './web/web.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { NotfoundComponent } from './web/notfound/notfound.component';
 
 
 const routes: Routes =[
-    { path: '', component: WebComponent, loadChildren: './web/web.module#WebModule'},
-    { path: 'dashboard', component: DashboardComponent, loadChildren: './dashboard/dashboard.module#DashboardModule'},
+  { path: 'dashboard', component: DashboardComponent, loadChildren: './dashboard/dashboard.module#DashboardModule'},
+  { path: '', component: WebComponent, loadChildren: './web/web.module#WebModule'},
+  { path: '**', component: WebComponent, children: [
+    { path: '', component: NotfoundComponent },
+  ]}
 ];
 
 @NgModule({

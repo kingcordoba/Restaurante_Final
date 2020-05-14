@@ -1,3 +1,4 @@
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -14,6 +15,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
         AppComponent,
     ],
     imports: [
+        BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
 
@@ -23,7 +25,9 @@ import { DashboardModule } from './dashboard/dashboard.module';
         WebModule,
         DashboardModule
     ],
-    providers: [],
+    providers: [
+        Title
+    ],
     bootstrap: [
         AppComponent
     ]

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from '../../app.service';
 import { GetProductosService } from '../../services/get-productos.service';
 
 @Component({
@@ -12,7 +13,9 @@ export class PlatosComponent implements OnInit {
 
   constructor(
     private _productos:GetProductosService,
+    private appService: AppService
   ) {
+    this.appService.pageTitle = 'Platos';
     this.productos = this._productos.productosMostrar;
   }
 

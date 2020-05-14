@@ -13,6 +13,7 @@ import { WebComponent } from './web.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './footer/footer.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { FooterComponent } from './footer/footer.component';
     NavbarComponent,
     PlatosComponent,
     CarritoCompraComponent,
-    FooterComponent
+    FooterComponent,
+    NotfoundComponent
   ],
   providers: []
 })

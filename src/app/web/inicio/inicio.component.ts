@@ -3,6 +3,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
 import * as Rellax from 'rellax';
 import { GetProductosService } from '../../services/get-productos.service';
+import { AppService } from '../../app.service';
 
 @Component({
   selector: 'app-inicio',
@@ -36,8 +37,10 @@ export class InicioComponent implements OnInit, OnDestroy {
 
   constructor( 
     private _productos: GetProductosService,
-    config: NgbAccordionConfig
+    config: NgbAccordionConfig,
+    private appService: AppService
   ) {
+    this.appService.pageTitle = 'Inicio';
     this.imagenesSlider = _productos.productosMostrar;
     config.closeOthers = true;
     config.type = 'info';

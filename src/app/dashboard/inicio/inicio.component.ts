@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from '../../app.service';
+
 
 @Component({
   selector: 'app-inicio',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private appService: AppService
+  ) {
+    this.appService.pageTitle = 'Inicio';
+  }
 
   ngOnInit(): void {
   }
