@@ -2,10 +2,12 @@ import { Component, OnInit, Renderer2, OnDestroy} from '@angular/core';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
 import * as Rellax from 'rellax';
+import { GetProductosService } from '../../services/get-productos.service';
 
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
+  
   styles: [`
     ngb-progressbar {
       margin-top: 5rem;
@@ -14,6 +16,8 @@ import * as Rellax from 'rellax';
 })
 export class InicioComponent implements OnInit, OnDestroy {
   data : Date = new Date();
+
+  imagenesSlider: object[] = [];
 
   page = 4;
   page1 = 5;
@@ -31,10 +35,19 @@ export class InicioComponent implements OnInit, OnDestroy {
 
   state_icon_primary = true;
 
-  constructor( private renderer : Renderer2, config: NgbAccordionConfig) {
-      config.closeOthers = true;
-      config.type = 'info';
+  constructor( 
+    private _productos: GetProductosService,
+    config: NgbAccordionConfig
+  ) {
+    this.imagenesSlider = _productos.productosMostrar;
+    config.closeOthers = true;
+    config.type = 'info';
   }
+
+  addProducto(producto){
+    this._productos.agregarCarrito(producto);
+  }
+
   isWeekend(date: NgbDateStruct) {
       const d = new Date(date.year, date.month - 1, date.day);
       return d.getDay() === 0 || d.getDay() === 6;

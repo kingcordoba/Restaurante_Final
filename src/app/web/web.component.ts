@@ -6,7 +6,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 @Component({
   selector: 'app-web',
   templateUrl: './web.component.html',
-  styleUrls: ['./web.component.css']
 })
 export class WebComponent implements OnInit {
   @ViewChild(NavbarComponent) navbar: NavbarComponent;
@@ -21,18 +20,24 @@ export class WebComponent implements OnInit {
       window.document.activeElement.scrollTop = 0;
     }
     /* this.navbar.sidebarClose(); */
-
+    navbar.classList.remove('navbar-transparent');
+    
     this.renderer.listen('window', 'scroll', (event) => {
       const number = window.scrollY;
       var _location = this.location.path();
-      _location = _location.split('/')[2];
-
-      if (number > 150 || window.pageYOffset > 150) {
+      _location = _location.split('/')[1];
+      
+      if (_location !== 'platos') {
+        if (number > 150 || window.pageYOffset > 150) {
+          navbar.classList.remove('navbar-transparent');
+        } else if (_location !== 'login') {
+          // remove logic
+          navbar.classList.add('navbar-transparent');
+        }
+      }else{
         navbar.classList.remove('navbar-transparent');
-      } else if (_location !== 'login') {
-        // remove logic
-        navbar.classList.add('navbar-transparent');
       }
     });
+    
   }
 }

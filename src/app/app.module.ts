@@ -1,12 +1,12 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app.routing';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { WebModule } from './web/web.module';
-
 
 @NgModule({
     declarations: [
@@ -14,8 +14,9 @@ import { WebModule } from './web/web.module';
     ],
     imports: [
         BrowserAnimationsModule,
-        NgbModule,
         FormsModule,
+
+        NgbModule,
 
         AppRoutingModule,
         WebModule

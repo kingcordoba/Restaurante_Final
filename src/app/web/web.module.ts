@@ -5,12 +5,13 @@ import { RouterModule } from '@angular/router';
 import { InicioComponent } from './inicio/inicio.component';
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
-
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PlatosComponent } from './platos/platos.component';
+import { CarritoCompraComponent } from './carrito-compra/carrito-compra.component';
 
 import { WebRoutingModule } from './web.routing';
 import { WebComponent } from './web.component';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -24,8 +25,10 @@ import { WebComponent } from './web.component';
     InicioComponent,
     LoginComponent,
     WebComponent,
-    NavbarComponent
-
-  ]
+    NavbarComponent,
+    PlatosComponent,
+    CarritoCompraComponent
+  ],
+  providers: []
 })
 export class WebModule { }
