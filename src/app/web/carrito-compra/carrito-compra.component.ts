@@ -5,7 +5,7 @@ import { GetProductosService } from '../../services/get-productos.service';
 @Component({
   selector: 'app-carrito-compra',
   templateUrl: './carrito-compra.component.html',
-  
+  styleUrls: ['../../../assets/sass/now-ui-kit.scss']
 })
 export class CarritoCompraComponent implements OnInit {
   listaProducto : object[] = [];

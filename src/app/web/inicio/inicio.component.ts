@@ -7,7 +7,7 @@ import { GetProductosService } from '../../services/get-productos.service';
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
-  
+  styleUrls: ['../../../assets/sass/now-ui-kit.scss'],
   styles: [`
     ngb-progressbar {
       margin-top: 5rem;

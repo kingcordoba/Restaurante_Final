@@ -4,6 +4,7 @@ import { GetProductosService } from '../../services/get-productos.service';
 @Component({
   selector: 'app-platos',
   templateUrl: './platos.component.html',
+  styleUrls: ['../../../assets/sass/now-ui-kit.scss'],
 })
 export class PlatosComponent implements OnInit {
   

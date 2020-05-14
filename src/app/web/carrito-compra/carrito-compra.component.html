@@ -1,4 +1,4 @@
-<button class="nav-link btn btn-neutral" (click)="open(modalCarrito)">
+<button class="nav-link btn btn-neutral mt-0 mb-0" (click)="open(modalCarrito)">
   <i class="fas fa-shopping-cart"></i>&nbsp;<span *ngIf="listaProducto.length">{{listaProducto.length}}</span>
 </button>
 <ng-template #modalCarrito let-c="close" let-d="dismiss">
@@ -23,11 +23,11 @@
           <td>
             <div class="input-group">
               <div class="input-group-prepend">
-                <button class="btn text-monospace minus btn-primary" type="button" (click)="aumentaOdisminuir(2, i)">-</button>
+                <button class="btn text-monospace minus btn-primary mt-0 mb-0" type="button" (click)="aumentaOdisminuir(2, i)">-</button>
               </div>
               <input type="number" class="form-control text-center" disabled="true" min="0" max="30" step="0" [value]="pro['cantidad']">
               <div class="input-group-append">
-                <button class="btn text-monospace plus btn-primary" type="button" (click)="aumentaOdisminuir(1, i)">+</button>
+                <button class="btn text-monospace plus btn-primary mt-0 mb-0" type="button" (click)="aumentaOdisminuir(1, i)">+</button>
               </div>
             </div>
           </td>

@@ -1,39 +1,35 @@
 <div class="page-header" filter-color="orange">
   <div class="page-header-image" style="background-image:url(assets/img/bg11.jpg)"></div>
   <div class="container">
-    <div class="col-md-4 content-center">
-      <div class="card card-login card-plain">
-        <form class="form" method="" action="">
-          <div class="header header-primary text-center">
-            <div>
-              <img class="col-md-14" src="assets/img/tato_logo.png" alt="">
-            </div>
-          </div>
-          <br>
-          <div class="content">
-            <div class="input-group form-group-no-border input-lg" [ngClass]="{'input-group-focus':focus===true}">
-              <div class="input-group-prepend">
-                <span class="input-group-text">  <i class="now-ui-icons users_circle-08"></i></span>
+    <div class="content-center">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-7">
+          <div class="card card-login card-plain">
+            <form class="form" method="" action="">
+              <div class="header header-primary text-center">
+                <div>
+                  <img class="col-md-14" src="assets/img/tato_logo.png" alt="">
+                </div>
               </div>
-                <input type="text" class="form-control" placeholder="Nombre de Usuario" (focus)="focus=true" (blur)="focus=false" >
-            </div>
-            <div class="input-group form-group-no-border input-lg" [ngClass]="{'input-group-focus':focus1===true}">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="now-ui-icons text_caps-small"></i></span>
+              <br>
+              <div class="content">
+                <div class="input-group form-group-no-border input-group-lg" [ngClass]="{'input-group-focus':focus===true}">
+                  <input type="text" class="form-control rounded-pill" placeholder="Nombre de Usuario" (focus)="focus=true" (blur)="focus=false" >
+                </div>
+                <div class="input-group form-group-no-border input-lg input-group-lg" [ngClass]="{'input-group-focus':focus1===true}">
+                  <input type="password" placeholder="Contraseña" class="form-control rounded-pill" (focus)="focus1=true" (blur)="focus1=false"/>
+                </div>
               </div>
-                <input type="password" placeholder="Contraseña" class="form-control" (focus)="focus1=true" (blur)="focus1=false"/>
-            </div>
+              <div class="footer text-center">
+                <a href="#pablo" class="btn btn-danger btn-round btn-lg btn-block">ACCEDER</a>
+                <h6>
+                  <a href="#pablo" class="btn btn-primary btn-round btn-lg btn-block">CREAR CUENTA</a>
+                </h6>
+              </div>
+              <div class="pull-left"></div>
+            </form>
           </div>
-          <div class="footer text-center">
-            <a href="#pablo" class="btn btn-danger btn-round btn-lg btn-block">ACCEDER</a>
-            <h6>
-              <a href="#pablo" class="btn btn-primary btn-round btn-lg btn-block">CREAR CUENTA</a>
-            </h6>
-          </div>
-          <div class="pull-left">
-              
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>

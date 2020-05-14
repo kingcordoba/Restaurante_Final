@@ -23,11 +23,14 @@
             "styles": [
               "node_modules/@fortawesome/fontawesome-free/css/all.css",
               "node_modules/bootstrap/dist/css/bootstrap.css",
-              "src/assets/sass/now-ui-kit.scss"
+              "node_modules/admin-lte/dist/css/adminlte.css",
+              "node_modules/admin-lte/plugins/overlayScrollbars/css/OverlayScrollbars.css" 
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.js"
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.js",
+              "node_modules/admin-lte/dist/js/adminlte.js",
+              "node_modules/admin-lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.js"
             ]
           },
           "configurations": {
