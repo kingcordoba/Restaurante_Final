@@ -1,0 +1,19 @@
+<div class="section mt-5 container">
+  <div class="row">
+    <div *ngFor="let producto of productos" class="col-12 col-sm-6 col-lg-4">
+      <div class="card mb-4 shadow">
+        <img src="{{producto['img']}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{producto['nombre']}}</h5>
+          <p class="card-text">{{producto['descripcion']}}</p>
+          <p class="card-text">Precio: {{producto['precio']}}</p>
+          <hr>
+          <div class="text-center">
+            <button class="btn btn-primary"  (click)="addProducto(producto)"><i class="fas fa-cart-plus"></i> Agregar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

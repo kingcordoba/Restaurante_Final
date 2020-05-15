@@ -1,28 +1,33 @@
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app.routing';
 
-import { AppComponent } from './app.component';
-import { NavbarComponent } from './web/navbar/navbar.component';
-import { WebModule } from './web/web.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { AppComponent } from './app.component';
+import { WebModule } from './web/web.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @NgModule({
     declarations: [
         AppComponent,
-        NavbarComponent
     ],
     imports: [
+        BrowserModule,
         BrowserAnimationsModule,
-        NgbModule,
         FormsModule,
 
+        NgbModule,
+
         AppRoutingModule,
-        WebModule
+        WebModule,
+        DashboardModule
     ],
-    providers: [],
+    providers: [
+        Title
+    ],
     bootstrap: [
         AppComponent
     ]

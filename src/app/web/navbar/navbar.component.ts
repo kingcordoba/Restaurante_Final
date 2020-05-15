@@ -4,7 +4,7 @@ import { Location, LocationStrategy, PathLocationStrategy } from '@angular/commo
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['../../../assets/sass/now-ui-kit.scss']
 })
 export class NavbarComponent implements OnInit {
   private toggleButton: any;
