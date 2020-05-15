@@ -1,0 +1,114 @@
+<div class="page-header" filter-color="orange">
+  <div class="page-header-image" style="background-image:url(assets/img/bgLogin.jpg)"></div>
+  <div class="container">
+    <div class="content-center">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-7">
+          <div class="card card-login card-plain">
+            <form class="form" [formGroup]="formulario">
+              <div class="header header-primary text-center">
+                <div>
+                  <img class="col-md-14" src="assets/img/tato_logo.svg" alt="">
+                </div>
+              </div>
+              <br>
+              <div class="content">
+                <div class="input-group form-group-no-border input-group-lg row" [ngClass]="{'input-group-focus':true}">
+                  
+                  <div class="col-6">
+                    <input type="number" formControlName="documento"  class="form-control form-control-danger rounded-pill " placeholder="Documento" >
+                    <div class="errores">
+                      <div class="custom-error" *ngIf="f.documento.errors?.required && f.documento.touched">Documento es requerido</div>
+                    </div>
+                  </div>
+ 
+                  <div class="col-6">
+                    <input type="text" class="form-control rounded-pill" formControlName="correo" placeholder="Correo Electronico">
+                    <div class="errores">
+                      <div class="custom-error" *ngIf="f.correo.errors?.required && f.correo.touched">Correo es requerido</div>
+                      <div class="custom-error" *ngIf="f.correo.errors?.email && f.correo.touched">Correo invalido</div>
+
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="input-group form-group-no-border input-group-lg row" [ngClass]="{'input-group-focus':true}">
+                  <div class="col">
+                    <input type="text"  formControlName="nombres" class="form-control rounded-pill" placeholder="Nombres"  >
+                    <div class="errores">
+                      <div class="custom-error" *ngIf="f.nombres.errors?.required && f.nombres.touched">Nombres es requerido</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="input-group form-group-no-border input-lg input-group-lg row" [ngClass]="{'input-group-focus':true}">
+                  <div class="col">
+                    <input type="text" formControlName="apellidos" placeholder="Apellidos" class="form-control rounded-pill" />
+                    <div class="errores">
+                      <div class="custom-error" *ngIf="f.apellidos.errors?.required && f.apellidos.touched">Apellidos es requerido</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="input-group form-group-no-border input-group-lg row" [ngClass]="{'input-group-focus':true}">
+                  <div class="col">
+                    <input type="text" formControlName="direccion" class="form-control rounded-pill" placeholder="Dirección">
+                    <div class="errores">
+                      <div class="custom-error" *ngIf="f.direccion.errors?.required && f.direccion.touched">Direccion es requerido</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="input-group form-group-no-border input-lg input-group-lg row"
+                  [ngClass]="{'input-group-focus':true}">
+              
+                    <div class="col">
+                      <input type="tel"  formControlName="telefono" placeholder="Telefono" class="form-control rounded-pill" />
+                      <div class="errores">
+                        <div class="custom-error" *ngIf="f.telefono.errors?.required && f.telefono.touched">Telefono es requerido</div>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="input-group form-group-no-border input-group-lg row" [ngClass]="{'input-group-focus':true}">
+            
+                  <div class="col-6">
+                    <input type="password" formControlName="password" class="form-control rounded-pill" placeholder="Password">
+                    <div class="errores">
+                      <div class="custom-error" *ngIf="f.password.errors?.required && f.password.touched">Password es requerido</div>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <input type="password" formControlName="rePassword" class="form-control rounded-pill" placeholder="Confirmar Password">
+                    <div class="errores">
+                      <div class="custom-error" *ngIf="f.rePassword.errors?.required && f.rePassword.touched">rePassword es requerido</div>
+                      <div class="custom-error" *ngIf="f.rePassword.value != f.password.value">Las Claves no coinciden</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="footer text-center">
+                <h6>
+                  <button type="button" class="btn btn-primary btn-round btn-lg btn-block"  (click)="registrar()">CREAR CUENTA</button>
+                </h6>
+              </div>
+              <div class="pull-left"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="container">
+        <div class="copyright">
+            &copy;
+          {{data | date: 'yyyy'}}, Diseñador por
+            <a href="https://instagram.com/kingcordoba" target="_blank">Mateo</a>. Codificado por
+            <a href="https://instagram.com/anthonyurrego" target="_blank">Anthony</a>.
+        </div>
+    </div>
+  </footer>
+</div>

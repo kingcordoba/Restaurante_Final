@@ -14,18 +14,22 @@ import { WebComponent } from './web.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './footer/footer.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { RegistroComponent } from './registro/registro.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     NgbModule,
-
+    FormsModule,
+    ReactiveFormsModule,
     WebRoutingModule
   ],
   declarations: [
     InicioComponent,
     LoginComponent,
+    RegistroComponent,
     WebComponent,
     NavbarComponent,
     PlatosComponent,
