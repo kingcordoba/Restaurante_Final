@@ -3,11 +3,12 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
 import * as Rellax from 'rellax';
 import { GetProductosService } from '../../services/get-productos.service';
+import { AppService } from '../../app.service';
 
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
-  
+  styleUrls: ['../../../assets/sass/now-ui-kit.scss'],
   styles: [`
     ngb-progressbar {
       margin-top: 5rem;
@@ -15,7 +16,6 @@ import { GetProductosService } from '../../services/get-productos.service';
   `]
 })
 export class InicioComponent implements OnInit, OnDestroy {
-  data : Date = new Date();
 
   imagenesSlider: object[] = [];
 
@@ -37,8 +37,10 @@ export class InicioComponent implements OnInit, OnDestroy {
 
   constructor( 
     private _productos: GetProductosService,
-    config: NgbAccordionConfig
+    config: NgbAccordionConfig,
+    private appService: AppService
   ) {
+    this.appService.pageTitle = 'Inicio';
     this.imagenesSlider = _productos.productosMostrar;
     config.closeOthers = true;
     config.type = 'info';

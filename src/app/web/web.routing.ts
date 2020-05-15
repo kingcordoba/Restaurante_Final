@@ -5,6 +5,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { InicioComponent } from './inicio/inicio.component';
 import { LoginComponent } from './login/login.component';
 import { PlatosComponent } from './platos/platos.component';
+import { NotfoundComponent } from './notfound/notfound.component';
+
 
 // *******************************************************************************
 //
@@ -14,7 +16,8 @@ import { PlatosComponent } from './platos/platos.component';
     { path: '', component: InicioComponent },
     { path: 'index', component: InicioComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'platos', component: PlatosComponent }
+    { path: 'platos', component: PlatosComponent },
+    { path: '**', component: NotfoundComponent}
   ])],
   exports: [RouterModule]
 })
