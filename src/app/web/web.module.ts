@@ -17,6 +17,8 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { RegistroComponent } from './registro/registro.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    WebRoutingModule
+    WebRoutingModule,
+    HttpClientModule
   ],
   declarations: [
     InicioComponent,

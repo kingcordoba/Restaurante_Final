@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../../app.service';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { UsuariosService } from '../../services/usuarios.service';
 
 @Component({
   selector: 'app-registro',
@@ -8,15 +9,15 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
   styleUrls: ['../../../assets/sass/now-ui-kit.scss','./registro.component.css']
 })
 export class RegistroComponent implements OnInit {
-
   data : Date = new Date();
 
   formulario: FormGroup;
+  validaFormulario = false;
 
 
   constructor(
     private appService: AppService,
-    private formBuilder: FormBuilder
+    private _usuarios: UsuariosService
   ) {
     this.appService.pageTitle = 'Registro';
     this.initForm();
@@ -40,12 +41,12 @@ export class RegistroComponent implements OnInit {
 
   initForm(){
     this.formulario = new FormGroup({
-      documento: new FormControl('', [Validators.required]),
-      correo: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$")]),
+      documento: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
+      correo: new FormControl('', [Validators.required]),
       nombres: new FormControl('', [Validators.required]),
       apellidos: new FormControl('', [Validators.required]),
       direccion: new FormControl('', [Validators.required]),
-      telefono: new FormControl('', [Validators.required]),
+      telefono: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
       password: new FormControl('', [Validators.required, ]),
       rePassword: new FormControl('', [Validators.required]),
     });
@@ -54,15 +55,27 @@ export class RegistroComponent implements OnInit {
   registrar(){
     if(!this.formulario.valid){
       this.formulario.markAllAsTouched();
-      console.log(this.formulario)
+      this.validaFormulario = true;
     } else {
-      console.log('submit ok : ', this.formulario.value);
+      this._usuarios.registrarUsuario(this.formulario.value)
+      .subscribe(
+        result => {
+          console.log(result);
+          if (result['success']) {
+            this.validaFormulario = false;
+            this.formulario.reset();
+          } else {
+            console.log(result['msj']);
+          }
+        }, error => {
+          console.log(error)
+        }
+      );
     }
 
   }
 
-  get f(){
+  get f() {
     return this.formulario.controls;
   }
-
 }
