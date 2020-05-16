@@ -18,13 +18,6 @@ export class UsuariosService {
     this.urlApi = CONFIG.urlAPi;
   }
 
-  /* public registrarUsuario(usuario: object){
-    const headers = new HttpHeaders({
-      'Authorization': 'funca'
-    });
-    return this.http.post(this.urlApi + 'registrarse', usuario, {headers});
-  } */
-
   public registrarUsuario(usuario: object){
     return this.http.post(this.urlApi + 'registrarse', usuario);
   }

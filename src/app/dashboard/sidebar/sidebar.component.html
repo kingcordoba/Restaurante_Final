@@ -32,19 +32,32 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-            <i class=""></i>
               <a href="#" class="nav-link">
                 <i class="fas fa-user-edit nav-icon"></i>
                 <p>Perfil</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a [routerLink]="['/']" class="nav-link">
+                <i class="fas fa-globe nav-icon"></i>
+                <p>Web</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a (click)="cerrarSesion()" class="nav-link">
                 <i class="fas fa-sign-out-alt nav-icon"></i>
                 <p>Cerrar Sesión</p>
               </a>
             </li>
           </ul>
+        </li>
+        <li class="nav-item has-treeview" *ngFor="let mod of modulos">
+          <a [routerLink]="mod['ruta']" routerLinkActive="router-link-active" class="nav-link link">
+            <i class="nav-icon {{mod['icono']}}"></i>
+            <p>
+              {{mod['tag']}}
+            </p>
+          </a>
         </li>
       </ul>
     </nav>

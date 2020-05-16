@@ -34,6 +34,7 @@ export class NavbarComponent implements OnInit {
 
   perfilUsuario() {
     const perfilUsuario = document.getElementById('perfilUsuario');
+    const linkDashboard = document.getElementById('linkDashboard');
     const acceder = document.getElementById('acceder');
 
     if (localStorage.getItem('id')) {
@@ -44,6 +45,12 @@ export class NavbarComponent implements OnInit {
       this.nombreCompleto = 'Usuario';
       perfilUsuario.classList.add('d-none');
       acceder.classList.remove('d-none')
+    }
+
+    if (localStorage.getItem('perfil') === '1') {
+      linkDashboard.classList.remove('d-none')
+    } else {
+      linkDashboard.classList.add('d-none')
     }
   }
 
