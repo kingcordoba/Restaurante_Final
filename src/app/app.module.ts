@@ -23,7 +23,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 
         AppRoutingModule,
         WebModule,
-        DashboardModule
+        DashboardModule,
     ],
     providers: [
         Title

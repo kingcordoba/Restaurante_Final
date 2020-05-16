@@ -1,6 +1,6 @@
 <div class="wrapper">
   <div class="page-header clear-filter" filter-color="orange">
-    <div class="page-header-image rellax-header" data-rellax-speed="-7" style="background-image: url('assets/img/fondos/bg1.jpeg');"></div>
+    <div class="page-header-image rellax-header" data-rellax-speed="-7" [style]="fondo"></div>
     <div class="container">
       <div class="content-center brand">
         <img class="col-md-10" src="assets/img/tato_logo.svg" alt="">
@@ -36,7 +36,7 @@
           </div>
         </div>
         <div class="row justify-content-center">
-          <div class="col-10">
+          <div class="col-12 col-md-10">
             <div id="sliderTopPlatos" class="carousel slide carousel-fade" data-ride="carousel">
               <div class="carousel-inner">
                 <div class="carousel-item" *ngFor="let pro of imagenesSlider; let i = index" [ngClass]="{active: i == 0}">

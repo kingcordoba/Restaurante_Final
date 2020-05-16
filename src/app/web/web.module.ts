@@ -14,24 +14,33 @@ import { WebComponent } from './web.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './footer/footer.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { RegistroComponent } from './registro/registro.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { HttpClientModule } from '@angular/common/http';
+import { PerfilComponent } from './perfil/perfil.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     NgbModule,
-
-    WebRoutingModule
+    FormsModule,
+    ReactiveFormsModule,
+    WebRoutingModule,
+    HttpClientModule
   ],
   declarations: [
     InicioComponent,
     LoginComponent,
+    RegistroComponent,
     WebComponent,
     NavbarComponent,
     PlatosComponent,
     CarritoCompraComponent,
     FooterComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    PerfilComponent
   ],
   providers: []
 })

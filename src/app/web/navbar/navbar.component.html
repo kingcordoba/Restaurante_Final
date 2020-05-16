@@ -4,26 +4,34 @@
       <img src="assets/img/tato_muñeco.svg" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
       Restaurante Las Delicias de Tato
     </a>
-    <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#nevbarMenu" aria-controls="nevbarMenu" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fas fa-bars"></i>
     </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <div class="collapse navbar-collapse" id="nevbarMenu">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/platos']">
             <p>Platos</p>
           </a>
         </li>
-        <li class="nav-item">
+        <li id="perfilUsuario" class="nav-item dropdown d-none">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{nombreCompleto}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" [routerLink]="['/perfil']"><i class="far fa-address-card"></i> Perfil</a>
+            <a id="linkDashboard" class="dropdown-item d-none" [routerLink]="['/dashboard']"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item" (click)="cerrarSesion()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+          </div>
+        </li>
+        <li id="acceder" class="nav-item d-none">
           <a class="nav-link" [routerLink]="['/login']">
             <p>Acceder</p>
           </a>
         </li>
-        
-        <li class="nav-item">
-          <app-carrito-compra></app-carrito-compra>
-        </li>
       </ul>
     </div> 
+    <app-carrito-compra class="ml-1"></app-carrito-compra>
   </div>
 </nav>

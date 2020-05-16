@@ -10,10 +10,11 @@ import { NavbarComponent } from './navbar/navbar.component';
 export class WebComponent implements OnInit {
   @ViewChild(NavbarComponent) navbar: NavbarComponent;
 
-  constructor(private renderer : Renderer2, @Inject(DOCUMENT,) private document: any, private element : ElementRef, public location: Location){}
+  // tslint:disable-next-line: max-line-length
+  constructor(private renderer: Renderer2, @Inject(DOCUMENT) private document: any, private element: ElementRef, public location: Location){}
 
   ngOnInit() {
-    var navbar : HTMLElement = this.element.nativeElement.children[0].children[0];
+    const navbar: HTMLElement = this.element.nativeElement.children[0].children[0];
     if (window.outerWidth > 991) {
       window.document.children[0].scrollTop = 0;
     } else {
@@ -21,18 +22,17 @@ export class WebComponent implements OnInit {
     }
     /* this.navbar.sidebarClose(); */
     navbar.classList.remove('navbar-transparent');
-    
+
     this.renderer.listen('window', 'scroll', (event) => {
       const number = window.scrollY;
-      var _location = this.location.path();
+      let _location = this.location.path();
       _location = _location.split('/')[1];
 
       navbar.classList.remove('navbar-transparent');
-      
-      if (_location === undefined || _location === 'login') {
+      if (_location === undefined || _location === 'login' || _location === 'perfil' || _location === 'registro') {
         if (number > 150 || window.pageYOffset > 150) {
           navbar.classList.remove('navbar-transparent');
-        }else {
+        } else {
           // remove logic
           navbar.classList.add('navbar-transparent');
         }

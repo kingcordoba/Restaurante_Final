@@ -11,6 +11,7 @@ import { DashboardComponent } from './dashboard.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './footer/footer.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
     DashboardComponent,
     FooterComponent,
     NotfoundComponent,
+    UsuariosComponent,
   ]
 })
 export class DashboardModule { }
