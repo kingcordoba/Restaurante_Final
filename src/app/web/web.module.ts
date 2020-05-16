@@ -18,6 +18,7 @@ import { RegistroComponent } from './registro/registro.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
+import { PerfilComponent } from './perfil/perfil.component';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { HttpClientModule } from '@angular/common/http';
     PlatosComponent,
     CarritoCompraComponent,
     FooterComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    PerfilComponent
   ],
   providers: []
 })

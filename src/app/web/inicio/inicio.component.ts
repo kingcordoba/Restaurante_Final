@@ -4,6 +4,8 @@ import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
 import * as Rellax from 'rellax';
 import { GetProductosService } from '../../services/get-productos.service';
 import { AppService } from '../../app.service';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-inicio',
@@ -16,8 +18,9 @@ import { AppService } from '../../app.service';
   `]
 })
 export class InicioComponent implements OnInit, OnDestroy {
-
   imagenesSlider: object[] = [];
+
+  fondo: any;
 
   page = 4;
   page1 = 5;
@@ -38,7 +41,8 @@ export class InicioComponent implements OnInit, OnDestroy {
   constructor( 
     private _productos: GetProductosService,
     config: NgbAccordionConfig,
-    private appService: AppService
+    private appService: AppService,
+    private sanitizer: DomSanitizer,
   ) {
     this.appService.pageTitle = 'Inicio';
     this.imagenesSlider = _productos.productosMostrar;
@@ -60,17 +64,24 @@ export class InicioComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    var rellaxHeader = new Rellax('.rellax-header');
+    this.fondo = this.setFondo();
+    const rellaxHeader = new Rellax('.rellax-header');
 
-    var navbar = document.getElementsByTagName('nav')[0];
+    const navbar = document.getElementsByTagName('nav')[0];
     navbar.classList.add('navbar-transparent');
-    var body = document.getElementsByTagName('body')[0];
+    const body = document.getElementsByTagName('body')[0];
     body.classList.add('index-page');
   }
   ngOnDestroy(){
-    var navbar = document.getElementsByTagName('nav')[0];
+    const navbar = document.getElementsByTagName('nav')[0];
     navbar.classList.remove('navbar-transparent');
-    var body = document.getElementsByTagName('body')[0];
+    const body = document.getElementsByTagName('body')[0];
     body.classList.remove('index-page');
+  }
+
+  setFondo() {
+    const num = Math.floor(Math.random() * 2);
+    const fondo = `background-image: url('../../assets/img/fondos/bg${num}.jpg');`;
+    return this.sanitizer.bypassSecurityTrustStyle(fondo);
   }
 }

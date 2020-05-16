@@ -5,28 +5,29 @@
       <div class="row justify-content-center">
         <div class="col-12 col-md-7">
           <div class="card card-login card-plain">
-            <form class="form" method="" action="">
-              <div class="header header-primary text-center">
-                <div>
-                  <img class="col-md-14" src="assets/img/tato_logo.svg" alt="">
+            <div class="header header-primary text-center">
+              <div>
+                <img class="col-md-14" src="assets/img/tato_logo.svg" alt="">
+              </div>
+            </div>
+            <br>
+            <form class="form" [formGroup]="formulario" [ngClass]="{'was-validated': validaFormulario}" (ngSubmit)="login()">
+              <div class="form-group form-group-no-border input-group-lg">
+                <input type="tel" formControlName="documento" name="documento" required class="form-control rounded-pill text-white" placeholder="Nro documento" autocomplete="off" (keypress)="soloNumeros($event)">
+                <div class="errores text-left pl-3">
+                  <div class="custom-error" *ngIf="f.documento.errors?.required && f.documento.touched">Nro documento es requerido</div>
                 </div>
               </div>
-              <br>
-              <div class="content">
-                <div class="input-group form-group-no-border input-group-lg" [ngClass]="{'input-group-focus':focus===true}">
-                  <input type="text" class="form-control rounded-pill" placeholder="Nombre de Usuario">
-                </div>
-                <div class="input-group form-group-no-border input-lg input-group-lg" [ngClass]="{'input-group-focus':focus1===true}">
-                  <input type="password" placeholder="Contraseña" class="form-control rounded-pill"/>
+              <div class="form-group form-group-no-border mt-3 input-lg input-group-lg">
+                <input type="password" formControlName="password" class="form-control rounded-pill text-white" required autocomplete="new-password" placeholder="Contraseña" />
+                <div class="errores text-left pl-3">
+                  <div class="custom-error" *ngIf="f.password.errors?.required && f.password.touched">Contraseña es requerido</div>
                 </div>
               </div>
               <div class="footer text-center">
-                <a href="dashboard/" class="btn btn-danger btn-round btn-lg btn-block">ACCEDER</a>
-                <h6>
-                  <a [routerLink]="['/registro']" routerLinkActive="router-link-active"  class="btn btn-primary btn-round btn-lg btn-block">CREAR CUENTA</a>
-                </h6>
+                <button type="submit" name="btnLogin" class="btn btn-danger btn-round btn-lg btn-block">ACCEDER <i class="fas fa-sign-in-alt"></i></button>
+                <a [routerLink]="['/registro']" class="btn btn-primary btn-round btn-lg btn-block">CREAR CUENTA <i class="fas fa-lg fa-clipboard-list"></i></a>
               </div>
-              <div class="pull-left"></div>
             </form>
           </div>
         </div>
@@ -36,12 +37,12 @@
   <app-footer class="d-block d-md-none"></app-footer>
   <footer class="footer d-none d-md-block">
     <div class="container">
-        <div class="copyright">
-            &copy;
-          {{data | date: 'yyyy'}}, Diseñador por
-            <a href="https://instagram.com/kingcordoba" target="_blank">Mateo</a>. Codificado por
-            <a href="https://instagram.com/anthonyurrego" target="_blank">Anthony</a>.
-        </div>
+      <div class="copyright">
+        &copy;
+        {{data | date: 'yyyy'}}, Diseñador por
+        <a href="https://instagram.com/kingcordoba" target="_blank">Mateo</a>. Codificado por
+        <a href="https://instagram.com/anthonyurrego" target="_blank">Anthony</a>.
+      </div>
     </div>
   </footer>
 </div>

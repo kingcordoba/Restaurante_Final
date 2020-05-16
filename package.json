@@ -3,7 +3,7 @@
   "version": "1.2.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host 192.168.0.3 --port 4200",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -41,6 +41,7 @@
     "rellax": "1.4.0",
     "rxjs": "6.5.4",
     "rxjs-compat": "6.5.4",
+    "sweetalert2": "^9.10.13",
     "tslib": "1.11.1",
     "zone.js": "0.10.2"
   },

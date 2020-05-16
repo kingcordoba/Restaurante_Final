@@ -4,10 +4,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { WebComponent } from './web/web.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NotfoundComponent } from './web/notfound/notfound.component';
+import { DashboardGuard } from './guards/dashboard.guard';
 
 
-const routes: Routes =[
-  { path: 'dashboard', component: DashboardComponent, loadChildren: './dashboard/dashboard.module#DashboardModule'},
+const routes: Routes = [
+  { path: 'dashboard', component: DashboardComponent, canActivate: [DashboardGuard], loadChildren: './dashboard/dashboard.module#DashboardModule'},
   { path: '', component: WebComponent, loadChildren: './web/web.module#WebModule'},
   { path: '**', component: WebComponent, children: [
     { path: '', component: NotfoundComponent },

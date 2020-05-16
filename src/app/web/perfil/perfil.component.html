@@ -6,20 +6,16 @@
         <div class="col-12 col-md-7">
           <div class="card card-login card-plain">
             <div class="header header-primary text-center">
-              <div>
-                <img class="col-md-14" src="assets/img/tato_logo.svg" alt="">
-              </div>
+              <h1>Perfil</h1>
             </div>
             <br>
             <form class="form form-row" [formGroup]="formulario" [ngClass]="{'was-validated': validaFormulario}">
+              <input type="hidden" formControlName="id" value="">
               <div class="col-12 col-md-6 form-group form-group-no-border mt-2">
-                <input type="tel" formControlName="documento" required class="form-control rounded-pill text-white" autocomplete="off" (keypress)="soloNumeros($event)" pattern="^[0-9]*$" placeholder="Nro documento" />
-                <div class="errores text-left pl-3">
-                  <div class="custom-error" *ngIf="f.documento.errors?.required && f.documento.touched">Nro documento es requerido</div>
-                </div>
+                <input type="tel" disabled readonly required class="form-control rounded-pill text-white" [value]="this.usuario['nro_documento']"/>
               </div>
               <div class="col-12 col-md-6 form-group form-group-no-border mt-2">
-                <input type="tel"  formControlName="telefono" required placeholder="Teléfono" autocomplete="off" pattern="^[0-9]*$" (keypress)="soloNumeros($event)" class="form-control rounded-pill text-white" />
+                <input type="tel" formControlName="telefono" required placeholder="Teléfono" autocomplete="off" pattern="^[0-9]*$" (keypress)="soloNumeros($event)" class="form-control rounded-pill text-white"/>
                 <div class="errores text-left pl-3">
                   <div class="custom-error" *ngIf="f.telefono.errors?.required && f.telefono.touched">Teléfono es requerido</div>
                 </div>
@@ -54,24 +50,9 @@
                 </div>
               </div>
 
-              <div class="col-12 col-md-6 form-group form-group-no-border mt-2">
-                <input type="password" formControlName="password" class="form-control rounded-pill text-white" required autocomplete="new-password" placeholder="Contraseña" />
-                <div class="errores text-left pl-3">
-                  <div class="custom-error" *ngIf="f.password.errors?.required && f.password.touched">Contraseña es requerido</div>
-                </div>
-              </div>
-
-              <div class="col-12 col-md-6 form-group form-group-no-border mt-2">
-                <input type="password" formControlName="rePassword" autocomplete="new-password" class="form-control rounded-pill text-white" required placeholder="Confirmar contraseña" />
-                <div class="errores text-left pl-3">
-                  <p class="custom-error mb-0" *ngIf="f.rePassword.errors?.required && f.rePassword.touched">Confirmar contraseña</p>
-                  <div class="custom-error" *ngIf="f.rePassword.value != f.password.value">Las contraseñas no coinciden</div>
-                </div>
-              </div>
-
               <div class="col-12 form-group form-group-no-border mt-3">
-                <button type="button" name="btnRegistro" class="btn btn-primary btn-round btn-lg btn-block" (click)="registrar()">
-                  CREAR CUENTA <i class="fas fa-sign-in-alt"></i>
+                <button type="button" name="btnPerfil" class="btn btn-primary btn-round btn-lg btn-block" (click)="actualizar()">
+                  ACTUALIZAR <i class="fas fa-paper-plane"></i>
                 </button>
               </div>
             </form>

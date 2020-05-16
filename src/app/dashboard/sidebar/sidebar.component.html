@@ -11,7 +11,7 @@
 <aside class="main-sidebar sidebar-dark-danger elevation-4">
   <!-- Brand Logo -->
   <div class="d-flex justify-content-between">
-    <a href="dashboard/" class="brand-link">
+    <a [routerLink]="['/dashboard']" routerLinkActive="router-link-active" class="brand-link">
       <img src="../../../assets/img/fevicon.png" alt="Restaurante la delicias de tato" class="brand-image">
       <span class="brand-text font-weight-light">Restaurante</span>
     </a>
@@ -23,7 +23,7 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column nav-flat nav-child-indent" id="modulos" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item has-treeview user-panel mt-2 pb-2 mb-2">
-          <a href="#" class="nav-link active">
+          <a href="" class="nav-link active">
             <i class="nav-icon far fa-user-circle"></i>
             <p>
               Usuario
