@@ -84,7 +84,6 @@ export class LoginComponent implements OnInit {
 
           if (result['usuario'].fk_perfil === 1) {
             window.location.href = 'dashboard';
-            //this._router.navigate(['dashboard']);
           } else {
             this._router.navigate(['']);
           }
