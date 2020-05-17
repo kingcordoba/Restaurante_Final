@@ -12,7 +12,6 @@ import { PerfilmostrarService } from '../../services/perfilmostrar.service';
   styleUrls: ['../../../assets/sass/now-ui-kit.scss', './login.component.css']
 })
 export class LoginComponent implements OnInit {
-
   cargador: boolean = false;
   mensajeCargador: string = 'Validando';
   data: Date = new Date();
@@ -84,7 +83,6 @@ export class LoginComponent implements OnInit {
 
           if (result['usuario'].fk_perfil === 1) {
             window.location.href = 'dashboard';
-            //this._router.navigate(['dashboard']);
           } else {
             this._router.navigate(['']);
           }

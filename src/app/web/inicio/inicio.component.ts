@@ -23,8 +23,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class InicioComponent implements OnInit, OnDestroy {
 
-  cargador: boolean = false;
-  mensajeCargador: string = 'Cargando';
+  cargador = false;
+  mensajeCargador = 'Cargando';
   imagenesSlider: object[] = [];
   fondo: any;
   page = 4;
@@ -40,7 +40,7 @@ export class InicioComponent implements OnInit, OnDestroy {
   public isCollapsed2 = true;
   state_icon_primary = true;
 
-  constructor( 
+  constructor(
     private _productos: GetProductosService,
     config: NgbAccordionConfig,
     private appService: AppService,
@@ -52,7 +52,7 @@ export class InicioComponent implements OnInit, OnDestroy {
     config.type = 'info';
   }
 
-  addProducto(producto){
+  addProducto(producto) {
     this._productos.agregarCarrito(producto);
   }
 
@@ -74,7 +74,7 @@ export class InicioComponent implements OnInit, OnDestroy {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('index-page');
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     const navbar = document.getElementsByTagName('nav')[0];
     navbar.classList.remove('navbar-transparent');
     const body = document.getElementsByTagName('body')[0];
