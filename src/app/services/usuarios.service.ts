@@ -26,6 +26,14 @@ export class UsuariosService {
     return this.http.get(this.urlApi + 'usuarios/lista', {headers});
   }
 
+  public crearUsuario(usuario: object){
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
+    return this.http.post(this.urlApi + 'usuarios/crear', usuario, {headers});
+  }
+
   public registrarUsuario(usuario: object){
     return this.http.post(this.urlApi + 'registrarse', usuario);
   }

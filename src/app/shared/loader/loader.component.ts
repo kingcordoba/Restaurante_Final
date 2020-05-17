@@ -25,7 +25,7 @@ export class LoaderComponent implements OnInit {
       this.mostrar = false;
       this.spinnerService.hide();
     }
-    console.log("This, encender ", this.encender);
+    //console.log("This, encender ", this.encender);
   }
 
 }

@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AppService } from '../../app.service';
 import { UsuariosService } from '../../services/usuarios.service';
 import Swal from 'sweetalert2';
 import { Subject } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { DataTableDirective } from 'angular-datatables';
 declare var $: any;
 
 @Component({
@@ -13,22 +13,24 @@ declare var $: any;
   styleUrls: ['./usuarios.component.css']
 })
 export class UsuariosComponent implements OnDestroy, OnInit {
+  @ViewChild(DataTableDirective, {static : false})
+  dtElement: DataTableDirective;
+
   dtOptions: DataTables.Settings = {};
+  dtTrigger = new Subject();
+
   titulo;
   listUsuarios: object[] = [];
 
   cargador = false;
-  mensajeCargador = 'Registrando';
+  mensajeCargador = 'Validando';
 
   formularioCrear: FormGroup;
   formularioCrearValidar = false;
 
-  dtTrigger = new Subject();
-
   constructor(
     private appService: AppService,
     private _usuario: UsuariosService,
-    private _router: Router
   ) {
     this.titulo = this.appService.pageTitle = 'Usuarios';
     this.initForm();
@@ -75,12 +77,12 @@ export class UsuariosComponent implements OnDestroy, OnInit {
     return this.formularioCrear.controls;
   }
 
-
   initForm() {
     this.formularioCrear = new FormGroup({
       documento: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
       telefono: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
       nombres: new FormControl('', [Validators.required]),
+      perfil: new FormControl('1', [Validators.required]),
       apellidos: new FormControl('', [Validators.required]),
       correo: new FormControl('', [Validators.required]),
       direccion: new FormControl('', [Validators.required]),
@@ -117,26 +119,33 @@ export class UsuariosComponent implements OnDestroy, OnInit {
   }
 
   crearUsuario() {
-    this.dtTrigger.next();
     const btnCrearUsuario = document.getElementById('btnCrearUsuario');
     if (!this.formularioCrear.valid) {
       this.formularioCrear.markAllAsTouched();
       this.formularioCrearValidar = true;
     } else {
       this.cargador = true;
+      this.mensajeCargador = 'Enviando';
       btnCrearUsuario.setAttribute('disabled', 'true');
       btnCrearUsuario.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Creando...`;
-      this._usuario.registrarUsuario(this.formularioCrear.value)
+      this._usuario.crearUsuario(this.formularioCrear.value)
       .subscribe(
         result => {
           if (result['success']) {
             this.formularioCrearValidar = false;
             this.formularioCrear.reset();
+
+            this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+              // Destroy the table first
+              dtInstance.destroy();
+            });
+
             this.listaUsuarios();
+            $('#modalCrearUsuario').modal('hide');
             Swal.fire({
               icon: 'success',
               title: result['msj'],
-            })
+            });
           } else {
             if (result['token']) {
               Swal.fire({
