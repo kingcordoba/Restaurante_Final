@@ -63,47 +63,70 @@
       <div class="modal-header">
         <h5 class="modal-title"><i class="fas fa-user-plus"></i> Crear usuario</h5>
       </div>
-      <form id="formCrearUsuario" autocomplete="off">
-        <input type="hidden" name="accion" value="crearUsuario">
+      <form [formGroup]="formularioCrear" [ngClass]="{'was-validated': formularioCrearValidar}" autocomplete="off" (ngSubmit)="crearUsuario()">
         <div class="modal-body">
           <div class="form-group">
-            <label for="usuario">Usuario <span class="text-danger">*</span></label>
-            <input type="text" name="usuario" class="form-control" placeholder="Escriba un nombre de usuario" required autocomplete="off">
+            <label for="usuario">Nro documento <span class="text-danger">*</span></label>
+            <input type="text" formControlName="documento" class="form-control" (keypress)="soloNumeros($event)" pattern="^[0-9]*$" placeholder="Escriba un documento" required autocomplete="off">
+            <div class="errores text-left">
+              <div class="custom-error" *ngIf="f.documento.errors?.required && f.documento.touched">Nro documento es requerido</div>
+            </div>
           </div>
           <div class="form-group">
             <label for="nombre">Nombres <span class="text-danger">*</span></label>
-            <input type="text" name="nombre" class="form-control" placeholder="Escriba los nombres" required autocomplete="off">
+            <input type="text" formControlName="nombres" class="form-control" placeholder="Escriba los nombres" required autocomplete="off">
+            <div class="errores text-left">
+              <div class="custom-error" *ngIf="f.nombres.errors?.required && f.nombres.touched">Nombres es requerido</div>
+            </div>
           </div>
           <div class="form-group">
             <label for="apellidos">Apellidos <span class="text-danger">*</span></label>
-            <input type="text" name="apellidos" class="form-control" placeholder="Escriba los apellidos" required autocomplete="off">
-          </div>
-          <div class="form-group">
-            <label for="correo">Correo</label>
-            <input type="email" name="correo" class="form-control" placeholder="Escriba un correo" autocomplete="off">
-          </div>
-          <label for="pass">Contraseña <span class="text-danger">*</span></label>
-          <div class="form-group input-group mb-3">
-            <input type="password" id="pass" name="pass" class="form-control" placeholder="Escriba una contraseña" required autocomplete="off">
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary btnEye" type="button" data-toggle="button" aria-pressed="false" autocomplete="off">
-                <i class="fas fa-eye"></i>
-              </button>
+            <input type="text" formControlName="apellidos" class="form-control" placeholder="Escriba los apellidos" required autocomplete="off">
+            <div class="errores text-left">
+              <div class="custom-error" *ngIf="f.apellidos.errors?.required && f.apellidos.touched">Apellidos es requerido</div>
             </div>
           </div>
-          <label for="rePass">Confirmar contraseña <span class="text-danger">*</span></label>
-          <div class="form-group input-group rounded">
-            <input type="password" id="rePass" name="rePass" class="form-control" placeholder="Confirma la contraseña" required autocomplete="off">
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary btnEye" type="button" data-toggle="button" aria-pressed="false" autocomplete="off">
-                <i class="fas fa-eye"></i>
-              </button>
+          <div class="form-group">
+            <label for="correo">Correo <span class="text-danger">*</span></label>
+            <input type="email" formControlName="correo" class="form-control" required placeholder="Escriba un correo" autocomplete="off">
+            <div class="errores text-left">
+              <div class="custom-error" *ngIf="f.correo.errors?.required && f.correo.touched">Correo electrónico es requerido</div>
+              <div class="custom-error" *ngIf="f.correo.errors?.email && f.correo.touched">Correo electrónico inválido</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="direccion">Direccion <span class="text-danger">*</span></label>
+            <input type="text" formControlName="direccion" class="form-control" required placeholder="Escriba una direccion" autocomplete="off">
+            <div class="errores text-left">
+              <div class="custom-error" *ngIf="f.direccion  .errors?.required && f.direccion.touched">Dirección de su casa es requerida</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="telefono">Teléfono <span class="text-danger">*</span></label>
+            <input type="tel" formControlName="telefono" class="form-control" (keypress)="soloNumeros($event)" pattern="^[0-9]*$" required placeholder="Escriba una teléfono" autocomplete="off">
+            <div class="errores text-left">
+              <div class="custom-error" *ngIf="f.telefono.errors?.required && f.telefono.touched">Teléfono es requerido</div>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="pass">Contraseña <span class="text-danger">*</span></label>
+            <input type="password" formControlName="password" class="form-control" placeholder="Escriba una contraseña" required autocomplete="off">
+            <div class="errores text-left">
+              <div class="custom-error" *ngIf="f.password.errors?.required && f.password.touched">Contraseña es requerido</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="rePass">Confirmar contraseña <span class="text-danger">*</span></label>
+            <input type="password" formControlName="rePassword" class="form-control" placeholder="Confirma la contraseña" required autocomplete="off">
+            <div class="errores text-left">
+              <p class="custom-error mb-0" *ngIf="f.rePassword.errors?.required && f.rePassword.touched">Confirmarcontraseña</p>
+              <div class="custom-error" *ngIf="f.rePassword.value != f.password.value">Las contraseñas no coinciden</div>
             </div>
           </div>
         </div>
         <div class="modal-footer d-flex justify-content-between">
           <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Cerrar</button>
-          <button id="btnCrearUsuario" type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Crear</button>
+          <button type="submit" id="btnCrearUsuario" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Crear</button>
         </div>
       </form>
     </div>

@@ -3,6 +3,9 @@ import { AppService } from '../../app.service';
 import { UsuariosService } from '../../services/usuarios.service';
 import Swal from 'sweetalert2';
 import { Subject } from 'rxjs';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+declare var $: any;
 
 @Component({
   selector: 'app-usuarios',
@@ -14,22 +17,28 @@ export class UsuariosComponent implements OnDestroy, OnInit {
   titulo;
   listUsuarios: object[] = [];
 
-  private urlApi: string;
+  cargador = false;
+  mensajeCargador = 'Registrando';
+
+  formularioCrear: FormGroup;
+  formularioCrearValidar = false;
 
   dtTrigger = new Subject();
 
   constructor(
     private appService: AppService,
     private _usuario: UsuariosService,
+    private _router: Router
   ) {
     this.titulo = this.appService.pageTitle = 'Usuarios';
+    this.initForm();
   }
 
   ngOnInit(): void {
     this.dtOptions = {
       pagingType: 'full_numbers',
       responsive: true,
-      /* below is the relevant part, e.g. translated to spanish */ 
+      /* below is the relevant part, e.g. translated to spanish */
       language: {
         processing: 'Procesando...',
         search: 'Buscar:',
@@ -62,6 +71,24 @@ export class UsuariosComponent implements OnDestroy, OnInit {
     this.dtTrigger.unsubscribe();
   }
 
+  get f() {
+    return this.formularioCrear.controls;
+  }
+
+
+  initForm() {
+    this.formularioCrear = new FormGroup({
+      documento: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
+      telefono: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
+      nombres: new FormControl('', [Validators.required]),
+      apellidos: new FormControl('', [Validators.required]),
+      correo: new FormControl('', [Validators.required]),
+      direccion: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+      rePassword: new FormControl('', [Validators.required]),
+    });
+  }
+
   listaUsuarios() {
     this._usuario.listaUsusuario()
     .subscribe(
@@ -87,5 +114,59 @@ export class UsuariosComponent implements OnDestroy, OnInit {
         console.log(error)
       }
     );
+  }
+
+  crearUsuario() {
+    this.dtTrigger.next();
+    const btnCrearUsuario = document.getElementById('btnCrearUsuario');
+    if (!this.formularioCrear.valid) {
+      this.formularioCrear.markAllAsTouched();
+      this.formularioCrearValidar = true;
+    } else {
+      this.cargador = true;
+      btnCrearUsuario.setAttribute('disabled', 'true');
+      btnCrearUsuario.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Creando...`;
+      this._usuario.registrarUsuario(this.formularioCrear.value)
+      .subscribe(
+        result => {
+          if (result['success']) {
+            this.formularioCrearValidar = false;
+            this.formularioCrear.reset();
+            this.listaUsuarios();
+            Swal.fire({
+              icon: 'success',
+              title: result['msj'],
+            })
+          } else {
+            if (result['token']) {
+              Swal.fire({
+                icon: 'error',
+                title: result['msj'],
+              });
+              this._usuario.cerrarSesion();
+            } else {
+              Swal.fire({
+                icon: 'warning',
+                title: result['msj'],
+              });
+            }
+          }
+          this.cargador = false;
+        }, error => {
+          console.log(error);
+          btnCrearUsuario.removeAttribute('disabled');
+          btnCrearUsuario.innerHTML = `<i class="fas fa-paper-plane"></i> Crear`;
+          this.cargador = false;
+        }, () => {
+          btnCrearUsuario.removeAttribute('disabled');
+          btnCrearUsuario.innerHTML = `<i class="fas fa-paper-plane"></i> Crear`;
+          this.cargador = false;
+        }
+      );
+    }
+  }
+
+  public soloNumeros(e) {
+    return this.appService.soloNumeros(e);
   }
 }

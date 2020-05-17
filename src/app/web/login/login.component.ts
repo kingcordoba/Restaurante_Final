@@ -12,7 +12,6 @@ import { PerfilmostrarService } from '../../services/perfilmostrar.service';
   styleUrls: ['../../../assets/sass/now-ui-kit.scss', './login.component.css']
 })
 export class LoginComponent implements OnInit {
-
   cargador: boolean = false;
   mensajeCargador: string = 'Validando';
   data: Date = new Date();

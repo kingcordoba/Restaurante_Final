@@ -13,6 +13,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { DataTablesModule } from 'angular-datatables';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -22,6 +23,8 @@ import { DataTablesModule } from 'angular-datatables';
     DashboardRoutingModule,
     
     DataTablesModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     SidebarComponent,
