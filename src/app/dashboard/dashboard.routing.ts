@@ -5,6 +5,7 @@ import { InicioComponent } from './inicio/inicio.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { PermisosGuard } from '../guards/permisos.guard';
+import { PlatosComponent } from './platos/platos.component';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { PermisosGuard } from '../guards/permisos.guard';
       { path: '', component: InicioComponent },
       { path: 'index', component: InicioComponent },
       { path: 'usuarios', canActivate: [PermisosGuard], component: UsuariosComponent },
+      { path: 'platos', canActivate: [PermisosGuard], component: PlatosComponent },
       { path: '**', component: NotfoundComponent }
     ])],
     exports: [RouterModule]

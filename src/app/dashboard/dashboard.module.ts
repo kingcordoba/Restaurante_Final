@@ -13,6 +13,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { DataTablesModule } from 'angular-datatables';
+import { PlatosComponent } from './platos/platos.component';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { DataTablesModule } from 'angular-datatables';
     FooterComponent,
     NotfoundComponent,
     UsuariosComponent,
+    PlatosComponent,
   ]
 })
 export class DashboardModule { }
