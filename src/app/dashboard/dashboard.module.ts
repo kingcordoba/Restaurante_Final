@@ -13,6 +13,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { DataTablesModule } from 'angular-datatables';
+import { PlatosComponent } from './platos/platos.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoaderModule } from '../shared/loader/loader.module';
 
@@ -35,6 +36,7 @@ import { LoaderModule } from '../shared/loader/loader.module';
     FooterComponent,
     NotfoundComponent,
     UsuariosComponent,
+    PlatosComponent,
   ]
 })
 export class DashboardModule { }

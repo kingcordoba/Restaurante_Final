@@ -1,0 +1,95 @@
+<div div class="content-header">
+  <div class="container">
+    <div class="row mb-2">
+      <div class="col-12">
+        <h1 class="m-0 text-dark">{{titulo}}</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<section class="content">
+  <div class="container">
+    <div class="card">
+      <div class="card-header d-flex justify-content-end">
+        <button class="btn btn-success" data-target="#modalCrearPlato" data-toggle="modal"><i
+            class="fas fa-plus"></i></button>
+      </div>
+      <div class="card-body">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+          class="row-border hover table table-bordered table-hover w-100">
+          <thead class="thead-light">
+            <tr>
+              <th>Acciones</th>
+              <th>Nro documento</th>
+              <th>Nombres</th>
+              <th>Apellidos</th>
+              <th>Correo</th>
+              <th>Teléfono</th>
+              <th>Perfil</th>
+              <th>Fecha creación</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usuario of listUsuarios">
+              <td>
+                Acciones
+              </td>
+              <td>{{usuario['nro_documento']}}</td>
+              <td>{{usuario['nombres']}}</td>
+              <td>{{usuario['apellidos']}}</td>
+              <td>{{usuario['correo']}}</td>
+              <td>{{usuario['telefono']}}</td>
+              <td>{{usuario['fk_perfil']}}</td>
+              <td>{{usuario['created_at']}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="modal fade" id="modalCrearPlato" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+  data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fas fa-user-plus"></i> Crear usuario</h5>
+      </div>
+      <form id="formCrearUsuario" autocomplete="off" [formGroup]="formulario" (ngSubmit)="guardarPlato()">
+        <input type="hidden" name="accion" value="crearUsuario">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="usuario">Nombre <span class="text-danger">*</span></label>
+            <input type="text" formControlName="nombre" name="usuario" class="form-control"
+              placeholder="Escriba un nombre de usuario" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="nombre">Descripción <span class="text-danger">*</span></label>
+            <input type="text" formControlName="descripcion" name="nombre" class="form-control"
+              placeholder="Escriba los nombres" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="apellidos">Precio <span class="text-danger">*</span></label>
+            <input type="text" formControlName="precio" name="apellidos" class="form-control"
+              placeholder="Escriba los apellidos" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="apellidos">Imagen</label>
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="inputGroupFile02">
+              <label class="custom-file-label" for="inputGroupFile02"
+                aria-describedby="inputGroupFileAddon02">Escoger...</label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-between">
+          <button (click)="limpiarFormulario()" type="button" class="btn btn-secondary" data-dismiss="modal"><i
+              class="fas fa-times"></i>
+            Cerrar</button>
+          <button id="btnCrearUsuario" type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i>
+            Crear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

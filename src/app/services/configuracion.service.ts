@@ -1,3 +1,3 @@
 export var CONFIG = {
-  urlAPi: 'http://192.168.0.3:8000/api/'
+  urlAPi: 'http://127.0.0.1:8000/api/'
 }
