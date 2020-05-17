@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper" [ngClass]="{'not-read' : cargador ? true : false}">
   <div class="page-header clear-filter" filter-color="orange">
     <div class="page-header-image rellax-header" data-rellax-speed="-7" [style]="fondo"></div>
     <div class="container">
@@ -11,7 +11,6 @@
       </div>
     </div>
   </div>
-
   <div class="main">
     <div class="section section-images">
       <div class="container">
@@ -19,47 +18,49 @@
           <div class="alert alert-danger" role="alert">
             <h4 style="text-align: center;">
               AQUÍ ESTÁ!
-              <P>Este es el especial del día...</P>  
+              <P>Este es el especial del día...</P>
             </h4>
           </div>
         </div>
       </div>
     </div>
   </div>
-    <div class="section" id="carousel">
-      <div class="container">
-        <div class="title">
-          <div class="alert alert-warning" role="alert">
-            <h4 style="text-align: center;">
-              NUESTROS PLATOS PRINCIPALES
-            </h4>
-          </div>
+  <div class="section" id="carousel">
+    <div class="container">
+      <div class="title">
+        <div class="alert alert-warning" role="alert">
+          <h4 style="text-align: center;">
+            NUESTROS PLATOS PRINCIPALES
+          </h4>
         </div>
-        <div class="row justify-content-center">
-          <div class="col-12 col-md-10">
-            <div id="sliderTopPlatos" class="carousel slide carousel-fade" data-ride="carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item" *ngFor="let pro of imagenesSlider; let i = index" [ngClass]="{active: i == 0}">
-                  <img class="d-block w-100" src="{{pro['img']}}">
-                  <div class="carousel-caption d-none d-md-block">
-                    <h5 class="badge badge-danger">{{pro['nombre']}}</h5><br>
-                    <p class="badge badge-danger">{{pro['descripcion']}}</p><br>
-                    <button class="btn btn-danger btn-sm btn-round" (click)="addProducto(pro)"><i class="fas fa-cart-plus"></i> Agregar</button>
-                  </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-10">
+          <div id="sliderTopPlatos" class="carousel slide carousel-fade" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item" *ngFor="let pro of imagenesSlider; let i = index" [ngClass]="{active: i == 0}">
+                <img class="d-block w-100" src="{{pro['img']}}">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5 class="badge badge-danger">{{pro['nombre']}}</h5><br>
+                  <p class="badge badge-danger">{{pro['descripcion']}}</p><br>
+                  <button class="btn btn-danger btn-sm btn-round" (click)="addProducto(pro)"><i
+                      class="fas fa-cart-plus"></i> Agregar</button>
                 </div>
               </div>
-              <a class="carousel-control-prev" href="#sliderTopPlatos" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Anterior</span>
-              </a>
-              <a class="carousel-control-next" href="#sliderTopPlatos" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Siguiente</span>
-              </a>
             </div>
+            <a class="carousel-control-prev" href="#sliderTopPlatos" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Anterior</span>
+            </a>
+            <a class="carousel-control-next" href="#sliderTopPlatos" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Siguiente</span>
+            </a>
           </div>
         </div>
       </div>
     </div>
-    <app-footer></app-footer>        
+  </div>
+  <app-footer></app-footer>
 </div>
+<app-loader [encender]="cargador" [mensaje]="mensajeCargador"></app-loader>

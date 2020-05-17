@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 import { PerfilComponent } from './perfil/perfil.component';
+import { LoaderModule } from '../shared/loader/loader.module';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { PerfilComponent } from './perfil/perfil.component';
     FormsModule,
     ReactiveFormsModule,
     WebRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    LoaderModule,
   ],
   declarations: [
     InicioComponent,
