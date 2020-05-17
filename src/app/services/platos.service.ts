@@ -18,11 +18,15 @@ export class PlatosService {
       'Authorization': localStorage.getItem('token'),
       'tokenTime': localStorage.getItem('tiempoToken')
     });
-    return this.http.get(this.urlApi + 'usuarios/lista', { headers });
+    return this.http.get(this.urlApi + 'platos/lista', { headers });
   }
 
   agregarPlato(plato: object) {
-    return this.http.post(this.urlApi + 'platos/guardar', plato);
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
+    return this.http.post(this.urlApi + 'platos/guardar', plato, { headers });
   }
 
 }

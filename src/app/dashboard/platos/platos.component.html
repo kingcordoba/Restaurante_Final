@@ -15,31 +15,27 @@
             class="fas fa-plus"></i></button>
       </div>
       <div class="card-body">
-        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+        <table #idTabla datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
           class="row-border hover table table-bordered table-hover w-100">
           <thead class="thead-light">
             <tr>
               <th>Acciones</th>
-              <th>Nro documento</th>
-              <th>Nombres</th>
-              <th>Apellidos</th>
-              <th>Correo</th>
-              <th>Teléfono</th>
-              <th>Perfil</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Precio</th>
+              <th>Creador</th>
               <th>Fecha creación</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let usuario of listUsuarios">
+            <tr *ngFor="let usuario of listaPlatos">
               <td>
                 Acciones
               </td>
-              <td>{{usuario['nro_documento']}}</td>
-              <td>{{usuario['nombres']}}</td>
-              <td>{{usuario['apellidos']}}</td>
-              <td>{{usuario['correo']}}</td>
-              <td>{{usuario['telefono']}}</td>
-              <td>{{usuario['fk_perfil']}}</td>
+              <td>{{usuario['nombre']}}</td>
+              <td>{{usuario['descripcion']}}</td>
+              <td>{{usuario['precio']}}</td>
+              <td>{{usuario['fk_creador'] + ' ' + usuario['apellidos']}}</td>
               <td>{{usuario['created_at']}}</td>
             </tr>
           </tbody>
@@ -53,7 +49,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title"><i class="fas fa-user-plus"></i> Crear usuario</h5>
+        <h5 class="modal-title"><i class="fas fa-utensils"></i> Crear plato</h5>
       </div>
       <form id="formCrearUsuario" autocomplete="off" [formGroup]="formulario" (ngSubmit)="guardarPlato()">
         <input type="hidden" name="accion" value="crearUsuario">
@@ -61,17 +57,17 @@
           <div class="form-group">
             <label for="usuario">Nombre <span class="text-danger">*</span></label>
             <input type="text" formControlName="nombre" name="usuario" class="form-control"
-              placeholder="Escriba un nombre de usuario" required autocomplete="off">
+              placeholder="Escriba un nombre del plato" required autocomplete="off">
           </div>
           <div class="form-group">
             <label for="nombre">Descripción <span class="text-danger">*</span></label>
             <input type="text" formControlName="descripcion" name="nombre" class="form-control"
-              placeholder="Escriba los nombres" required autocomplete="off">
+              placeholder="Escriba la descripción del plato" required autocomplete="off">
           </div>
           <div class="form-group">
             <label for="apellidos">Precio <span class="text-danger">*</span></label>
-            <input type="text" formControlName="precio" name="apellidos" class="form-control"
-              placeholder="Escriba los apellidos" required autocomplete="off">
+            <input type="number" formControlName="precio" name="apellidos" class="form-control"
+              placeholder="Escriba el precio del plato" required autocomplete="off">
           </div>
           <div class="form-group">
             <label for="apellidos">Imagen</label>

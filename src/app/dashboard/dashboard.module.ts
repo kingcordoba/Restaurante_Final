@@ -15,6 +15,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { DataTablesModule } from 'angular-datatables';
 import { PlatosComponent } from './platos/platos.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoaderModule } from '../shared/loader/loader.module';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     
     DataTablesModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LoaderModule,
   ],
   declarations: [
     SidebarComponent,
