@@ -28,7 +28,7 @@ import { PerfilComponent } from './perfil/perfil.component';
     FormsModule,
     ReactiveFormsModule,
     WebRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   declarations: [
     InicioComponent,

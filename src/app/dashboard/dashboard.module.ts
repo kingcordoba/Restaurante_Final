@@ -12,6 +12,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './footer/footer.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   imports: [
@@ -19,6 +20,8 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
     RouterModule,
     NgbModule,
     DashboardRoutingModule,
+    
+    DataTablesModule,
   ],
   declarations: [
     SidebarComponent,

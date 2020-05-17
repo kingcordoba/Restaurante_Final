@@ -1,1 +1,106 @@
-<p>usuarios works!</p>
+<!-- Content Header (Page header) -->
+<div div class="content-header">
+  <div class="container">
+    <div class="row mb-2">
+      <div class="col-12">
+        <h1 class="m-0 text-dark">{{titulo}}</h1>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+  <div class="container">
+    <div class="card">
+      <div class="card-header d-flex justify-content-end">
+        <button class="btn btn-success" data-target="#modalCrearUsuario" data-toggle="modal"><i class="fas fa-user-plus"></i></button>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover table table-bordered table-hover w-100">
+          <thead class="thead-light">
+            <tr>
+              <th>Acciones</th>
+              <th>Nro documento</th>
+              <th>Nombres</th>
+              <th>Apellidos</th>
+              <th>Correo</th>
+              <th>Teléfono</th>
+              <th>Perfil</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usuario of listUsuarios">
+              <td>
+                Acciones
+              </td>
+              <td>{{usuario['nro_documento']}}</td>
+              <td>{{usuario['nombres']}}</td>
+              <td>{{usuario['apellidos']}}</td>
+              <td>{{usuario['correo']}}</td>
+              <td>{{usuario['telefono']}}</td>
+              <td>{{usuario['fk_perfil']}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+<!-- Modal Crear Usuario -->
+<div class="modal fade" id="modalCrearUsuario" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fas fa-user-plus"></i> Crear usuario</h5>
+      </div>
+      <form id="formCrearUsuario" autocomplete="off">
+        <input type="hidden" name="accion" value="crearUsuario">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="usuario">Usuario <span class="text-danger">*</span></label>
+            <input type="text" name="usuario" class="form-control" placeholder="Escriba un nombre de usuario" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="nombre">Nombres <span class="text-danger">*</span></label>
+            <input type="text" name="nombre" class="form-control" placeholder="Escriba los nombres" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="apellidos">Apellidos <span class="text-danger">*</span></label>
+            <input type="text" name="apellidos" class="form-control" placeholder="Escriba los apellidos" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="correo">Correo</label>
+            <input type="email" name="correo" class="form-control" placeholder="Escriba un correo" autocomplete="off">
+          </div>
+          <label for="pass">Contraseña <span class="text-danger">*</span></label>
+          <div class="form-group input-group mb-3">
+            <input type="password" id="pass" name="pass" class="form-control" placeholder="Escriba una contraseña" required autocomplete="off">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary btnEye" type="button" data-toggle="button" aria-pressed="false" autocomplete="off">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <label for="rePass">Confirmar contraseña <span class="text-danger">*</span></label>
+          <div class="form-group input-group rounded">
+            <input type="password" id="rePass" name="rePass" class="form-control" placeholder="Confirma la contraseña" required autocomplete="off">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary btnEye" type="button" data-toggle="button" aria-pressed="false" autocomplete="off">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Cerrar</button>
+          <button id="btnCrearUsuario" type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Crear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

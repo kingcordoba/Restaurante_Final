@@ -23,7 +23,7 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column nav-flat nav-child-indent" id="modulos" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item has-treeview user-panel mt-2 pb-2 mb-2">
-          <a href="" class="nav-link active">
+          <a href="#" class="nav-link">
             <i class="nav-icon far fa-user-circle"></i>
             <p>
               Usuario
@@ -52,7 +52,7 @@
           </ul>
         </li>
         <li class="nav-item has-treeview" *ngFor="let mod of modulos">
-          <a [routerLink]="mod['ruta']" routerLinkActive="router-link-active" class="nav-link link">
+          <a [routerLink]="mod['ruta']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="nav-link link">
             <i class="nav-icon {{mod['icono']}}"></i>
             <p>
               {{mod['tag']}}

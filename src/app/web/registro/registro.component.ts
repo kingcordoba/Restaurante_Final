@@ -81,6 +81,8 @@ export class RegistroComponent implements OnInit {
           }
         }, error => {
           console.log(error)
+          btnRegistrar.removeAttribute('disabled');
+          btnRegistrar.innerHTML = `CREAR CUENTA <i class="fas fa-sign-in-alt"></i>`;
         }, () => {
           btnRegistrar.removeAttribute('disabled');
           btnRegistrar.innerHTML = `CREAR CUENTA <i class="fas fa-sign-in-alt"></i>`;

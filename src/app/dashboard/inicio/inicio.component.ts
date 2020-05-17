@@ -12,7 +12,7 @@ export class InicioComponent implements OnInit {
   constructor(
     private appService: AppService
   ) {
-    this.appService.pageTitle = 'Inicio';
+    this.appService.pageTitle = 'Dashboard';
   }
 
   ngOnInit(): void {

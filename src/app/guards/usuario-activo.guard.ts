@@ -28,7 +28,6 @@ export class UsuarioActivoGuard implements CanActivate {
     await this._usuarios.validarToken().
     toPromise().then(
       result => {
-        console.log(result);
         if (result['success']) {
           //Esta activo
           if (!localStorage.getItem('perfil')) {

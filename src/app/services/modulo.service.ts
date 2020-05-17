@@ -22,4 +22,13 @@ export class ModuloService {
 
     return this.http.get(this.urlApi + 'listaModulosUsuario/' + localStorage.getItem('id'), {headers});
   }
+
+  public validarPermiso(modulo: string){
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
+
+    return this.http.get(this.urlApi + 'permisos/validar/' + localStorage.getItem('id') + '/' + modulo, {headers});
+  }
 }

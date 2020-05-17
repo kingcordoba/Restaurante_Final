@@ -94,6 +94,8 @@ export class LoginComponent implements OnInit {
           }
         }, error => {
           console.log(error)
+          Login.removeAttribute('disabled');
+          Login.innerHTML = `CREAR CUENTA <i class="fas fa-sign-in-alt"></i>`;
         }, () => {
           Login.removeAttribute('disabled');
           Login.innerHTML = `ACCEDER <i class="fas fa-sign-in-alt"></i>`;

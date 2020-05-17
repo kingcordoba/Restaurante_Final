@@ -25,7 +25,6 @@ export class SidebarComponent implements OnInit {
     this._modulos.listaModulosUsuario()
     .subscribe(
       result => {
-        console.log(result);
         if (result['success']) {
           this.modulos = result['msj'];
         } else {
