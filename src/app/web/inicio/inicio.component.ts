@@ -15,27 +15,29 @@ import { DomSanitizer } from '@angular/platform-browser';
     ngb-progressbar {
       margin-top: 5rem;
     }
+    .not-read {
+      filter: blur(2px);
+      pointer-events: none;
+    }
   `]
 })
 export class InicioComponent implements OnInit, OnDestroy {
+
+  cargador: boolean = false;
+  mensajeCargador: string = 'Cargando';
   imagenesSlider: object[] = [];
-
   fondo: any;
-
   page = 4;
   page1 = 5;
   page2 = 3;
   focus;
   focus1;
   focus2;
-
   date: {year: number, month: number};
   model: NgbDateStruct;
-
   public isCollapsed = true;
   public isCollapsed1 = true;
   public isCollapsed2 = true;
-
   state_icon_primary = true;
 
   constructor( 

@@ -12,6 +12,9 @@ import { PerfilmostrarService } from '../../services/perfilmostrar.service';
   styleUrls: ['../../../assets/sass/now-ui-kit.scss', './login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  cargador: boolean = false;
+  mensajeCargador: string = 'Validando';
   data: Date = new Date();
   focus;
   focus1;
@@ -62,44 +65,46 @@ export class LoginComponent implements OnInit {
       this.formulario.markAllAsTouched();
       this.validaFormulario = true;
     } else {
+      this.cargador = true;
       Login.setAttribute('disabled', 'true');
       Login.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> ACCEDIENDO...`;
-      this._usuarios.login(this.formulario.value)
-      .subscribe(
-        result => {
-          if (result['success']) {
-            this.validaFormulario = false;
-            this.formulario.reset();
-            localStorage.setItem('id', result['usuario'].id);
-            localStorage.setItem('nro_documento', result['usuario'].nro_documento);
-            localStorage.setItem('nombreCompleto', result['usuario'].nombres + ' ' + result['usuario'].apellidos);
-            localStorage.setItem('perfil', result['usuario'].fk_perfil);
-            localStorage.setItem('usuario', JSON.stringify(result['usuario']));
-            localStorage.setItem('token',  result['token']);
-            localStorage.setItem('tiempoToken',  result['tiempoToken']);
+      this._usuarios.login(this.formulario.value).subscribe(result => {
+        if (result['success']) {
+          this.validaFormulario = false;
+          this.formulario.reset();
+          localStorage.setItem('id', result['usuario'].id);
+          localStorage.setItem('nro_documento', result['usuario'].nro_documento);
+          localStorage.setItem('nombreCompleto', result['usuario'].nombres + ' ' + result['usuario'].apellidos);
+          localStorage.setItem('perfil', result['usuario'].fk_perfil);
+          localStorage.setItem('usuario', JSON.stringify(result['usuario']));
+          localStorage.setItem('token', result['token']);
+          localStorage.setItem('tiempoToken', result['tiempoToken']);
 
-            this._perfilMostrar.actualizarDatos(true);
+          this._perfilMostrar.actualizarDatos(true);
 
-            if (result['usuario'].fk_perfil === 1) {
-              window.location.href = 'dashboard';
-              //this._router.navigate(['dashboard']);
-            } else {
-              this._router.navigate(['']);
-            }
+          if (result['usuario'].fk_perfil === 1) {
+            window.location.href = 'dashboard';
+            //this._router.navigate(['dashboard']);
           } else {
-            Swal.fire({
-              icon: 'error',
-              title: result['msj'],
-            })
+            this._router.navigate(['']);
           }
-        }, error => {
-          console.log(error)
-          Login.removeAttribute('disabled');
-          Login.innerHTML = `CREAR CUENTA <i class="fas fa-sign-in-alt"></i>`;
-        }, () => {
-          Login.removeAttribute('disabled');
-          Login.innerHTML = `ACCEDER <i class="fas fa-sign-in-alt"></i>`;
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: result['msj'],
+          });
         }
+        this.cargador = false;
+      }, error => {
+        console.log(error)
+        this.cargador = false;
+        Login.removeAttribute('disabled');
+        Login.innerHTML = `ACCEDER <i class="fas fa-sign-in-alt"></i>`;
+      }, () => {
+        Login.removeAttribute('disabled');
+        Login.innerHTML = `ACCEDER <i class="fas fa-sign-in-alt"></i>`;
+        this.cargador = false;
+      }
       );
     }
   }

@@ -1,0 +1,17 @@
+div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: black;
+  background-color: rgba(196, 196, 194, 0.36);
+  z-index: 14;
+  width: 100%;
+  height: 100%;
+}
+
+ngx-spinner ::ng-deep .ng-trigger .ng-star-inserted {
+  color: transparent !important;
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../../app.service';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsuariosService } from '../../services/usuarios.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -9,11 +9,19 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
-  styleUrls: ['../../../assets/sass/now-ui-kit.scss','./registro.component.css']
+  styleUrls: ['../../../assets/sass/now-ui-kit.scss', './registro.component.css'],
+  styles: [`
+    .not-read {
+      filter: blur(2px);
+      pointer-events: none;
+    }
+  `]
 })
 export class RegistroComponent implements OnInit {
-  data: Date = new Date();
 
+  cargador: boolean = false;
+  mensajeCargador: string = 'Registrando';
+  data: Date = new Date();
   formulario: FormGroup;
   validaFormulario = false;
 
@@ -41,7 +49,7 @@ export class RegistroComponent implements OnInit {
     navbar.classList.remove('navbar-transparent');
   }
 
-  initForm(){
+  initForm() {
     this.formulario = new FormGroup({
       documento: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
       telefono: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
@@ -60,33 +68,35 @@ export class RegistroComponent implements OnInit {
       this.formulario.markAllAsTouched();
       this.validaFormulario = true;
     } else {
+      this.cargador = true;
       btnRegistrar.setAttribute('disabled', 'true');
       btnRegistrar.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> CREANDO...`;
-      this._usuarios.registrarUsuario(this.formulario.value)
-      .subscribe(
-        result => {
-          if (result['success']) {
-            this.validaFormulario = false;
-            this.formulario.reset();
-            Swal.fire({
-              icon: 'success',
-              title: result['msj'],
-            })
-            this._router.navigate(['login']);
-          } else {
-            Swal.fire({
-              icon: 'error',
-              title: result['msj'],
-            })
-          }
-        }, error => {
-          console.log(error)
-          btnRegistrar.removeAttribute('disabled');
-          btnRegistrar.innerHTML = `CREAR CUENTA <i class="fas fa-sign-in-alt"></i>`;
-        }, () => {
-          btnRegistrar.removeAttribute('disabled');
-          btnRegistrar.innerHTML = `CREAR CUENTA <i class="fas fa-sign-in-alt"></i>`;
+      this._usuarios.registrarUsuario(this.formulario.value).subscribe(result => {
+        if (result['success']) {
+          this.validaFormulario = false;
+          this.formulario.reset();
+          Swal.fire({
+            icon: 'success',
+            title: result['msj'],
+          })
+          this._router.navigate(['login']);
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: result['msj'],
+          });
         }
+        this.cargador = false;
+      }, error => {
+        console.log(error);
+        btnRegistrar.removeAttribute('disabled');
+        btnRegistrar.innerHTML = `CREAR CUENTA <i class="fas fa-sign-in-alt"></i>`;
+        this.cargador = false;
+      }, () => {
+        btnRegistrar.removeAttribute('disabled');
+        btnRegistrar.innerHTML = `CREAR CUENTA <i class="fas fa-sign-in-alt"></i>`;
+        this.cargador = false;
+      }
       );
     }
   }
