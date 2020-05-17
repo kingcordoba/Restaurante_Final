@@ -23,7 +23,7 @@ import { LoaderModule } from '../shared/loader/loader.module';
     RouterModule,
     NgbModule,
     DashboardRoutingModule,
-    
+
     DataTablesModule,
     FormsModule,
     ReactiveFormsModule,

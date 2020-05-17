@@ -18,7 +18,7 @@ export class UsuariosService {
     this.urlApi = CONFIG.urlAPi;
   }
 
-  public listaUsusuario(){
+  public listaUsusuario() {
     const headers = new HttpHeaders({
       'Authorization': localStorage.getItem('token'),
       'tokenTime': localStorage.getItem('tiempoToken')
@@ -26,7 +26,7 @@ export class UsuariosService {
     return this.http.get(this.urlApi + 'usuarios/lista', {headers});
   }
 
-  public crearUsuario(usuario: object){
+  public crearUsuario(usuario: object) {
     const headers = new HttpHeaders({
       'Authorization': localStorage.getItem('token'),
       'tokenTime': localStorage.getItem('tiempoToken')
@@ -34,15 +34,15 @@ export class UsuariosService {
     return this.http.post(this.urlApi + 'usuarios/crear', usuario, {headers});
   }
 
-  public registrarUsuario(usuario: object){
+  public registrarUsuario(usuario: object) {
     return this.http.post(this.urlApi + 'registrarse', usuario);
   }
 
-  public login(usuario: object){
+  public login(usuario: object) {
     return this.http.get(this.urlApi + 'login/' + usuario['documento'] + '/' + usuario['password']);
   }
-  
-  public actualizarPerfil(usuario: object){
+
+  public actualizarPerfil(usuario: object) {
     const headers = new HttpHeaders({
       'Authorization': localStorage.getItem('token'),
       'tokenTime': localStorage.getItem('tiempoToken')
@@ -50,14 +50,14 @@ export class UsuariosService {
     return this.http.put(this.urlApi + 'actualizarDatos', usuario, {headers});
   }
 
-  public actualizarDatosStorage(usuario: object){
+  public actualizarDatosStorage(usuario: object) {
     localStorage.setItem('nombreCompleto', usuario['nombres'] + ' ' + usuario['apellidos']);
     localStorage.setItem('perfil', usuario['fk_perfil']);
     localStorage.setItem('usuario', JSON.stringify(usuario));
     this._perfilMostrar.actualizarDatos(false);
   }
 
-  public validarToken(){
+  public validarToken() {
     const headers = new HttpHeaders({
       'Authorization': localStorage.getItem('token'),
       'tokenTime': localStorage.getItem('tiempoToken')
@@ -65,7 +65,7 @@ export class UsuariosService {
     return this.http.get(this.urlApi + 'validarToken', {headers});
   }
 
-  public cerrarSesion(){
+  public cerrarSesion() {
     localStorage.clear();
     this._perfilMostrar.actualizarDatos(false);
     this._router.navigate(['']);

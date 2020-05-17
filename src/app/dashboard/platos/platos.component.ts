@@ -25,7 +25,7 @@ export class PlatosComponent implements OnInit {
 
   constructor(
     private appService: AppService,
-    private platosService: PlatosService, 
+    private platosService: PlatosService,
     private userService: UsuariosService
   ) {
     this.titulo = this.appService.pageTitle = 'Platos';
@@ -38,13 +38,14 @@ export class PlatosComponent implements OnInit {
     this.initDataTable();
   }
 
+  // tslint:disable-next-line: use-life-cycle-interface
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
 
   listarPlatos() {
     this.platosService.obtenerPlatos().subscribe(platos => {
-      console.log("respuesta ", platos);
+      console.log('respuesta ', platos);
       if (platos['success']) {
         this.listaPlatos = platos['msj'];
         this.dtTrigger.next();
@@ -57,7 +58,7 @@ export class PlatosComponent implements OnInit {
         this.validarToken(platos);
       }
     }, error => {
-      console.log("error ", error);
+      console.log('error ', error);
     });
   }
 
