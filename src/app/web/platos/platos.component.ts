@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../../app.service';
 import { GetProductosService } from '../../services/get-productos.service';
+import { PlatosService } from '../../services/platos.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-platos',
@@ -8,22 +10,39 @@ import { GetProductosService } from '../../services/get-productos.service';
   styleUrls: ['../../../assets/sass/now-ui-kit.scss'],
 })
 export class PlatosComponent implements OnInit {
-  
-  productos: object[] = [];
+
+  listaPlatos: Array<object> = [];
 
   constructor(
-    private _productos:GetProductosService,
-    private appService: AppService
+    private _productos: GetProductosService,
+    private appService: AppService,
+    private platosService: PlatosService,
   ) {
     this.appService.pageTitle = 'Platos';
-    this.productos = this._productos.productosMostrar;
   }
 
   ngOnInit(): void {
+    this.listarPlatos();
   }
 
-  addProducto(producto){
+  addProducto(producto) {
     this._productos.agregarCarrito(producto);
+  }
+
+  listarPlatos() {
+    this.platosService.obtenerPlatos().subscribe(platos => {
+      if (platos['success']) {
+        this.listaPlatos = platos['msj'];
+      } else {
+        const icono = (platos['success'] ? 'success' : 'error');
+        Swal.fire({
+          icon: icono,
+          title: platos['msj'],
+        });
+      }
+    }, error => {
+      console.log('error ', error);
+    });
   }
 
 }

@@ -251,7 +251,6 @@ export class UsuariosComponent implements OnDestroy, OnInit {
   }
 
   btnEditarUsusario(usuario){
-    $('#modalEditarUsuario').modal('show');
     this.formularioEditar.get('id').setValue(usuario['id']);
     this.formularioEditar.get('perfil').setValue(usuario['fk_perfil']);
     this.formularioEditar.get('documento').setValue(usuario['nro_documento']);
@@ -260,6 +259,7 @@ export class UsuariosComponent implements OnDestroy, OnInit {
     this.formularioEditar.get('correo').setValue(usuario['correo']);
     this.formularioEditar.get('direccion').setValue(usuario['direccion']);
     this.formularioEditar.get('telefono').setValue(usuario['telefono']);
+    $('#modalEditarUsuario').modal('show');
   }
 
   editarUsuario() {

@@ -32,11 +32,12 @@
               <td>{{platos['nombre']}}</td>
               <td>{{platos['descripcion']}}</td>
               <td>{{platos['precio']}}</td>
-              <td>{{platos['fk_creador']}}</td>
+              <td>{{platos['creador']}}</td>
               <td>{{platos['plato_dia'] ? 'Activo' : 'Inactivo'}}</td>
               <td>
                 <button class="btn btn-primary mx-1"><i class="far fa-edit"></i></button>
-                <button class="btn btn-info"><i class="fas fa-drumstick-bite"></i></button>
+                <button class="btn btn-info mx-1" (click)="platoDelDia(platos)" ><i class="fas fa-drumstick-bite"></i></button>
+                <button class="btn btn-success mx-1" (click)="platoPromocion(platos)" ><i class="fas fa-star"></i></button>
                 <button class="btn btn-danger mx-1" (click)="elminarPlato(platos)"><i class="fas fa-trash-alt"></i></button>
               </td>
             </tr>
@@ -87,6 +88,46 @@
         <div class="modal-footer d-flex justify-content-between">
           <button (click)="limpiarFormulario()" id="btnCrearModalCrear" type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Cerrar</button>
           <button id="btnCrear" type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Crear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalPromocion" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+  data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fas fa-star"></i> Crear promoción</h5>
+      </div>
+      <form id="formularioPromo" autocomplete="off" [formGroup]="formularioPromo" (ngSubmit)="guardarPromo()" [ngClass]="{'was-validated': formularioPromoValidar}">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="usuario">Plato <span class="text-danger">*</span></label>
+            <input type="text" formControlName="plato" class="form-control" placeholder="Escriba un nombre del plato" required autocomplete="off">
+            <div class="errores text-left">
+              <div class="custom-error" *ngIf="p.plato.errors?.required && p.plato.touched">Nombres es requerido</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="nombre">Descripción <span class="text-danger">*</span></label>
+            <input type="text" formControlName="descripcion" class="form-control" placeholder="Escriba la descripción del plato" required autocomplete="off">
+            <div class="errores text-left">
+              <div class="custom-error" *ngIf="p.descripcion.errors?.required && p.descripcion.touched">Descripción es requerido</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="apellidos">Precio <span class="text-danger">*</span></label>
+            <input type="number" formControlName="precio" class="form-control" placeholder="Escriba el precio de la promoción" required autocomplete="off">
+            <div class="errores text-left">
+              <div class="custom-error" *ngIf="p.precio.errors?.required && p.precio.touched">Precio es requerido</div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-between">
+          <button (click)="limpiarFormularioPromo()" id="btnPromoModal" type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Cerrar</button>
+          <button id="btnPromo" type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Crear</button>
         </div>
       </form>
     </div>

@@ -29,6 +29,10 @@ export class PlatosComponent implements OnInit {
 
   formulario: FormGroup;
   formularioCrearValidar = false;
+
+  formularioPromo: FormGroup;
+  formularioPromoValidar = false;
+
   datosUsuario: object = {};
   listaPlatos: Array<object> = [];
 
@@ -74,12 +78,24 @@ export class PlatosComponent implements OnInit {
     return this.formulario.controls;
   }
 
+  get p() {
+    return this.formularioPromo.controls;
+  }
+
   initForm() {
     this.formulario = new FormGroup({
       nombre: new FormControl('', [Validators.required]),
       descripcion: new FormControl('', [Validators.required]),
       precio: new FormControl('', [Validators.required]),
       creador: new FormControl(this.datosUsuario['id'])
+    });
+
+    this.formularioPromo = new FormGroup({
+      id: new FormControl('', [Validators.required]),
+      plato: new FormControl('', [Validators.required]),
+      descripcion: new FormControl('', [Validators.required]),
+      precio: new FormControl('', [Validators.required]),
+      creador: new FormControl('', [Validators.required]),
     });
   }
 
@@ -139,6 +155,10 @@ export class PlatosComponent implements OnInit {
     this.formulario.get('creador').setValue(this.datosUsuario['id']);
   }
 
+  limpiarFormularioPromo() {
+    this.formularioPromo.reset();
+  }
+
   validarToken(respuesta) {
     Swal.fire({
       icon: (respuesta['token'] ? 'error' : 'warning'),
@@ -192,6 +212,115 @@ export class PlatosComponent implements OnInit {
       }
     });
   }
+
+  platoDelDia(platos) {
+    let mensaje;
+    if (platos['plato_dia']) {
+      mensaje = '¿Estas seguro de quitar ' + platos['nombre'] + ' como plato del día?';
+    } else {
+      mensaje = '¿Estas seguro de colocar ' + platos['nombre'] + ' como plato del día?';
+    }
+    Swal.fire({
+      title: mensaje,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '<i class="far fa-trash-alt"></i> Si',
+      cancelButtonText: '<i class="fa fa-times"></i> No'
+    }).then((result) => {
+      if (result.value) {
+        this.cargador = true;
+        this.platosService.platoDelDia(platos)
+        .subscribe(
+          resp => {
+            const icono = (resp['success'] ? 'success' : 'error');
+            Swal.fire({
+              icon: icono,
+              title: resp['msj'],
+            });
+
+            if (resp['success']) {
+              this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+                // Destroy the table first
+                dtInstance.destroy();
+              });
+
+              this.listarPlatos();
+            } else {
+              if (resp['token']) {
+                this.userService.cerrarSesion();
+              }
+            }
+          }, error => {
+            console.log(error);
+            this.cargador = false;
+          }, () => {
+            this.cargador = false;
+          }
+        );
+      }
+    });
+  }
+
+  platoPromocion(plato) {
+    this.formularioPromo.get('id').setValue(plato['id']);
+    this.formularioPromo.get('plato').setValue(plato['nombre']);
+    this.formularioPromo.get('creador').setValue(localStorage.getItem('id'));
+    $('#modalPromocion').modal('show');
+  }
+
+  guardarPromo() {
+    const btnCrear = document.getElementById('btnPromo');
+    const btnCerrar = document.getElementById('btnPromoModal');
+    if (this.formularioPromo.valid) {
+      btnCerrar.setAttribute('disabled', 'true');
+      btnCrear.setAttribute('disabled', 'true');
+      btnCrear.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Creando...`;
+      this.appService.disabledCamposFormularios('formularioPromo');
+
+      this.platosService.crearPromo(this.formularioPromo.value).subscribe(respuesta => {
+        const icono = (respuesta['success'] ? 'success' : 'error');
+        Swal.fire({
+          icon: icono,
+          title: respuesta['msj'],
+        });
+
+        if (respuesta['success']) {
+          // Limpiamos la tabla
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            // Destroy the table first
+            dtInstance.destroy();
+          });
+
+          this.limpiarFormularioPromo();
+          this.listarPlatos();
+          $('#modalPromocion').modal('hide');
+          // this.listaPlatos.push(respuesta['plato']);
+        } else {
+          this.validarToken(respuesta);
+        }
+        this.cargador = false;
+      }, error => {
+        this.appService.disabledCamposFormularios('formularioPromo', false);
+        btnCerrar.removeAttribute('disabled');
+        btnCrear.removeAttribute('disabled');
+        btnCrear.innerHTML = `<i class="fas fa-paper-plane"></i> Crear`;
+        console.log('Error ', error);
+        this.cargador = false;
+      }, () => {
+        this.appService.disabledCamposFormularios('formularioPromo', false);
+        btnCerrar.removeAttribute('disabled');
+        btnCrear.removeAttribute('disabled');
+        btnCrear.innerHTML = `<i class="fas fa-paper-plane"></i> Crear`;
+        this.cargador = false;
+      });
+    } else {
+      this.formularioPromo.markAllAsTouched();
+      this.formularioPromoValidar = true;
+    }
+  }
+
 
   initDataTable() {
     this.dtOptions = {

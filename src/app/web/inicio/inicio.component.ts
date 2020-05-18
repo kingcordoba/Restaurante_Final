@@ -5,6 +5,8 @@ import * as Rellax from 'rellax';
 import { GetProductosService } from '../../services/get-productos.service';
 import { AppService } from '../../app.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { PlatosService } from '../../services/platos.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -26,6 +28,8 @@ export class InicioComponent implements OnInit, OnDestroy {
   cargador = false;
   mensajeCargador = 'Cargando';
   imagenesSlider: object[] = [];
+  listaPlatosDia: Array<object> = [];
+
   fondo: any;
   page = 4;
   page1 = 5;
@@ -45,6 +49,8 @@ export class InicioComponent implements OnInit, OnDestroy {
     config: NgbAccordionConfig,
     private appService: AppService,
     private sanitizer: DomSanitizer,
+    private platosService: PlatosService,
+
   ) {
     this.appService.pageTitle = 'Inicio';
     this.imagenesSlider = _productos.productosMostrar;
@@ -65,7 +71,19 @@ export class InicioComponent implements OnInit, OnDestroy {
       return date.month !== current.month;
   }
 
+  listarPlatosDia() {
+    this.platosService.obtenerPlatosDia().subscribe(platos => {
+      if (platos['success']) {
+        console.log(platos);
+        this.listaPlatosDia = platos['msj'];
+      }
+    }, error => {
+      console.log('error ', error);
+    });
+  }
+
   ngOnInit() {
+    this.listarPlatosDia();
     this.fondo = this.setFondo();
     const rellaxHeader = new Rellax('.rellax-header');
 
