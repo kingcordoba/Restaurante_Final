@@ -17,6 +17,7 @@ import { PlatosComponent } from './platos/platos.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoaderModule } from '../shared/loader/loader.module';
 import { PerfilComponent } from './perfil/perfil.component';
+import { PedidosComponent } from './pedidos/pedidos.component';
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import { PerfilComponent } from './perfil/perfil.component';
     UsuariosComponent,
     PlatosComponent,
     PerfilComponent,
+    PedidosComponent,
   ]
 })
 export class DashboardModule { }

@@ -38,6 +38,9 @@ export class PlatosComponent implements OnInit {
   platoEditarSeleccionado = false;
   idPlato;
 
+  public respuestaImagenEnviada;
+  public resultadoCarga;
+
   constructor(
     private appService: AppService,
     private platosService: PlatosService,
@@ -110,13 +113,13 @@ export class PlatosComponent implements OnInit {
       btnCrear.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Enviando...`;
       this.appService.disabledCamposFormularios('formularioCrear');
       this.platosService.agregarPlato(this.formulario.value, this.platoEditarSeleccionado, this.idPlato).subscribe(respuesta => {
+        console.log(respuesta);
         const icono = (respuesta['success'] ? 'success' : 'error');
         Swal.fire({
           icon: icono,
           title: respuesta['msj'],
         });
         if (respuesta['success']) {
-          console.log('entra');
           // Limpiamos la tabla
           if (this.listaPlatos.length) {
             this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -411,4 +414,32 @@ export class PlatosComponent implements OnInit {
     $('#modalCrearPlato').modal('show');
   }
 
+  public cargandoImagen(files: FileList){
+
+		this.platosService.postFileImagen(files[0]).subscribe(
+
+			response => {
+        console.log(response);
+				this.respuestaImagenEnviada = response; 
+				if(this.respuestaImagenEnviada <= 1){
+					console.log("Error en el servidor"); 
+				}else{
+
+					if(this.respuestaImagenEnviada.code == 200 && this.respuestaImagenEnviada.status == "success"){
+
+						this.resultadoCarga = 1;
+
+					}else{
+						this.resultadoCarga = 2;
+					}
+
+				}
+			},
+			error => {
+				console.log(<any>error);
+			}
+
+		);//FIN DE METODO SUBSCRIBE
+
+	}
 }

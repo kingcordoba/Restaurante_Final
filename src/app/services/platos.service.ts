@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CONFIG } from './configuracion.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,7 @@ export class PlatosService {
 
   agregarPlato(plato: object, editar?, idPlato?) {
     if (editar) {
+      console.log('editar');
       plato['idPlato'] = idPlato;
       return this.http.post(this.urlApi + 'platos/editar', plato, { headers: this.headers });
     } else {
@@ -52,6 +54,13 @@ export class PlatosService {
 
   listaPromo() {
     return this.http.get(this.urlApi + 'promo/lista');
+  }
+
+  postFileImagen(imagenParaSubir: File) {
+    console.log(imagenParaSubir);
+    const formData = new FormData();
+    formData.append('imagenPropia', imagenParaSubir, imagenParaSubir.name);
+    return this.http.post(this.urlApi + 'platos/imagen', formData, { headers: this.headers });
   }
 
 }

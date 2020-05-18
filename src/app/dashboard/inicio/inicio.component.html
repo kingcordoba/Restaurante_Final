@@ -19,13 +19,13 @@
         <!-- small box -->
         <div class="small-box bg-info">
           <div class="inner">
-            <h3>150</h3>
+            <h3>{{listaClientes.length}}</h3>
             <p>Clientes registrados</p>
           </div>
           <div class="icon">
             <i class="fas fa-users"></i>
           </div>
-          <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+          <a [routerLink]="['usuarios']" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -33,13 +33,13 @@
         <!-- small box -->
         <div class="small-box bg-success">
           <div class="inner">
-            <h3>150</h3>
+            <h3>{{listaUsuarios.length}}</h3>
             <p>Ususarios</p>
           </div>
           <div class="icon">
             <i class="fas fa-user-tie"></i>
           </div>
-          <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+          <a [routerLink]="['usuarios']" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -47,13 +47,13 @@
         <!-- small box -->
         <div class="small-box bg-warning">
           <div class="inner">
-            <h3>44</h3>
+            <h3>{{listaPlatos.length}}</h3>
             <p>Platos</p>
           </div>
           <div class="icon">
             <i class="fas fa-hamburger"></i>
           </div>
-          <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+          <a [routerLink]="['platos']" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -61,13 +61,13 @@
         <!-- small box -->
         <div class="small-box bg-danger">
           <div class="inner">
-            <h3>65</h3>
+            <h3>{{listaPromo.length}}</h3>
             <p>Promociones</p>
           </div>
           <div class="icon">
             <i class="fas fa-star"></i>
           </div>
-          <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+          <a [routerLink]="['platos']" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -75,13 +75,13 @@
         <!-- small box -->
         <div class="small-box bg-primary">
           <div class="inner">
-            <h3>65</h3>
+            <h3>{{listaDia.length}}</h3>
             <p>Platos del día</p>
           </div>
           <div class="icon">
             <i class="fas fa-drumstick-bite"></i>
           </div>
-          <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+          <a [routerLink]="['platos']" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -90,12 +90,12 @@
         <div class="small-box bg-secondary">
           <div class="inner">
             <h3>65</h3>
-            <p>Platos del día</p>
+            <p>Pedidos</p>
           </div>
           <div class="icon">
             <i class="fas fa-shopping-cart"></i>
           </div>
-          <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+          <a [routerLink]="['pedidos']" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
     </div>

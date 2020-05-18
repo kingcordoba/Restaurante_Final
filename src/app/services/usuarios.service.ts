@@ -61,6 +61,14 @@ export class UsuariosService {
     return this.http.get(this.urlApi + 'validarToken', {headers: this.headers});
   }
 
+  public listaClientes() {
+    return this.http.get(this.urlApi + 'usuarios/lista/clientes', {headers: this.headers});
+  }
+
+  public listaUsuarios() {
+    return this.http.get(this.urlApi + 'usuarios/lista/usuarios', {headers: this.headers});
+  }
+
   public cerrarSesion() {
     localStorage.clear();
     this._perfilMostrar.actualizarDatos(false);
