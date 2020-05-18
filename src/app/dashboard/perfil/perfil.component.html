@@ -14,11 +14,11 @@
       <div class="card-body">
         <form id="formularioCrear" class="form-row" autocomplete="off" [formGroup]="formulario" [ngClass]="{'was-validated': validaFormulario}" (ngSubmit)="actualizar()">
           <div class="col-12 col-md-6 form-group">
-            <label for="">Nro Documento</label>
+            <label for="">Nro Documento <span class="text-danger">*</span></label>
             <input type="tel" disabled readonly required class="form-control" [value]="this.usuario['nro_documento']"/>
           </div>
           <div class="col-12 col-md-6 form-group">
-            <label for="">Teléfono</label>
+            <label for="">Teléfono <span class="text-danger">*</span></label>
             <input type="tel" formControlName="telefono" required placeholder="Teléfono" autocomplete="off" pattern="^[0-9]*$" (keypress)="soloNumeros($event)" class="form-control"/>
             <div class="errores text-left pl-3">
               <div class="custom-error" *ngIf="f.telefono.errors?.required && f.telefono.touched">Teléfono es requerido</div>
@@ -26,6 +26,7 @@
           </div>
 
           <div class="col-12 col-md-6 form-group">
+            <label for="nombres">Nombres <span class="text-danger">*</span></label>
             <input type="text" formControlName="nombres" required autocomplete="off" class="form-control" placeholder="Nombres" />
             <div class="errores text-left pl-3">
               <div class="custom-error" *ngIf="f.nombres.errors?.required && f.nombres.touched">Nombres es requerido</div>
@@ -33,6 +34,7 @@
           </div>
 
           <div class="col-12 col-md-6 form-group">
+            <label for="apellidos">Apellidos <span class="text-danger">*</span></label>
             <input type="text" formControlName="apellidos" required autocomplete="off" placeholder="Apellidos" class="form-control"/>
             <div class="errores text-left pl-3">
               <div class="custom-error" *ngIf="f.apellidos.errors?.required && f.apellidos.touched">Apellidos es requerido</div>
@@ -40,6 +42,7 @@
           </div>
 
           <div class="col-12 form-group">
+            <label for="correo">Correo <span class="text-danger">*</span></label>
             <input type="email" class="form-control" autocomplete="off" formControlName="correo" required placeholder="Correo electrónico" />
             <div class="errores text-left pl-3">
               <div class="custom-error" *ngIf="f.correo.errors?.required && f.correo.touched">Correo electrónico es requerido</div>
@@ -48,13 +51,14 @@
           </div>
 
           <div class="col-12 form-group">
+            <label for="direccion">Dirección <span class="text-danger">*</span></label>
             <input type="text" class="form-control" autocomplete="off" formControlName="direccion" required placeholder="Dirección de su casa" />
             <div class="errores text-left pl-3">
               <div class="custom-error" *ngIf="f.correo.errors?.required && f.correo.touched">Dirección de su casa es requerida</div>
             </div>
           </div>
-          <div class="text-right">
-            <button name="btnPerfil" type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Guardar</button>
+          <div class="col-12 text-right">
+            <button name="btnPerfil" type="submit" class="btn btn-primary">Actualizar <i class="fas fa-paper-plane"></i></button>
           </div>
         </form>
       </div>
