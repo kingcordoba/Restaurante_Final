@@ -91,7 +91,7 @@ export class PlatosComponent implements OnInit {
       btnCrear.setAttribute('disabled', 'true');
       btnCrear.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Creando...`;
       this.appService.disabledCamposFormularios('formularioCrear');
-      
+
       this.platosService.agregarPlato(this.formulario.value).subscribe(respuesta => {
         const icono = (respuesta['success'] ? 'success' : 'error');
         Swal.fire({
@@ -149,8 +149,48 @@ export class PlatosComponent implements OnInit {
     }
   }
 
-  elminarPlato() {
+  elminarPlato(platos) {
+    Swal.fire({
+      title: '¿Estas seguro de eliminar el usuario ' + platos['nombre'] + '?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '<i class="far fa-trash-alt"></i> Si',
+      cancelButtonText: '<i class="fa fa-times"></i> No'
+    }).then((result) => {
+      if (result.value) {
+        this.cargador = true;
+        this.platosService.eliminarPlato(platos)
+        .subscribe(
+          resp => {
+            const icono = (resp['success'] ? 'success' : 'error');
+            Swal.fire({
+              icon: icono,
+              title: resp['msj'],
+            });
 
+            if (resp['success']) {
+              this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+                // Destroy the table first
+                dtInstance.destroy();
+              });
+
+              this.listarPlatos();
+            } else {
+              if (resp['token']) {
+                this.userService.cerrarSesion();
+              }
+            }
+          }, error => {
+            console.log(error);
+            this.cargador = false;
+          }, () => {
+            this.cargador = false;
+          }
+        );
+      }
+    });
   }
 
   initDataTable() {

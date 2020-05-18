@@ -25,4 +25,8 @@ export class PlatosService {
     return this.http.post(this.urlApi + 'platos/guardar', plato, { headers: this.headers });
   }
 
+  eliminarPlato(plato: object) {
+    return this.http.put(this.urlApi + 'platos/eliminar', plato, { headers: this.headers });
+  }
+
 }

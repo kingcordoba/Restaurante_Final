@@ -232,7 +232,7 @@ export class UsuariosComponent implements OnDestroy, OnInit {
                 // Destroy the table first
                 dtInstance.destroy();
               });
-  
+
               this.listaUsuarios();
             } else {
               if (resp['token']) {
