@@ -2,11 +2,11 @@
   <div class="mt-5 row justify-content-center justify-content-md-start">
     <div *ngFor="let producto of listaPlatos" class="col-10 col-sm-6 col-lg-4">
       <div class="card mb-4 shadow">
-        <img src="../../../assets/img/productos/06.jpg" class="card-img-top" alt="...">
+        <img src="{{producto['imagen'] != '' ? 'https://apparqueo.com/RestauranteBack/' + producto['imagen'] : '../../assets/img/no-foto.jpg'}}" style="height: 210px;" class="card-img-top" alt="">
         <div class="card-body">
           <h5 class="card-title">{{producto['nombre']}}</h5>
-          <p class="card-text">{{producto['descripcion']}}</p>
-          <p class="card-text">Precio: {{producto['precio']}}</p>
+          <div class="card-text">{{producto['descripcion']}}</div>
+          <div class="card-text">Precio: <span class="font-weight-bold">{{producto['precio']}}</span></div>
           <hr>
           <div class="text-center">
             <button class="btn btn-primary"  (click)="addProducto(producto)"><i class="fas fa-cart-plus"></i> Agregar</button>

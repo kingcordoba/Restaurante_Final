@@ -6,13 +6,14 @@ import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { AppService } from '../../app.service';
+import bsCustomFileInput from 'bs-custom-file-input'
 declare var $: any;
 
 
 @Component({
   selector: 'app-platos',
   templateUrl: './platos.component.html',
-  styleUrls: ['./platos.component.css']
+  styleUrls: ['./platos.component.scss']
 })
 export class PlatosComponent implements OnInit {
   @ViewChild(DataTableDirective, { static: false })
@@ -22,6 +23,7 @@ export class PlatosComponent implements OnInit {
   dtTrigger = new Subject();
 
   titulo;
+  idPlatoImagen;
 
   cargador = false;
   mensajeCargador = 'Validando';
@@ -54,6 +56,7 @@ export class PlatosComponent implements OnInit {
 
   ngOnInit(): void {
     this.initDataTable();
+    bsCustomFileInput.init();
   }
 
   // tslint:disable-next-line: use-life-cycle-interface
@@ -113,7 +116,6 @@ export class PlatosComponent implements OnInit {
       btnCrear.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Enviando...`;
       this.appService.disabledCamposFormularios('formularioCrear');
       this.platosService.agregarPlato(this.formulario.value, this.platoEditarSeleccionado, this.idPlato).subscribe(respuesta => {
-        console.log(respuesta);
         const icono = (respuesta['success'] ? 'success' : 'error');
         Swal.fire({
           icon: icono,
@@ -414,32 +416,44 @@ export class PlatosComponent implements OnInit {
     $('#modalCrearPlato').modal('show');
   }
 
-  public cargandoImagen(files: FileList){
+  foto(plato) {
+    this.idPlatoImagen = plato['id'];
+    console.log(this.idPlatoImagen);
+    $('#modalFoto').modal('show');
+  }
 
-		this.platosService.postFileImagen(files[0]).subscribe(
-
-			response => {
-        console.log(response);
-				this.respuestaImagenEnviada = response; 
-				if(this.respuestaImagenEnviada <= 1){
-					console.log("Error en el servidor"); 
-				}else{
-
-					if(this.respuestaImagenEnviada.code == 200 && this.respuestaImagenEnviada.status == "success"){
-
-						this.resultadoCarga = 1;
-
-					}else{
-						this.resultadoCarga = 2;
-					}
-
-				}
-			},
-			error => {
-				console.log(<any>error);
-			}
-
-		);//FIN DE METODO SUBSCRIBE
-
-	}
+  public cargandoImagen(files: FileList) {
+    this.platosService.postFileImagen(files[0], this.idPlatoImagen).subscribe(
+      response => {
+        this.respuestaImagenEnviada = response;
+        if (this.respuestaImagenEnviada <= 1) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error en el servidor'
+          });
+          console.log('Error en el servidor');
+        } else {
+          if (this.respuestaImagenEnviada.success) {
+            this.resultadoCarga = 1;
+            Swal.fire({
+              icon: 'success',
+              title: this.respuestaImagenEnviada.msj
+            });
+            $('#customFileLang').val('');
+            $('.custom-file-label').html('Seleccionar Archivo');
+            $('#modalFoto').modal('hide');
+          } else {
+            Swal.fire({
+              icon: 'warning',
+              title: this.respuestaImagenEnviada.msj
+            });
+            this.resultadoCarga = 2;
+          }
+        }
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
+  }
 }

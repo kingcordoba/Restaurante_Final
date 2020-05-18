@@ -64,17 +64,17 @@ export class PedidoComponent implements OnInit {
       apellidos: new FormControl('', [Validators.required]),
       direccion: new FormControl('', [Validators.required]),
       check: new FormControl('', [Validators.required]),
-      listaProductos: new FormControl([],[Validators.required]),
-      total: new FormControl('',[Validators.required]),
+      listaProductos: new FormControl([], [Validators.required]),
+      total: new FormControl('', [Validators.required]),
     });
     this.checkUserData();
   }
 
   checkUserData(){
-    if(localStorage.getItem('usuario')){
+    if (localStorage.getItem('usuario')) {
       const datos = JSON.parse(localStorage.getItem('usuario'));
       Object.keys(datos).forEach(pos => {
-        if(this.formulario.controls[pos]){
+        if (this.formulario.controls[pos]) {
           this.formulario.get(pos).setValue(datos[pos]);
         }
       })

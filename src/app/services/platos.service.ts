@@ -56,10 +56,10 @@ export class PlatosService {
     return this.http.get(this.urlApi + 'promo/lista');
   }
 
-  postFileImagen(imagenParaSubir: File) {
-    console.log(imagenParaSubir);
+  postFileImagen(imagenParaSubir: File, idPlato) {
     const formData = new FormData();
     formData.append('imagenPropia', imagenParaSubir, imagenParaSubir.name);
+    formData.append('id', idPlato);
     return this.http.post(this.urlApi + 'platos/imagen', formData, { headers: this.headers });
   }
 

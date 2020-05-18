@@ -3,7 +3,7 @@
   <div class="container">
     <div class="content-center my-5 my-5 mt-md-0">
       <div class="row d-block my-5 my-md-0 d-md-flex justify-content-md-center">
-        <div class="col-12 col-md-7 " style="margin-top: 76px;">
+        <div class="col-12 col-md-6 " style="margin-top: 76px;">
           <div class="card card-login card-plain">
             <form class="form form-row" [formGroup]="formulario" [ngClass]="{'was-validated': validaFormulario}">
               <div class="col-12 col-md-6 form-group form-group-no-border mt-2">
@@ -33,53 +33,13 @@
                 </div>
               </div>
 
-              <!-- <div class="col-12 form-group form-group-no-border mt-2">
-                <input type="email" class="form-control rounded-pill text-white" autocomplete="off" formControlName="correo" required placeholder="Correo electrónico" />
-                <div class="errores text-left pl-3">
-                  <div class="custom-error" *ngIf="f.correo.errors?.required && f.correo.touched">Correo electrónico es requerido</div>
-                  <div class="custom-error" *ngIf="f.correo.errors?.email && f.correo.touched">Correo electrónico inválido</div>
-                </div>
-              </div> -->
-
               <div class="col-12 form-group form-group-no-border mt-2">
                 <input type="text" class="form-control rounded-pill text-white" autocomplete="off" formControlName="direccion" required placeholder="Dirección" />
                 <div class="errores text-left pl-3">
                   <div class="custom-error" *ngIf="f.direccion.errors?.required && f.direccion.touched">Dirección de su casa es requerida</div>
                 </div>
               </div>
-              <table class="table col-12" *ngIf="newProductos.length ; else noProductos">
-
-                <thead>
-                  <tr>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Valor unitario</th>
-                    <th scope="col">Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let pro of newProductos; let i = index">
-                    <td>
-                      <div class="input-group">
-                        <input type="number" class="form-control text-center" disabled="true" min="0" max="30" step="0" [value]="pro['cantidad']">
-                      </div>
-                    </td>
-                    <td>{{pro['nombre']}}</td>
-                    <td>{{pro['precio']}}</td>
-                    <td>{{pro['precio'] * pro['cantidad']}}</td>
-                  </tr>
-                  <tr class="font-weight-bold">
-                    <td colspan="3" class="text-center">Total</td>
-                    <td>{{this.total}}</td>
-                  </tr>
-                </tbody>
-              </table>
-                                
-              <ng-template #noProductos>
-                  <div class="col-12">
-                    {{ 'no Hay productos en el carrito' | titlecase }}    
-                  </div>
-              </ng-template>
+            
               <div class="custom-control custom-checkbox col-12 form-group form-group-no-border mt-2 text-left pl-5">
                 <input type="checkbox" formControlName="check" required class="custom-control-input" id="defaultUnchecked">
                 <label class="custom-control-label" for="defaultUnchecked">
@@ -91,11 +51,45 @@
               </div>
               <div class="col-12 form-group form-group-no-border mt-3">
                 <button type="button" name="btnRegistro" [disabled]="!formulario.valid" class="btn btn-primary btn-round btn-lg btn-block" (click)="realizarPedido()">
-                  CREAR CUENTA <i class="fas fa-sign-in-alt"></i>
+                  REALIZAR PEDIDO <i class="fas fa-shopping-cart"></i>
                 </button>
               </div>
             </form>
           </div>
+        </div>
+        <div class="col-12 col-md-6 overflow-auto" style="margin-top: 76px; max-height: 40vh !important;">
+          <table class="table" *ngIf="newProductos.length ; else noProductos">
+            <thead>
+              <tr>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Valor unitario</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pro of newProductos; let i = index">
+                <td>
+                  <div class="input-group">
+                    <input type="number" class="form-control text-center" disabled="true" min="0" max="30" step="0" [value]="pro['cantidad']">
+                  </div>
+                </td>
+                <td>{{pro['nombre']}}</td>
+                <td>{{pro['precio']}}</td>
+                <td>{{pro['precio'] * pro['cantidad']}}</td>
+              </tr>
+              <tr class="font-weight-bold">
+                <td colspan="3" class="text-center">Total</td>
+                <td>{{this.total}}</td>
+              </tr>
+            </tbody>
+          </table>
+                            
+          <ng-template #noProductos>
+            <div class="col-12">
+              {{ 'no Hay productos en el carrito' | titlecase }}    
+            </div>
+          </ng-template>
         </div>
       </div>
     </div>

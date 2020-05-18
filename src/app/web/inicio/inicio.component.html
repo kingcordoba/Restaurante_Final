@@ -26,7 +26,7 @@
           <div id="sliderTopPlatos" class="carousel slide carousel-fade" data-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item" *ngFor="let platosDia of listaPlatosDia; let i = index" [ngClass]="{active: i == 0}">
-                <img class="d-block w-100" src="../../../assets/img/productos/06.jpg">
+                <img class="d-block w-100" style="height: 527px;" src="{{platosDia['imagen'] != '' ? 'https://apparqueo.com/RestauranteBack/' + platosDia['imagen'] : '../../assets/img/no-foto.jpg'}}">
                 <div class="carousel-caption d-none d-md-block">
                   <h5 class="badge badge-danger">{{platosDia['nombre']}}</h5><br>
                   <p class="badge badge-danger">{{platosDia['descripcion']}}</p><br>
@@ -62,9 +62,9 @@
           <div id="sliderPlatosDia" class="carousel slide carousel-fade" data-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item" *ngFor="let promo of listaPlatosPromo; let i = index" [ngClass]="{active: i == 0}">
-                <img class="d-block w-100" src="../../../assets/img/productos/06.jpg">
+                <img class="d-block w-100" style="height: 527px;" src="{{promo['imagen'] != '' ? 'https://apparqueo.com/RestauranteBack/' + promo['imagen'] : '../../assets/img/no-foto.jpg'}}">
                 <div class="carousel-caption d-none d-md-block">
-                  <h5 class="badge badge-danger">{{promo['nombre_plato']}}</h5><br>
+                  <h5 class="badge badge-danger">{{promo['nombre']}}</h5><br>
                   <p class="badge badge-danger">{{promo['plato_descripcion']}}</p><br>
                   <p class="badge badge-danger">{{promo['descripcion']}}</p><br>
                   <button class="btn btn-danger btn-sm btn-round" (click)="addProducto(promo)"><i

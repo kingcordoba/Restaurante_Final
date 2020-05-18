@@ -9,7 +9,6 @@
 </div>
 <section class="content">
   <div class="container">
-    <input type="file" (change)="cargandoImagen($event.target.files)" multiple>
     <div class="card">
       <div class="card-header d-flex justify-content-end">
         <button class="btn btn-success" data-target="#modalCrearPlato" data-toggle="modal"><i class="fas fa-plus"></i></button>
@@ -19,6 +18,7 @@
           class="row-border hover table table-bordered table-hover w-100">
           <thead class="thead-light">
             <tr>
+              <th>Imagen</th>
               <th>Nombre</th>
               <th>Descripción</th>
               <th>Precio</th>
@@ -30,6 +30,9 @@
           </thead>
           <tbody>
             <tr *ngFor="let platos of listaPlatos">
+              <th class="text-center">
+                <img src="{{platos['imagen'] != '' ? 'https://apparqueo.com/RestauranteBack/' : '../../assets/img/no-foto.jpg'}}" width="50px" height="50px"> 
+              </th>
               <td>{{platos['nombre']}}</td>
               <td>{{platos['descripcion']}}</td>
               <td>{{platos['precio']}}</td>
@@ -40,6 +43,7 @@
                 <button class="btn btn-primary mx-1" (click)="editarPlato(platos)"><i class="far fa-edit"></i></button>
                 <button class="btn btn-info mx-1" (click)="platoDelDia(platos)" ><i class="fas fa-drumstick-bite"></i></button>
                 <button class="btn btn-success mx-1" (click)="platoPromocion(platos)" ><i class="fas fa-star"></i></button>
+                <button class="btn btn-warning mx-1" (click)="foto(platos)" ><i class="fas fa-camera"></i></button>
                 <button class="btn btn-danger mx-1" (click)="elminarPlato(platos)"><i class="fas fa-trash-alt"></i></button>
               </td>
             </tr>
@@ -80,14 +84,6 @@
             <div class="errores text-left">
               <div class="custom-error" *ngIf="f.descripcion.errors?.required && f.descripcion.touched">Descripción es
                 requerido</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="apellidos">Imagen</label>
-            <div class="custom-file">
-              <input type="file" class="custom-file-input" accept="image/*" id="inputGroupFile02">
-              <label class="custom-file-label" for="inputGroupFile02"
-                aria-describedby="inputGroupFileAddon02">Escoger...</label>
             </div>
           </div>
         </div>
@@ -137,6 +133,26 @@
           <button id="btnPromo" type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Crear</button>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalFoto" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+  data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fas fa-camera"></i> Agregar foto</h5>
+      </div>
+        <div class="modal-body">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="customFileLang" (change)="cargandoImagen($event.target.files)" accept="image/*">
+            <label class="custom-file-label" for="customFileLang" data-browse="Elegir">Seleccionar Archivo</label>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Cerrar</button>
+        </div>
     </div>
   </div>
 </div>
