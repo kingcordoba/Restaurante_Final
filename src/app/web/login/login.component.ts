@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
           this._perfilMostrar.actualizarDatos(true);
 
           if (result['usuario'].fk_perfil === 1) {
-            window.location.href = 'dashboard';
+            this._router.navigateByUrl('dashboard');
           } else {
             this._router.navigate(['']);
           }
