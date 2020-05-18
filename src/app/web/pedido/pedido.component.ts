@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../../app.service';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { GetProductosService } from 'app/services/get-productos.service';
 
 @Component({
   selector: 'app-pedido',
@@ -14,12 +15,17 @@ export class PedidoComponent implements OnInit {
   data: Date = new Date();
   formulario: FormGroup;
   validaFormulario = false;
+  newProductos: object[] = [];
+  total: number = 0;
 
 
   constructor(
+    private _productos: GetProductosService,
     private appService: AppService,
   ) {
-    this.appService.pageTitle = 'Registro';
+    this.appService.pageTitle = 'Pedido';
+    this.initForm();
+    this.traerProductos();
   }
 
   ngOnInit() {
@@ -39,7 +45,7 @@ export class PedidoComponent implements OnInit {
   }
 
   realizarPedido() {
-
+    console.log('datos pedido: ', this.formulario.value);
   }
 
   get f() {
@@ -48,6 +54,59 @@ export class PedidoComponent implements OnInit {
 
   public soloNumeros(e) {
     return this.appService.soloNumeros(e);
+  }
+
+  initForm() {
+    this.formulario = new FormGroup({
+      nro_documento: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
+      telefono: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
+      nombres: new FormControl('', [Validators.required]),
+      apellidos: new FormControl('', [Validators.required]),
+      direccion: new FormControl('', [Validators.required]),
+      check: new FormControl('', [Validators.required]),
+      listaProductos: new FormControl([],[Validators.required]),
+      total: new FormControl('',[Validators.required]),
+    });
+    this.checkUserData();
+  }
+
+  checkUserData(){
+    if(localStorage.getItem('usuario')){
+      const datos = JSON.parse(localStorage.getItem('usuario'));
+      Object.keys(datos).forEach(pos => {
+        if(this.formulario.controls[pos]){
+          this.formulario.get(pos).setValue(datos[pos]);
+        }
+      })
+    }
+  }
+
+  traerProductos() {
+    this.validarProducto(this._productos.getList());
+  }
+
+  validarProducto(datos){
+    const nuevaLista = [];
+    let total: number = 0;
+
+    datos.forEach(element => {
+      const posicion = nuevaLista.indexOf(element);
+      if (posicion === -1) {
+        element.cantidad = 1;
+        nuevaLista.push(element);
+      } else {
+        nuevaLista[posicion].cantidad += 1;
+      }
+    });
+
+    nuevaLista.forEach(element => {
+      total += element.precio * element.cantidad;
+    });
+
+    this.newProductos = nuevaLista;
+    this.total = total;
+    this.formulario.get('listaProductos').setValue(this.newProductos);
+    this.formulario.get('total').setValue(this.total);
   }
 
 }
