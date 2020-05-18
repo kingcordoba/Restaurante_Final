@@ -9,10 +9,12 @@ import { AppService } from '../../app.service';
 })
 export class InicioComponent implements OnInit {
 
+  titulo;
+
   constructor(
     private appService: AppService
   ) {
-    this.appService.pageTitle = 'Dashboard';
+    this.titulo = this.appService.pageTitle = 'Dashboard';
   }
 
   ngOnInit(): void {
