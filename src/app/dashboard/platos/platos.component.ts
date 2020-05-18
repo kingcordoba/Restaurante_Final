@@ -35,7 +35,7 @@ export class PlatosComponent implements OnInit {
 
   datosUsuario: object = {};
   listaPlatos: Array<object> = [];
-  platoEditarSeleccionado: boolean = false;
+  platoEditarSeleccionado = false;
   idPlato;
 
   constructor(
@@ -107,7 +107,7 @@ export class PlatosComponent implements OnInit {
     if (this.formulario.valid) {
       btnCerrar.setAttribute('disabled', 'true');
       btnCrear.setAttribute('disabled', 'true');
-      btnCrear.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Creando...`;
+      btnCrear.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Enviando...`;
       this.appService.disabledCamposFormularios('formularioCrear');
       this.platosService.agregarPlato(this.formulario.value, this.platoEditarSeleccionado, this.idPlato).subscribe(respuesta => {
         const icono = (respuesta['success'] ? 'success' : 'error');
@@ -115,16 +115,18 @@ export class PlatosComponent implements OnInit {
           icon: icono,
           title: respuesta['msj'],
         });
-
         if (respuesta['success']) {
+          console.log('entra');
           // Limpiamos la tabla
-          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            // Destroy the table first
-            dtInstance.destroy();
-          });
+          if (this.listaPlatos.length) {
+            this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+              // Destroy the table first
+              dtInstance.destroy();
+            });
+          }
 
-          this.limpiarFormulario();
           this.listarPlatos();
+          this.limpiarFormulario();
           $('#modalCrearPlato').modal('hide');
         } else {
           this.validarToken(respuesta);
@@ -134,14 +136,14 @@ export class PlatosComponent implements OnInit {
         this.appService.disabledCamposFormularios('formularioCrear', false);
         btnCerrar.removeAttribute('disabled');
         btnCrear.removeAttribute('disabled');
-        btnCrear.innerHTML = `<i class="fas fa-paper-plane"></i> Crear`;
+        btnCrear.innerHTML = `<i class="fas fa-paper-plane"></i> Enviar`;
         console.log('Error ', error);
         this.cargador = false;
       }, () => {
         this.appService.disabledCamposFormularios('formularioCrear', false);
         btnCerrar.removeAttribute('disabled');
         btnCrear.removeAttribute('disabled');
-        btnCrear.innerHTML = `<i class="fas fa-paper-plane"></i> Crear`;
+        btnCrear.innerHTML = `<i class="fas fa-paper-plane"></i> Enviar`;
         this.cargador = false;
       });
     } else {
@@ -167,6 +169,8 @@ export class PlatosComponent implements OnInit {
     });
     if (respuesta['token']) {
       this.userService.cerrarSesion();
+    } else {
+      this.listaPlatos = [];
     }
   }
 
@@ -227,7 +231,7 @@ export class PlatosComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: '<i class="far fa-trash-alt"></i> Si',
+      confirmButtonText: '<i class="fas fa-check"></i> Si',
       cancelButtonText: '<i class="fa fa-times"></i> No'
     }).then((result) => {
       if (result.value) {
@@ -265,10 +269,58 @@ export class PlatosComponent implements OnInit {
   }
 
   platoPromocion(plato) {
-    this.formularioPromo.get('id').setValue(plato['id']);
-    this.formularioPromo.get('plato').setValue(plato['nombre']);
-    this.formularioPromo.get('creador').setValue(localStorage.getItem('id'));
-    $('#modalPromocion').modal('show');
+    if (plato['promocion']) {
+      this.desactivaPromo(plato);
+    } else {
+      this.formularioPromo.get('id').setValue(plato['id']);
+      this.formularioPromo.get('plato').setValue(plato['nombre']);
+      this.formularioPromo.get('creador').setValue(localStorage.getItem('id'));
+      $('#modalPromocion').modal('show');
+    }
+  }
+
+  desactivaPromo(plato) {
+    Swal.fire({
+      title: '¿Estas seguro de quitar la promoción de ' + plato['nombre'] + '?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '<i class="fas fa-check"></i> Si',
+      cancelButtonText: '<i class="fa fa-times"></i> No'
+    }).then((result) => {
+      if (result.value) {
+        this.cargador = true;
+        this.platosService.quitarPromo(plato)
+        .subscribe(
+          resp => {
+            const icono = (resp['success'] ? 'success' : 'error');
+            Swal.fire({
+              icon: icono,
+              title: resp['msj'],
+            });
+
+            if (resp['success']) {
+              this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+                // Destroy the table first
+                dtInstance.destroy();
+              });
+
+              this.listarPlatos();
+            } else {
+              if (resp['token']) {
+                this.userService.cerrarSesion();
+              }
+            }
+          }, error => {
+            console.log(error);
+            this.cargador = false;
+          }, () => {
+            this.cargador = false;
+          }
+        );
+      }
+    });
   }
 
   guardarPromo() {

@@ -10,6 +10,7 @@ import { RegistroComponent } from './registro/registro.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuarioInactivoGuard } from '../guards/usuario-inactivo.guard';
 import { UsuarioActivoGuard } from '../guards/usuario-activo.guard';
+import { PedidoComponent } from './pedido/pedido.component';
 
 
 // *******************************************************************************
@@ -22,6 +23,7 @@ import { UsuarioActivoGuard } from '../guards/usuario-activo.guard';
     { path: 'registro', canActivate: [UsuarioInactivoGuard], component: RegistroComponent },
     { path: 'login', canActivate: [UsuarioInactivoGuard], component: LoginComponent },
     { path: 'platos', component: PlatosComponent },
+    { path: 'pedido', component: PedidoComponent},
     { path: 'perfil', canActivate: [UsuarioActivoGuard], component: PerfilComponent},
     { path: '**', component: NotfoundComponent}
   ])],

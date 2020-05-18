@@ -12,8 +12,8 @@ import { PerfilmostrarService } from '../../services/perfilmostrar.service';
   styleUrls: ['../../../assets/sass/now-ui-kit.scss', './login.component.css']
 })
 export class LoginComponent implements OnInit {
-  cargador: boolean = false;
-  mensajeCargador: string = 'Validando';
+  cargador = false;
+  mensajeCargador = 'Validando';
   data: Date = new Date();
   focus;
   focus1;
@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
     navbar.classList.add('navbar-transparent');
   }
 
+  // tslint:disable-next-line: use-life-cycle-interface
   ngOnDestroy() {
     /* var body = document.getElementsByTagName('body')[0];
     body.classList.remove('login-page'); */
