@@ -50,4 +50,8 @@ export class PlatosService {
     return this.http.put(this.urlApi + 'promo/quitar', promo, { headers: this.headers });
   }
 
+  listaPromo() {
+    return this.http.get(this.urlApi + 'promo/lista');
+  }
+
 }

@@ -6,7 +6,6 @@ import { GetProductosService } from '../../services/get-productos.service';
 import { AppService } from '../../app.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PlatosService } from '../../services/platos.service';
-import Swal from 'sweetalert2';
 
 
 @Component({
@@ -29,6 +28,8 @@ export class InicioComponent implements OnInit, OnDestroy {
   mensajeCargador = 'Cargando';
   imagenesSlider: object[] = [];
   listaPlatosDia: Array<object> = [];
+  listaPlatosPromo: Array<object> = [];
+
 
   fondo: any;
   page = 4;
@@ -74,8 +75,18 @@ export class InicioComponent implements OnInit, OnDestroy {
   listarPlatosDia() {
     this.platosService.obtenerPlatosDia().subscribe(platos => {
       if (platos['success']) {
-        console.log(platos);
         this.listaPlatosDia = platos['msj'];
+      }
+    }, error => {
+      console.log('error ', error);
+    });
+  }
+
+  listarPlatosPromo() {
+    this.platosService.listaPromo().subscribe(platos => {
+      console.log(platos)
+      if (platos['success']) {
+        this.listaPlatosPromo = platos['msj'];
       }
     }, error => {
       console.log('error ', error);
@@ -84,6 +95,7 @@ export class InicioComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.listarPlatosDia();
+    this.listarPlatosPromo();
     this.fondo = this.setFondo();
     const rellaxHeader = new Rellax('.rellax-header');
 
