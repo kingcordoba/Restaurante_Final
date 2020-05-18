@@ -109,12 +109,7 @@ export class PlatosComponent implements OnInit {
       btnCrear.setAttribute('disabled', 'true');
       btnCrear.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Creando...`;
       this.appService.disabledCamposFormularios('formularioCrear');
-<<<<<<< HEAD
-
-      this.platosService.agregarPlato(this.formulario.value).subscribe(respuesta => {
-=======
       this.platosService.agregarPlato(this.formulario.value, this.platoEditarSeleccionado, this.idPlato).subscribe(respuesta => {
->>>>>>> 5200cfdab991d3edf1a54e1e65051cfa6c8c9221
         const icono = (respuesta['success'] ? 'success' : 'error');
         Swal.fire({
           icon: icono,
