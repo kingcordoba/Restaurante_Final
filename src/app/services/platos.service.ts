@@ -21,8 +21,13 @@ export class PlatosService {
     return this.http.get(this.urlApi + 'platos/lista');
   }
 
-  agregarPlato(plato: object) {
-    return this.http.post(this.urlApi + 'platos/guardar', plato, { headers: this.headers });
+  agregarPlato(plato: object, editar?, idPlato?) {
+    if (editar) {
+      plato['idPlato'] = idPlato;
+      return this.http.post(this.urlApi + 'platos/editar', plato, { headers: this.headers });
+    } else {
+      return this.http.post(this.urlApi + 'platos/guardar', plato, { headers: this.headers });
+    }
   }
 
   eliminarPlato(plato: object) {

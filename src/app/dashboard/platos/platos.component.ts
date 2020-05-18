@@ -15,7 +15,7 @@ declare var $: any;
   styleUrls: ['./platos.component.css']
 })
 export class PlatosComponent implements OnInit {
-  @ViewChild(DataTableDirective, {static : false})
+  @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
 
   dtOptions: DataTables.Settings = {};
@@ -35,6 +35,8 @@ export class PlatosComponent implements OnInit {
 
   datosUsuario: object = {};
   listaPlatos: Array<object> = [];
+  platoEditarSeleccionado: boolean = false;
+  idPlato;
 
   constructor(
     private appService: AppService,
@@ -107,8 +109,12 @@ export class PlatosComponent implements OnInit {
       btnCrear.setAttribute('disabled', 'true');
       btnCrear.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Creando...`;
       this.appService.disabledCamposFormularios('formularioCrear');
+<<<<<<< HEAD
 
       this.platosService.agregarPlato(this.formulario.value).subscribe(respuesta => {
+=======
+      this.platosService.agregarPlato(this.formulario.value, this.platoEditarSeleccionado, this.idPlato).subscribe(respuesta => {
+>>>>>>> 5200cfdab991d3edf1a54e1e65051cfa6c8c9221
         const icono = (respuesta['success'] ? 'success' : 'error');
         Swal.fire({
           icon: icono,
@@ -125,7 +131,6 @@ export class PlatosComponent implements OnInit {
           this.limpiarFormulario();
           this.listarPlatos();
           $('#modalCrearPlato').modal('hide');
-          // this.listaPlatos.push(respuesta['plato']);
         } else {
           this.validarToken(respuesta);
         }
@@ -153,6 +158,7 @@ export class PlatosComponent implements OnInit {
   limpiarFormulario() {
     this.formulario.reset();
     this.formulario.get('creador').setValue(this.datosUsuario['id']);
+    this.platoEditarSeleccionado = false;
   }
 
   limpiarFormularioPromo() {
@@ -349,6 +355,13 @@ export class PlatosComponent implements OnInit {
         }
       }
     };
+  }
+
+  editarPlato(plato) {
+    this.platoEditarSeleccionado = true;
+    this.formulario.patchValue(plato);
+    this.idPlato = plato['id'];
+    $('#modalCrearPlato').modal('show');
   }
 
 }
