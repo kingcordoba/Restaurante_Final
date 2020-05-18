@@ -54,7 +54,6 @@ export class PlatosComponent implements OnInit {
 
   listarPlatos() {
     this.platosService.obtenerPlatos().subscribe(platos => {
-      console.log('respuesta ', platos);
       if (platos['success']) {
         this.listaPlatos = platos['msj'];
         this.dtTrigger.next();
@@ -150,8 +149,8 @@ export class PlatosComponent implements OnInit {
     }
   }
 
-  elminarPlato(){
-    
+  elminarPlato() {
+
   }
 
   initDataTable() {

@@ -221,6 +221,12 @@ export class UsuariosComponent implements OnDestroy, OnInit {
         this._usuario.elminarUsuario(usuario)
         .subscribe(
           resp => {
+            const icono = (resp['success'] ? 'success' : 'error');
+            Swal.fire({
+              icon: icono,
+              title: resp['msj'],
+            });
+
             if (resp['success']) {
               this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
                 // Destroy the table first
@@ -228,22 +234,9 @@ export class UsuariosComponent implements OnDestroy, OnInit {
               });
   
               this.listaUsuarios();
-              Swal.fire({
-                icon: 'success',
-                title: resp['msj'],
-              });
             } else {
               if (resp['token']) {
-                Swal.fire({
-                  icon: 'error',
-                  title: resp['msj'],
-                });
                 this._usuario.cerrarSesion();
-              } else {
-                Swal.fire({
-                  icon: 'warning',
-                  title: resp['msj'],
-                });
               }
             }
           }, error => {
@@ -287,6 +280,12 @@ export class UsuariosComponent implements OnDestroy, OnInit {
       this._usuario.editarUsuario(this.formularioEditar.value)
       .subscribe(
         result => {
+          const icono = (result['success'] ? 'success' : 'error');
+          Swal.fire({
+            icon: icono,
+            title: result['msj'],
+          });
+
           if (result['success']) {
             this.formularioEditarValidar = false;
             this.formularioEditar.reset();
@@ -298,22 +297,9 @@ export class UsuariosComponent implements OnDestroy, OnInit {
 
             this.listaUsuarios();
             $('#modalEditarUsuario').modal('hide');
-            Swal.fire({
-              icon: 'success',
-              title: result['msj'],
-            });
           } else {
             if (result['token']) {
-              Swal.fire({
-                icon: 'error',
-                title: result['msj'],
-              });
               this._usuario.cerrarSesion();
-            } else {
-              Swal.fire({
-                icon: 'warning',
-                title: result['msj'],
-              });
             }
           }
           this.cargador = false;
