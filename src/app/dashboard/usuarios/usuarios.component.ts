@@ -28,6 +28,9 @@ export class UsuariosComponent implements OnDestroy, OnInit {
   formularioCrear: FormGroup;
   formularioCrearValidar = false;
 
+  formularioEditar: FormGroup;
+  formularioEditarValidar = false;
+
   constructor(
     private appService: AppService,
     private _usuario: UsuariosService,
@@ -77,6 +80,10 @@ export class UsuariosComponent implements OnDestroy, OnInit {
     return this.formularioCrear.controls;
   }
 
+  get fe() {
+    return this.formularioEditar.controls;
+  }
+
   initForm() {
     this.formularioCrear = new FormGroup({
       documento: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
@@ -88,6 +95,18 @@ export class UsuariosComponent implements OnDestroy, OnInit {
       direccion: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
       rePassword: new FormControl('', [Validators.required]),
+      creador: new FormControl('', [Validators.required]),
+    });
+
+    this.formularioEditar = new FormGroup({
+      id: new FormControl('', [Validators.required]),
+      documento: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
+      telefono: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
+      nombres: new FormControl('', [Validators.required]),
+      perfil: new FormControl('', [Validators.required]),
+      apellidos: new FormControl('', [Validators.required]),
+      correo: new FormControl('', [Validators.required]),
+      direccion: new FormControl('', [Validators.required])
     });
   }
 
@@ -119,13 +138,19 @@ export class UsuariosComponent implements OnDestroy, OnInit {
   }
 
   crearUsuario() {
+    this.formularioCrear.get('creador').setValue(localStorage.getItem('id'));
     const btnCrearUsuario = document.getElementById('btnCrearUsuario');
+    const selectCrearUsuario = document.getElementById('formularioCrear').getElementsByTagName('select')[0];
+    const btnCerrar = document.getElementById('btnCrearUsuarioCerrar');
     if (!this.formularioCrear.valid) {
       this.formularioCrear.markAllAsTouched();
       this.formularioCrearValidar = true;
     } else {
       this.cargador = true;
       this.mensajeCargador = 'Enviando';
+      this.appService.disabledCamposFormularios('formularioCrear');
+      btnCerrar.setAttribute('disabled', 'true');
+      selectCrearUsuario.setAttribute('disabled', 'true');
       btnCrearUsuario.setAttribute('disabled', 'true');
       btnCrearUsuario.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Creando...`;
       this._usuario.crearUsuario(this.formularioCrear.value)
@@ -163,12 +188,149 @@ export class UsuariosComponent implements OnDestroy, OnInit {
           this.cargador = false;
         }, error => {
           console.log(error);
+          this.appService.disabledCamposFormularios('formularioCrear', false);
+          btnCerrar.removeAttribute('disabled');
           btnCrearUsuario.removeAttribute('disabled');
+          selectCrearUsuario.removeAttribute('disabled');
           btnCrearUsuario.innerHTML = `<i class="fas fa-paper-plane"></i> Crear`;
           this.cargador = false;
         }, () => {
+          this.appService.disabledCamposFormularios('formularioCrear', false);
+          btnCerrar.removeAttribute('disabled');
           btnCrearUsuario.removeAttribute('disabled');
+          selectCrearUsuario.removeAttribute('disabled');
           btnCrearUsuario.innerHTML = `<i class="fas fa-paper-plane"></i> Crear`;
+          this.cargador = false;
+        }
+      );
+    }
+  }
+
+  public elminarUsuario(usuario) {
+    Swal.fire({
+      title: '¿Estas seguro de eliminar el usuario ' + usuario['nombres'] + ' ' + usuario['apellidos'] + '?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '<i class="far fa-trash-alt"></i> Si',
+      cancelButtonText: '<i class="fa fa-times"></i> No'
+    }).then((result) => {
+      if (result.value) {
+        this.cargador = true;
+        this._usuario.elminarUsuario(usuario)
+        .subscribe(
+          resp => {
+            if (resp['success']) {
+              this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+                // Destroy the table first
+                dtInstance.destroy();
+              });
+  
+              this.listaUsuarios();
+              Swal.fire({
+                icon: 'success',
+                title: resp['msj'],
+              });
+            } else {
+              if (resp['token']) {
+                Swal.fire({
+                  icon: 'error',
+                  title: resp['msj'],
+                });
+                this._usuario.cerrarSesion();
+              } else {
+                Swal.fire({
+                  icon: 'warning',
+                  title: resp['msj'],
+                });
+              }
+            }
+          }, error => {
+            console.log(error);
+            this.cargador = false;
+          }, () => {
+            this.cargador = false;
+          }
+        );
+      }
+    });
+  }
+
+  btnEditarUsusario(usuario){
+    $('#modalEditarUsuario').modal('show');
+    this.formularioEditar.get('id').setValue(usuario['id']);
+    this.formularioEditar.get('perfil').setValue(usuario['fk_perfil']);
+    this.formularioEditar.get('documento').setValue(usuario['nro_documento']);
+    this.formularioEditar.get('nombres').setValue(usuario['nombres']);
+    this.formularioEditar.get('apellidos').setValue(usuario['apellidos']);
+    this.formularioEditar.get('correo').setValue(usuario['correo']);
+    this.formularioEditar.get('direccion').setValue(usuario['direccion']);
+    this.formularioEditar.get('telefono').setValue(usuario['telefono']);
+  }
+
+  editarUsuario() {
+    const btnEditarUsuario = document.getElementById('btnEditarUsuario');
+    const selectEditarUsuario = document.getElementById('formularioEditar').getElementsByTagName('select')[0];
+    const btnCerrar = document.getElementById('btnEditarUsuarioCerrar');
+    if (!this.formularioEditar.valid) {
+      this.formularioEditar.markAllAsTouched();
+      this.formularioEditarValidar = true;
+    } else {
+      this.cargador = true;
+      this.mensajeCargador = 'Enviando';
+      this.appService.disabledCamposFormularios('formularioEditar');
+      btnCerrar.setAttribute('disabled', 'true');
+      selectEditarUsuario.setAttribute('disabled', 'true');
+      btnEditarUsuario.setAttribute('disabled', 'true');
+      btnEditarUsuario.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Editando...`;
+      this._usuario.editarUsuario(this.formularioEditar.value)
+      .subscribe(
+        result => {
+          if (result['success']) {
+            this.formularioEditarValidar = false;
+            this.formularioEditar.reset();
+
+            this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+              // Destroy the table first
+              dtInstance.destroy();
+            });
+
+            this.listaUsuarios();
+            $('#modalEditarUsuario').modal('hide');
+            Swal.fire({
+              icon: 'success',
+              title: result['msj'],
+            });
+          } else {
+            if (result['token']) {
+              Swal.fire({
+                icon: 'error',
+                title: result['msj'],
+              });
+              this._usuario.cerrarSesion();
+            } else {
+              Swal.fire({
+                icon: 'warning',
+                title: result['msj'],
+              });
+            }
+          }
+          this.cargador = false;
+        }, error => {
+          console.log(error);
+          this.appService.disabledCamposFormularios('formularioEditar', false);
+          btnCerrar.removeAttribute('disabled');
+          btnEditarUsuario.removeAttribute('disabled');
+          selectEditarUsuario.removeAttribute('disabled');
+          btnEditarUsuario.innerHTML = `<i class="fas fa-paper-plane"></i> Crear`;
+          this.cargador = false;
+        }, () => {
+          this.appService.disabledCamposFormularios('formularioEditar', false);
+          btnCerrar.removeAttribute('disabled');
+          btnEditarUsuario.removeAttribute('disabled');
+          selectEditarUsuario.removeAttribute('disabled');
+          btnEditarUsuario.innerHTML = `<i class="fas fa-paper-plane"></i> Editar`;
           this.cargador = false;
         }
       );

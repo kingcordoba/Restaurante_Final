@@ -8,25 +8,21 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 export class PlatosService {
 
   private urlApi: string;
+  private headers = new HttpHeaders({
+    'Authorization': localStorage.getItem('token'),
+    'tokenTime': localStorage.getItem('tiempoToken')
+  });
 
   constructor(private http: HttpClient) {
     this.urlApi = CONFIG.urlAPi;
   }
 
   obtenerPlatos() {
-    const headers = new HttpHeaders({
-      'Authorization': localStorage.getItem('token'),
-      'tokenTime': localStorage.getItem('tiempoToken')
-    });
-    return this.http.get(this.urlApi + 'platos/lista', { headers });
+    return this.http.get(this.urlApi + 'platos/lista', { headers: this.headers });
   }
 
   agregarPlato(plato: object) {
-    const headers = new HttpHeaders({
-      'Authorization': localStorage.getItem('token'),
-      'tokenTime': localStorage.getItem('tiempoToken')
-    });
-    return this.http.post(this.urlApi + 'platos/guardar', plato, { headers });
+    return this.http.post(this.urlApi + 'platos/guardar', plato, { headers: this.headers });
   }
 
 }

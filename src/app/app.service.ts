@@ -29,4 +29,17 @@ export class AppService {
     input = String.fromCharCode(e.which);
     return !!/[\d\s]/.test(input);
   }
+
+  disabledCamposFormularios(id, disabled = true) {
+    const campos = document.getElementById(id).getElementsByTagName('input')
+    if (disabled) {
+      for (let i = 0; i < campos.length; i++) {
+        campos[i].setAttribute('disabled', 'true');
+      }
+    } else {
+      for (let i = 0; i < campos.length; i++) {
+        campos[i].removeAttribute('disabled');
+      }
+    }
+  }
 }

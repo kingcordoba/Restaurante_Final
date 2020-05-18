@@ -6,6 +6,8 @@ import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { AppService } from '../../app.service';
+declare var $: any;
+
 
 @Component({
   selector: 'app-platos',
@@ -13,13 +15,20 @@ import { AppService } from '../../app.service';
   styleUrls: ['./platos.component.css']
 })
 export class PlatosComponent implements OnInit {
+  @ViewChild(DataTableDirective, {static : false})
+  dtElement: DataTableDirective;
+
+  dtOptions: DataTables.Settings = {};
+  dtTrigger = new Subject();
 
   titulo;
 
+  cargador = false;
+  mensajeCargador = 'Validando';
+
 
   formulario: FormGroup;
-  dtOptions: DataTables.Settings = {};
-  dtTrigger = new Subject();
+  formularioCrearValidar = false;
   datosUsuario: object = {};
   listaPlatos: Array<object> = [];
 
@@ -62,46 +71,72 @@ export class PlatosComponent implements OnInit {
     });
   }
 
+  get f() {
+    return this.formulario.controls;
+  }
+
   initForm() {
     this.formulario = new FormGroup({
       nombre: new FormControl('', [Validators.required]),
       descripcion: new FormControl('', [Validators.required]),
       precio: new FormControl('', [Validators.required]),
-      estado: new FormControl(1),
       creador: new FormControl(this.datosUsuario['id'])
     });
   }
 
   guardarPlato() {
-    this.listaPlatos = [];
-    /* if (this.formulario.valid) {
-      const datos = this.formulario.value;
-      this.platosService.agregarPlato(datos).subscribe(respuesta => {
-        console.log("Platototototot ", respuesta);
+    const btnCrear = document.getElementById('btnCrear');
+    const btnCerrar = document.getElementById('btnCrearModalCrear');
+    if (this.formulario.valid) {
+      btnCerrar.setAttribute('disabled', 'true');
+      btnCrear.setAttribute('disabled', 'true');
+      btnCrear.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Creando...`;
+      this.appService.disabledCamposFormularios('formularioCrear');
+      
+      this.platosService.agregarPlato(this.formulario.value).subscribe(respuesta => {
         const icono = (respuesta['success'] ? 'success' : 'error');
         Swal.fire({
           icon: icono,
           title: respuesta['msj'],
         });
+
         if (respuesta['success']) {
+          // Limpiamos la tabla
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            // Destroy the table first
+            dtInstance.destroy();
+          });
+
           this.limpiarFormulario();
-          //this.listarPlatos();
-          //this.listaPlatos.push(respuesta['plato']);
-          this.destroy();
+          this.listarPlatos();
+          $('#modalCrearPlato').modal('hide');
+          // this.listaPlatos.push(respuesta['plato']);
         } else {
           this.validarToken(respuesta);
         }
+        this.cargador = false;
       }, error => {
-        console.log("Error ", error);
+        this.appService.disabledCamposFormularios('formularioCrear', false);
+        btnCerrar.removeAttribute('disabled');
+        btnCrear.removeAttribute('disabled');
+        btnCrear.innerHTML = `<i class="fas fa-paper-plane"></i> Crear`;
+        console.log('Error ', error);
+        this.cargador = false;
+      }, () => {
+        this.appService.disabledCamposFormularios('formularioCrear', false);
+        btnCerrar.removeAttribute('disabled');
+        btnCrear.removeAttribute('disabled');
+        btnCrear.innerHTML = `<i class="fas fa-paper-plane"></i> Crear`;
+        this.cargador = false;
       });
     } else {
       this.formulario.markAllAsTouched();
-    } */
+      this.formularioCrearValidar = true;
+    }
   }
 
   limpiarFormulario() {
     this.formulario.reset();
-    this.formulario.get('estado').setValue(1);
     this.formulario.get('creador').setValue(this.datosUsuario['id']);
   }
 
@@ -115,6 +150,10 @@ export class PlatosComponent implements OnInit {
     }
   }
 
+  elminarPlato(){
+    
+  }
+
   initDataTable() {
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -122,7 +161,7 @@ export class PlatosComponent implements OnInit {
       language: {
         processing: 'Procesando...',
         search: 'Buscar:',
-        lengthMenu: 'Mostrar _MENU_ &eacute;l&eacute;ments',
+        lengthMenu: 'Mostrar _MENU_ elementos',
         info: '_START_ al _END_ de _TOTAL_ elementos',
         infoEmpty: 'Mostrando ningún elemento.',
         infoFiltered: '(filtrado _MAX_ elementos total)',

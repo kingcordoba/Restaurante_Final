@@ -19,24 +19,26 @@
           class="row-border hover table table-bordered table-hover w-100">
           <thead class="thead-light">
             <tr>
-              <th>Acciones</th>
               <th>Nombre</th>
               <th>Descripción</th>
               <th>Precio</th>
               <th>Creador</th>
-              <th>Fecha creación</th>
+              <th>Plato del día</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let usuario of listaPlatos">
+            <tr *ngFor="let platos of listaPlatos">
+              <td>{{platos['nombre']}}</td>
+              <td>{{platos['descripcion']}}</td>
+              <td>{{platos['precio']}}</td>
+              <td>{{platos['fk_creador']}}</td>
+              <td>{{platos['plato_dia'] ? 'Activo' : 'Inactivo'}}</td>
               <td>
-                Acciones
+                <button class="btn btn-primary mx-1"><i class="far fa-edit"></i></button>
+                <button class="bth btn-info"><i class="fas fa-drumstick-bite"></i></button>
+                <button class="btn btn-danger mx-1" (click)="elminarPlato(platos)"><i class="fas fa-trash-alt"></i></button>
               </td>
-              <td>{{usuario['nombre']}}</td>
-              <td>{{usuario['descripcion']}}</td>
-              <td>{{usuario['precio']}}</td>
-              <td>{{usuario['fk_creador'] + ' ' + usuario['apellidos']}}</td>
-              <td>{{usuario['created_at']}}</td>
             </tr>
           </tbody>
         </table>
@@ -51,39 +53,40 @@
       <div class="modal-header">
         <h5 class="modal-title"><i class="fas fa-utensils"></i> Crear plato</h5>
       </div>
-      <form id="formCrearUsuario" autocomplete="off" [formGroup]="formulario" (ngSubmit)="guardarPlato()">
-        <input type="hidden" name="accion" value="crearUsuario">
+      <form id="formularioCrear" autocomplete="off" [formGroup]="formulario" (ngSubmit)="guardarPlato()" [ngClass]="{'was-validated': formularioCrearValidar}">
         <div class="modal-body">
           <div class="form-group">
             <label for="usuario">Nombre <span class="text-danger">*</span></label>
-            <input type="text" formControlName="nombre" name="usuario" class="form-control"
-              placeholder="Escriba un nombre del plato" required autocomplete="off">
+            <input type="text" formControlName="nombre" class="form-control" placeholder="Escriba un nombre del plato" required autocomplete="off">
+            <div class="errores text-left">
+              <div class="custom-error" *ngIf="f.nombre.errors?.required && f.nombre.touched">Nombres es requerido</div>
+            </div>
           </div>
           <div class="form-group">
             <label for="nombre">Descripción <span class="text-danger">*</span></label>
-            <input type="text" formControlName="descripcion" name="nombre" class="form-control"
-              placeholder="Escriba la descripción del plato" required autocomplete="off">
+            <input type="text" formControlName="descripcion" class="form-control" placeholder="Escriba la descripción del plato" required autocomplete="off">
+            <div class="errores text-left">
+              <div class="custom-error" *ngIf="f.descripcion.errors?.required && f.descripcion.touched">Descripción es requerido</div>
+            </div>
           </div>
           <div class="form-group">
             <label for="apellidos">Precio <span class="text-danger">*</span></label>
-            <input type="number" formControlName="precio" name="apellidos" class="form-control"
-              placeholder="Escriba el precio del plato" required autocomplete="off">
+            <input type="number" formControlName="precio" class="form-control" placeholder="Escriba el precio del plato" required autocomplete="off">
+            <div class="errores text-left">
+              <div class="custom-error" *ngIf="f.precio.errors?.required && f.precio.touched">Precio es requerido</div>
+            </div>
           </div>
           <div class="form-group">
             <label for="apellidos">Imagen</label>
             <div class="custom-file">
               <input type="file" class="custom-file-input" id="inputGroupFile02">
-              <label class="custom-file-label" for="inputGroupFile02"
-                aria-describedby="inputGroupFileAddon02">Escoger...</label>
+              <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Escoger...</label>
             </div>
           </div>
         </div>
         <div class="modal-footer d-flex justify-content-between">
-          <button (click)="limpiarFormulario()" type="button" class="btn btn-secondary" data-dismiss="modal"><i
-              class="fas fa-times"></i>
-            Cerrar</button>
-          <button id="btnCrearUsuario" type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i>
-            Crear</button>
+          <button (click)="limpiarFormulario()" id="btnCrearModalCrear" type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Cerrar</button>
+          <button id="btnCrear" type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Crear</button>
         </div>
       </form>
     </div>

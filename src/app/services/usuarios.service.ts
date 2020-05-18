@@ -9,6 +9,10 @@ import { PerfilmostrarService } from './perfilmostrar.service';
 })
 export class UsuariosService {
   private urlApi: string;
+  private headers = new HttpHeaders({
+    'Authorization': localStorage.getItem('token'),
+    'tokenTime': localStorage.getItem('tiempoToken')
+  });
 
   constructor(
     private http: HttpClient,
@@ -19,19 +23,15 @@ export class UsuariosService {
   }
 
   public listaUsusuario() {
-    const headers = new HttpHeaders({
-      'Authorization': localStorage.getItem('token'),
-      'tokenTime': localStorage.getItem('tiempoToken')
-    });
-    return this.http.get(this.urlApi + 'usuarios/lista', {headers});
+    return this.http.get(this.urlApi + 'usuarios/lista', {headers: this.headers});
   }
 
   public crearUsuario(usuario: object) {
-    const headers = new HttpHeaders({
-      'Authorization': localStorage.getItem('token'),
-      'tokenTime': localStorage.getItem('tiempoToken')
-    });
-    return this.http.post(this.urlApi + 'usuarios/crear', usuario, {headers});
+    return this.http.post(this.urlApi + 'usuarios/crear', usuario, {headers: this.headers});
+  }
+
+  public editarUsuario(usuario: object) {
+    return this.http.put(this.urlApi + 'usuarios/editar', usuario, {headers: this.headers});
   }
 
   public registrarUsuario(usuario: object) {
@@ -43,11 +43,11 @@ export class UsuariosService {
   }
 
   public actualizarPerfil(usuario: object) {
-    const headers = new HttpHeaders({
-      'Authorization': localStorage.getItem('token'),
-      'tokenTime': localStorage.getItem('tiempoToken')
-    });
-    return this.http.put(this.urlApi + 'actualizarDatos', usuario, {headers});
+    return this.http.put(this.urlApi + 'actualizarDatos', usuario, {headers: this.headers});
+  }
+
+  public elminarUsuario(usuario: object) {
+    return this.http.put(this.urlApi + 'usuarios/eliminar', usuario, {headers: this.headers});
   }
 
   public actualizarDatosStorage(usuario: object) {
@@ -58,11 +58,7 @@ export class UsuariosService {
   }
 
   public validarToken() {
-    const headers = new HttpHeaders({
-      'Authorization': localStorage.getItem('token'),
-      'tokenTime': localStorage.getItem('tiempoToken')
-    });
-    return this.http.get(this.urlApi + 'validarToken', {headers});
+    return this.http.get(this.urlApi + 'validarToken', {headers: this.headers});
   }
 
   public cerrarSesion() {

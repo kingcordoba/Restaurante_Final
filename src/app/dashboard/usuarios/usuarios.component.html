@@ -28,8 +28,6 @@
               <th>Correo</th>
               <th>Teléfono</th>
               <th>Perfil</th>
-              <th>Creador</th>
-              <th>Fecha creación</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -41,11 +39,9 @@
               <td>{{usuario['correo']}}</td>
               <td>{{usuario['telefono']}}</td>
               <td>{{usuario['perfil']}}</td>
-              <th>{{usuario['creador']}}</th>
-              <td>{{usuario['created_at']}}</td>
               <td class="d-flex justify-content-center">
-                <button class="btn btn-primary mx-1"><i class="fas fa-user-edit"></i></button>
-                <button class="btn btn-danger mx-1"><i class="fas fa-trash-alt"></i></button>
+                <button class="btn btn-primary mx-1" (click)="btnEditarUsusario(usuario)"><i class="fas fa-user-edit"></i></button>
+                <button class="btn btn-danger mx-1" (click)="elminarUsuario(usuario)"><i class="fas fa-trash-alt"></i></button>
               </td>
             </tr>
           </tbody>
@@ -54,15 +50,17 @@
     </div>
   </div><!-- /.container-fluid -->
 </section>
+<app-loader [encender]="cargador" [mensaje]="mensajeCargador"></app-loader>
 <!-- /.content -->
 <!-- Modal Crear Usuario -->
-<div class="modal fade" id="modalCrearUsuario" tabindex="-5000" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div class="modal fade" id="modalCrearUsuario" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title"><i class="fas fa-user-plus"></i> Crear usuario</h5>
       </div>
-      <form [formGroup]="formularioCrear" [ngClass]="{'was-validated': formularioCrearValidar}" autocomplete="off" (ngSubmit)="crearUsuario()">
+      <form id="formularioCrear" [formGroup]="formularioCrear" [ngClass]="{'was-validated': formularioCrearValidar}" autocomplete="off" (ngSubmit)="crearUsuario()">
+        <input type="hidden" formControlName="creador" value="0">
         <div class="modal-body">
           <div class="form-group">
             <label for="">Tipo Perfil</label>
@@ -134,11 +132,84 @@
           </div>
         </div>
         <div class="modal-footer d-flex justify-content-between">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Cerrar</button>
+          <button type="button" id="btnCrearUsuarioCerrar" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Cerrar</button>
           <button type="submit" id="btnCrearUsuario" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Crear</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+
+<!-- Modal Editar Usuario -->
+<div class="modal fade" id="modalEditarUsuario" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fas fa-user-edit"></i> Editar usuario</h5>
+      </div>
+      <form id="formularioEditar" [formGroup]="formularioEditar" [ngClass]="{'was-validated': formularioEditarValidar}" autocomplete="off" (ngSubmit)="editarUsuario()">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="">Tipo Perfil</label>
+            <select formControlName="perfil" required class="custom-select">
+              <option value="1">Adminitrador</option>
+              <option value="2">Usuario</option>
+            </select>
+            <div class="errores text-left">
+              <div class="custom-error" *ngIf="fe.perfil.errors?.required && fe.perfil.touched">Nro documento es requerido</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="usuario">Nro documento <span class="text-danger">*</span></label>
+            <input type="text" formControlName="documento" class="form-control" (keypress)="soloNumeros($event)" pattern="^[0-9]*$" placeholder="Escriba un documento" required autocomplete="off">
+            <div class="errores text-left">
+              <div class="custom-error" *ngIf="fe.documento.errors?.required && fe.documento.touched">Nro documento es requerido</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="nombre">Nombres <span class="text-danger">*</span></label>
+            <input type="text" formControlName="nombres" class="form-control" placeholder="Escriba los nombres" required autocomplete="off">
+            <div class="errores text-left">
+              <div class="custom-error" *ngIf="fe.nombres.errors?.required && fe.nombres.touched">Nombres es requerido</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="apellidos">Apellidos <span class="text-danger">*</span></label>
+            <input type="text" formControlName="apellidos" class="form-control" placeholder="Escriba los apellidos" required autocomplete="off">
+            <div class="errores text-left">
+              <div class="custom-error" *ngIf="fe.apellidos.errors?.required && fe.apellidos.touched">Apellidos es requerido</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="correo">Correo <span class="text-danger">*</span></label>
+            <input type="email" formControlName="correo" class="form-control" required placeholder="Escriba un correo" autocomplete="off">
+            <div class="errores text-left">
+              <div class="custom-error" *ngIf="fe.correo.errors?.required && fe.correo.touched">Correo electrónico es requerido</div>
+              <div class="custom-error" *ngIf="fe.correo.errors?.email && fe.correo.touched">Correo electrónico inválido</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="direccion">Direccion <span class="text-danger">*</span></label>
+            <input type="text" formControlName="direccion" class="form-control" required placeholder="Escriba una direccion" autocomplete="off">
+            <div class="errores text-left">
+              <div class="custom-error" *ngIf="fe.direccion.errors?.required && fe.direccion.touched">Dirección de su casa es requerida</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="telefono">Teléfono <span class="text-danger">*</span></label>
+            <input type="tel" formControlName="telefono" class="form-control" (keypress)="soloNumeros($event)" pattern="^[0-9]*$" required placeholder="Escriba una teléfono" autocomplete="off">
+            <div class="errores text-left">
+              <div class="custom-error" *ngIf="fe.telefono.errors?.required && fe.telefono.touched">Teléfono es requerido</div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-between">
+          <button type="button" id="btnEditarUsuarioCerrar" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Cerrar</button>
+          <button type="submit" id="btnEditarUsuario" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Editar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 

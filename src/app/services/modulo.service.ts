@@ -7,6 +7,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class ModuloService {
   private urlApi: string;
+  private headers = new HttpHeaders({
+    'Authorization': localStorage.getItem('token'),
+    'tokenTime': localStorage.getItem('tiempoToken')
+  });
 
   constructor(
     private http: HttpClient,
@@ -14,21 +18,11 @@ export class ModuloService {
     this.urlApi = CONFIG.urlAPi;
   }
 
-  public listaModulosUsuario(){
-    const headers = new HttpHeaders({
-      'Authorization': localStorage.getItem('token'),
-      'tokenTime': localStorage.getItem('tiempoToken')
-    });
-
-    return this.http.get(this.urlApi + 'listaModulosUsuario/' + localStorage.getItem('id'), {headers});
+  public listaModulosUsuario() {
+    return this.http.get(this.urlApi + 'listaModulosUsuario/' + localStorage.getItem('id'), { headers: this.headers });
   }
 
-  public validarPermiso(modulo: string){
-    const headers = new HttpHeaders({
-      'Authorization': localStorage.getItem('token'),
-      'tokenTime': localStorage.getItem('tiempoToken')
-    });
-
-    return this.http.get(this.urlApi + 'permisos/validar/' + localStorage.getItem('id') + '/' + modulo, {headers});
+  public validarPermiso(modulo: string) {
+    return this.http.get(this.urlApi + 'permisos/validar/' + localStorage.getItem('id') + '/' + modulo, { headers: this.headers });
   }
 }

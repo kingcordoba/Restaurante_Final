@@ -59,7 +59,7 @@ export class RegistroComponent implements OnInit {
       direccion: new FormControl('', [Validators.required]),
       check: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
-      rePassword: new FormControl('', [Validators.required]),
+      rePassword: new FormControl('', [Validators.required])
     });
   }
 
