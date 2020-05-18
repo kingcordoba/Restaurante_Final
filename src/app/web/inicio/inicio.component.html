@@ -48,12 +48,12 @@
       </div>
     </div>
   </div>
-  <div class="section" id="carousel">
+  <div class="section" id="carousel" [ngClass]="{'d-none': listaPlatosPromo.length == 0}">
     <div class="container">
       <div class="title">
         <div class="alert alert-warning" role="alert">
           <h4 style="text-align: center;">
-            NUESTROS PLATOS PRINCIPALES
+            PROMOCIONES
           </h4>
         </div>
       </div>
@@ -61,12 +61,13 @@
         <div class="col-12 col-md-10">
           <div id="sliderPlatosDia" class="carousel slide carousel-fade" data-ride="carousel">
             <div class="carousel-inner">
-              <div class="carousel-item" *ngFor="let pro of imagenesSlider; let i = index" [ngClass]="{active: i == 0}">
-                <img class="d-block w-100" src="{{pro['img']}}">
+              <div class="carousel-item" *ngFor="let promo of listaPlatosPromo; let i = index" [ngClass]="{active: i == 0}">
+                <img class="d-block w-100" src="../../../assets/img/productos/06.jpg">
                 <div class="carousel-caption d-none d-md-block">
-                  <h5 class="badge badge-danger">{{pro['nombre']}}</h5><br>
-                  <p class="badge badge-danger">{{pro['descripcion']}}</p><br>
-                  <button class="btn btn-danger btn-sm btn-round" (click)="addProducto(pro)"><i
+                  <h5 class="badge badge-danger">{{promo['nombre_plato']}}</h5><br>
+                  <p class="badge badge-danger">{{promo['plato_descripcion']}}</p><br>
+                  <p class="badge badge-danger">{{promo['descripcion']}}</p><br>
+                  <button class="btn btn-danger btn-sm btn-round" (click)="addProducto(promo)"><i
                       class="fas fa-cart-plus"></i> Agregar</button>
                 </div>
               </div>

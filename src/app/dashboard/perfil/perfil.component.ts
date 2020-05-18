@@ -47,7 +47,7 @@ export class PerfilComponent implements OnInit {
       this.validaFormulario = true;
     } else {
       btnPerfil.setAttribute('disabled', 'true');
-      btnPerfil.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> ACTUALIZANDO...`;
+      btnPerfil.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Actualizando...`;
       this._usuarios.actualizarPerfil(this.formulario.value)
       .subscribe(
         result => {
@@ -76,7 +76,7 @@ export class PerfilComponent implements OnInit {
           console.log(error)
         }, () => {
           btnPerfil.removeAttribute('disabled');
-          btnPerfil.innerHTML = `ACTUALIZAR <i class="fas fa-paper-plane"></i>`;
+          btnPerfil.innerHTML = `Actualizar <i class="fas fa-paper-plane"></i>`;
         }
       );
     }
