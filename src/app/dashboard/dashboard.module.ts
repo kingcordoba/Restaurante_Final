@@ -16,6 +16,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { PlatosComponent } from './platos/platos.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoaderModule } from '../shared/loader/loader.module';
+import { PerfilComponent } from './perfil/perfil.component';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { LoaderModule } from '../shared/loader/loader.module';
     NotfoundComponent,
     UsuariosComponent,
     PlatosComponent,
+    PerfilComponent,
   ]
 })
 export class DashboardModule { }

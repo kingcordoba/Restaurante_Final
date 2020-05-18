@@ -1,46 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../../app.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsuariosService } from '../../services/usuarios.service';
-import { Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.css', '../../../assets/sass/now-ui-kit.scss']
+  styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent implements OnInit {
-  data: Date = new Date();
 
+  titulo;
   formulario: FormGroup;
   validaFormulario = false;
   usuario: Object;
 
-
   constructor(
     private appService: AppService,
-    private _usuarios: UsuariosService,
+    private _usuarios: UsuariosService
   ) {
-    this.appService.pageTitle = 'Perfil';
+    this.titulo = this.appService.pageTitle = 'Perfil';
     this.usuario = JSON.parse(localStorage.getItem('usuario'));
     this.initForm();
   }
 
-  ngOnInit() {
-    /* var body = document.getElementsByTagName('body')[0];
-    body.classList.add('login-page'); */
-    const navbar = document.getElementsByTagName('nav')[0];
-    navbar.classList.add('navbar-transparent');
-  }
-
-  // tslint:disable-next-line: use-life-cycle-interface
-  ngOnDestroy() {
-    /* var body = document.getElementsByTagName('body')[0];
-    body.classList.remove('login-page'); */
-
-    const navbar = document.getElementsByTagName('nav')[0];
-    navbar.classList.remove('navbar-transparent');
+  ngOnInit(): void {
   }
 
   initForm() {
@@ -55,6 +40,7 @@ export class PerfilComponent implements OnInit {
   }
 
   actualizar() {
+    console.log('funca');
     const btnPerfil = document.getElementsByName('btnPerfil')[0];
     if (!this.formulario.valid) {
       this.formulario.markAllAsTouched();
@@ -103,4 +89,5 @@ export class PerfilComponent implements OnInit {
   public soloNumeros(e) {
     return this.appService.soloNumeros(e);
   }
+
 }

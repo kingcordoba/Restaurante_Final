@@ -34,7 +34,7 @@ export class PlatosService {
     return this.http.put(this.urlApi + 'platos/eliminar', plato, { headers: this.headers });
   }
 
-  platoDelDia(plato: object){
+  platoDelDia(plato: object) {
     return this.http.put(this.urlApi + 'platos/dia', plato, { headers: this.headers });
   }
 
@@ -42,8 +42,12 @@ export class PlatosService {
     return this.http.get(this.urlApi + 'platos/dia');
   }
 
-  crearPromo(promo: object){
+  crearPromo(promo: object) {
     return this.http.post(this.urlApi + 'promo/crear', promo, { headers: this.headers });
+  }
+
+  quitarPromo(promo: object) {
+    return this.http.put(this.urlApi + 'promo/quitar', promo, { headers: this.headers });
   }
 
 }

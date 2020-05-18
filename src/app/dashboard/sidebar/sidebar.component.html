@@ -23,7 +23,7 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column nav-flat nav-child-indent" id="modulos" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item has-treeview user-panel mt-2 pb-2 mb-2">
-          <a href="#" class="nav-link">
+          <a href="dashboard" class="nav-link">
             <i class="nav-icon far fa-user-circle"></i>
             <p>
               Usuario
@@ -32,7 +32,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a [routerLink]="['perfil']" class="nav-link">
                 <i class="fas fa-user-edit nav-icon"></i>
                 <p>Perfil</p>
               </a>

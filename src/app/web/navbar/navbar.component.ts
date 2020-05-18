@@ -16,8 +16,8 @@ export class NavbarComponent implements OnInit {
   nombreCompleto = 'Usuario';
 
   constructor(
-    public location: Location, 
-    private element : ElementRef,
+    public location: Location,
+    private element: ElementRef,
     private _perfilMostrar: PerfilmostrarService,
     private _router: Router,
     private _usuario: UsuariosService
@@ -85,7 +85,7 @@ export class NavbarComponent implements OnInit {
   sidebarOpen() {
     const toggleButton = this.toggleButton;
     const html = document.getElementsByTagName('html')[0];
-    setTimeout(function(){
+    setTimeout(function() {
       toggleButton.classList.add('toggled');
     }, 500);
     html.classList.add('nav-open');
@@ -112,11 +112,10 @@ export class NavbarComponent implements OnInit {
   };
 
   isDocumentation() {
-    var titlee = this.location.prepareExternalUrl(this.location.path());
-    if( titlee === '/documentation' ) {
+    const titlee = this.location.prepareExternalUrl(this.location.path());
+    if ( titlee === '/documentation' ) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }

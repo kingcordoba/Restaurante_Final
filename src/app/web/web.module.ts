@@ -20,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PerfilComponent } from './perfil/perfil.component';
 import { LoaderModule } from '../shared/loader/loader.module';
+import { PedidoComponent } from './pedido/pedido.component';
 
 @NgModule({
   imports: [
@@ -42,7 +43,8 @@ import { LoaderModule } from '../shared/loader/loader.module';
     CarritoCompraComponent,
     FooterComponent,
     NotfoundComponent,
-    PerfilComponent
+    PerfilComponent,
+    PedidoComponent
   ],
   providers: []
 })

@@ -33,12 +33,6 @@ export class PlatosComponent implements OnInit {
     this.platosService.obtenerPlatos().subscribe(platos => {
       if (platos['success']) {
         this.listaPlatos = platos['msj'];
-      } else {
-        const icono = (platos['success'] ? 'success' : 'error');
-        Swal.fire({
-          icon: icono,
-          title: platos['msj'],
-        });
       }
     }, error => {
       console.log('error ', error);
