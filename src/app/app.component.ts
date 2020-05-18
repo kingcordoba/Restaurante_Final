@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GetProductosService } from './services/get-productos.service';
 
 @Component({
   selector: 'app-root',
@@ -6,4 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent {
   title = 'Restaurante';
+
+  constructor( private _productos: GetProductosService){
+
+  }
+
 }
