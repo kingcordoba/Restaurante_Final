@@ -67,4 +67,12 @@ export class PlatosService {
     return this.http.post(this.urlApi + 'pedidos/crear', pedido);
   }
 
+  obtenerPedidos() {
+    this.headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
+    return this.http.get(this.urlApi + 'pedidos/lista', { headers: this.headers });
+  }
+
 }
