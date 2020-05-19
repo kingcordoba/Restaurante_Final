@@ -59,7 +59,6 @@ export class PedidoComponent implements OnInit {
       btnRegistrar.setAttribute('disabled', 'true');
       btnRegistrar.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> REALIZANDO PEDIDO...`;
       this._platos.realizarPedido(this.formulario.value).subscribe(result => {
-        console.log(result);
         if (result['success']) {
           this.validaFormulario = false;
           this.formulario.reset();

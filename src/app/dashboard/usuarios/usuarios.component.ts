@@ -21,6 +21,7 @@ export class UsuariosComponent implements OnDestroy, OnInit {
 
   titulo;
   listUsuarios: object[] = [];
+  listaPermisos: object[] = [];
 
   cargador = false;
   mensajeCargador = 'Validando';
@@ -32,6 +33,7 @@ export class UsuariosComponent implements OnDestroy, OnInit {
   formularioEditarValidar = false;
 
   usuarioPermiso: string;
+  usuarioPermisoId: number;
 
   constructor(
     private appService: AppService,
@@ -252,7 +254,7 @@ export class UsuariosComponent implements OnDestroy, OnInit {
     });
   }
 
-  btnEditarUsusario(usuario){
+  btnEditarUsusario(usuario) {
     this.formularioEditar.get('id').setValue(usuario['id']);
     this.formularioEditar.get('perfil').setValue(usuario['fk_perfil']);
     this.formularioEditar.get('documento').setValue(usuario['nro_documento']);
@@ -326,8 +328,63 @@ export class UsuariosComponent implements OnDestroy, OnInit {
   }
 
   btnPermisos(usuario) {
+    this.usuarioPermisoId = usuario['id'];
     this.usuarioPermiso = usuario['nombres'] + ' ' + usuario['apellidos'];
-    $('#modalPermisos').modal('show');
+    this._usuario.listaPermisos(this.usuarioPermisoId)
+    .subscribe(
+      result => {
+        if (result['success']) {
+          $('#modalPermisos').modal('show');
+          this.listaPermisos = result['msj'];
+        } else {
+          if (result['token']) {
+            this._usuario.cerrarSesion();
+            Swal.fire({
+              icon: 'error',
+              title: result['msj'],
+            });
+          } else {
+            Swal.fire({
+              icon: 'warning',
+              title: result['msj'],
+            });
+          }
+        }
+      }, error => {
+        console.log(error)
+      }
+    );
+  }
+
+  actualizarPermiso(permiso) {
+    const btnCerrar = document.getElementById('btnCerrarPermisos');
+    this.cargador = true;
+    btnCerrar.setAttribute('disabled', 'true');
+    this._usuario.actualizarPermiso(this.usuarioPermisoId, permiso)
+    .subscribe(
+      resp => {
+        const icono = (resp['success'] ? 'success' : 'error');
+        Swal.fire({
+          icon: icono,
+          title: resp['msj'],
+        });
+
+        if (resp['success']) {
+          btnCerrar.removeAttribute('disabled');
+        } else {
+          if (resp['token']) {
+            this._usuario.cerrarSesion();
+          }
+        }
+      }, error => {
+        console.log(error);
+        btnCerrar.removeAttribute('disabled');
+        this.cargador = false;
+      }, () => {
+        btnCerrar.removeAttribute('disabled');
+        this.cargador = false;
+      }
+    );
   }
 
   public soloNumeros(e) {

@@ -101,6 +101,26 @@ export class UsuariosService {
     return this.http.get(this.urlApi + 'usuarios/lista/usuarios', { headers });
   }
 
+  public listaPermisos(idUsuario) {
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
+    return this.http.get(this.urlApi + 'usuarios/lista/permisos/' + idUsuario, { headers });
+  }
+
+  public actualizarPermiso(usuario, modulo) {
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
+    let formData = new FormData();
+    formData.append('usuario', usuario);
+    formData.append('modulo', modulo);
+
+    return this.http.post(this.urlApi + 'usuarios/actualizar/permiso', formData, { headers });
+  }
+
   public cerrarSesion() {
     localStorage.clear();
     this._perfilMostrar.actualizarDatos(false);
