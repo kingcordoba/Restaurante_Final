@@ -95,4 +95,20 @@ export class PlatosService {
     return this.http.get(this.urlApi + 'pedidos/lista', { headers });
   }
 
+  detallesPedido(idPedido) {
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
+    return this.http.get(this.urlApi + 'pedidos/detalle/' + idPedido, { headers });
+  }
+
+  estadoPedido(idPedido) {
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
+    return this.http.put(this.urlApi + 'pedidos/completo', idPedido, { headers });
+  }
+
 }
