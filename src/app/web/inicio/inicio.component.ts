@@ -82,7 +82,6 @@ export class InicioComponent implements OnInit, OnDestroy {
 
   listarPlatosPromo() {
     this.platosService.listaPromo().subscribe(platos => {
-      console.log(platos)
       if (platos['success']) {
         this.listaPlatosPromo = platos['msj'];
       }
