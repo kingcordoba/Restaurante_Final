@@ -31,6 +31,8 @@ export class UsuariosComponent implements OnDestroy, OnInit {
   formularioEditar: FormGroup;
   formularioEditarValidar = false;
 
+  usuarioPermiso: string;
+
   constructor(
     private appService: AppService,
     private _usuario: UsuariosService,
@@ -321,6 +323,11 @@ export class UsuariosComponent implements OnDestroy, OnInit {
         }
       );
     }
+  }
+
+  btnPermisos(usuario) {
+    this.usuarioPermiso = usuario['nombres'] + ' ' + usuario['apellidos'];
+    $('#modalPermisos').modal('show');
   }
 
   public soloNumeros(e) {

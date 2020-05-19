@@ -35,7 +35,7 @@ export class PedidosComponent implements OnInit {
   }
 
   listarPedidos() {
-    this.platosService.obtenerPedidos().subscribe(pedidos => {
+    this.platosService.listaPedidos().subscribe(pedidos => {
       console.log("Peidososos ", pedidos);
       if (pedidos['success']) {
         this.listaPedidos = pedidos['msj'];

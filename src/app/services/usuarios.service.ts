@@ -9,10 +9,6 @@ import { PerfilmostrarService } from './perfilmostrar.service';
 })
 export class UsuariosService {
   private urlApi: string;
-  private headers = new HttpHeaders({
-    'Authorization': localStorage.getItem('token'),
-    'tokenTime': localStorage.getItem('tiempoToken')
-  });
 
   constructor(
     private http: HttpClient,
@@ -23,15 +19,27 @@ export class UsuariosService {
   }
 
   public listaUsusuario() {
-    return this.http.get(this.urlApi + 'usuarios/lista', {headers: this.headers});
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
+    return this.http.get(this.urlApi + 'usuarios/lista', { headers });
   }
 
   public crearUsuario(usuario: object) {
-    return this.http.post(this.urlApi + 'usuarios/crear', usuario, {headers: this.headers});
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
+    return this.http.post(this.urlApi + 'usuarios/crear', usuario, { headers });
   }
 
   public editarUsuario(usuario: object) {
-    return this.http.put(this.urlApi + 'usuarios/editar', usuario, {headers: this.headers});
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
+    return this.http.put(this.urlApi + 'usuarios/editar', usuario, { headers });
   }
 
   public registrarUsuario(usuario: object) {
@@ -39,15 +47,27 @@ export class UsuariosService {
   }
 
   public login(usuario: object) {
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
     return this.http.get(this.urlApi + 'login/' + usuario['documento'] + '/' + usuario['password']);
   }
 
   public actualizarPerfil(usuario: object) {
-    return this.http.put(this.urlApi + 'actualizarDatos', usuario, {headers: this.headers});
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
+    return this.http.put(this.urlApi + 'actualizarDatos', usuario, { headers });
   }
 
   public elminarUsuario(usuario: object) {
-    return this.http.put(this.urlApi + 'usuarios/eliminar', usuario, {headers: this.headers});
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
+    return this.http.put(this.urlApi + 'usuarios/eliminar', usuario, { headers });
   }
 
   public actualizarDatosStorage(usuario: object) {
@@ -58,15 +78,27 @@ export class UsuariosService {
   }
 
   public validarToken() {
-    return this.http.get(this.urlApi + 'validarToken', {headers: this.headers});
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
+    return this.http.get(this.urlApi + 'validarToken', { headers });
   }
 
   public listaClientes() {
-    return this.http.get(this.urlApi + 'usuarios/lista/clientes', {headers: this.headers});
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
+    return this.http.get(this.urlApi + 'usuarios/lista/clientes', { headers });
   }
 
   public listaUsuarios() {
-    return this.http.get(this.urlApi + 'usuarios/lista/usuarios', {headers: this.headers});
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
+    return this.http.get(this.urlApi + 'usuarios/lista/usuarios', { headers });
   }
 
   public cerrarSesion() {

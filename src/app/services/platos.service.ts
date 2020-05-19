@@ -9,10 +9,6 @@ import { Observable } from 'rxjs';
 export class PlatosService {
 
   private urlApi: string;
-  private headers = new HttpHeaders({
-    'Authorization': localStorage.getItem('token'),
-    'tokenTime': localStorage.getItem('tiempoToken')
-  });
 
   constructor(private http: HttpClient) {
     this.urlApi = CONFIG.urlAPi;
@@ -23,21 +19,33 @@ export class PlatosService {
   }
 
   agregarPlato(plato: object, editar?, idPlato?) {
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
     if (editar) {
       console.log('editar');
       plato['idPlato'] = idPlato;
-      return this.http.post(this.urlApi + 'platos/editar', plato, { headers: this.headers });
+      return this.http.post(this.urlApi + 'platos/editar', plato, { headers });
     } else {
-      return this.http.post(this.urlApi + 'platos/guardar', plato, { headers: this.headers });
+      return this.http.post(this.urlApi + 'platos/guardar', plato, { headers });
     }
   }
 
   eliminarPlato(plato: object) {
-    return this.http.put(this.urlApi + 'platos/eliminar', plato, { headers: this.headers });
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
+    return this.http.put(this.urlApi + 'platos/eliminar', plato, { headers });
   }
 
   platoDelDia(plato: object) {
-    return this.http.put(this.urlApi + 'platos/dia', plato, { headers: this.headers });
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
+    return this.http.put(this.urlApi + 'platos/dia', plato, { headers });
   }
 
   obtenerPlatosDia() {
@@ -45,11 +53,19 @@ export class PlatosService {
   }
 
   crearPromo(promo: object) {
-    return this.http.post(this.urlApi + 'promo/crear', promo, { headers: this.headers });
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
+    return this.http.post(this.urlApi + 'promo/crear', promo, { headers });
   }
 
   quitarPromo(promo: object) {
-    return this.http.put(this.urlApi + 'promo/quitar', promo, { headers: this.headers });
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
+    return this.http.put(this.urlApi + 'promo/quitar', promo, { headers });
   }
 
   listaPromo() {
@@ -57,22 +73,26 @@ export class PlatosService {
   }
 
   postFileImagen(imagenParaSubir: File, idPlato) {
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem('token'),
+      'tokenTime': localStorage.getItem('tiempoToken')
+    });
     const formData = new FormData();
     formData.append('imagenPropia', imagenParaSubir, imagenParaSubir.name);
     formData.append('id', idPlato);
-    return this.http.post(this.urlApi + 'platos/imagen', formData, { headers: this.headers });
+    return this.http.post(this.urlApi + 'platos/imagen', formData, { headers });
   }
 
   realizarPedido(pedido: object) {
     return this.http.post(this.urlApi + 'pedidos/crear', pedido);
   }
 
-  obtenerPedidos() {
-    this.headers = new HttpHeaders({
+  listaPedidos() {
+    const headers = new HttpHeaders({
       'Authorization': localStorage.getItem('token'),
       'tokenTime': localStorage.getItem('tiempoToken')
     });
-    return this.http.get(this.urlApi + 'pedidos/lista', { headers: this.headers });
+    return this.http.get(this.urlApi + 'pedidos/lista', { headers });
   }
 
 }
