@@ -17,6 +17,7 @@ export class InicioComponent implements OnInit {
   listaPlatos: Array<object> = [];
   listaPromo: Array<object> = [];
   listaDia: Array<object> = [];
+  listaPedidos: Array<object> = [];
 
   constructor(
     private appService: AppService,
@@ -32,6 +33,7 @@ export class InicioComponent implements OnInit {
     this.listarPlatos();
     this.listarPromociones();
     this.listarDia();
+    this.listarPerdidos();
   }
 
   listarClientes() {
@@ -88,6 +90,17 @@ export class InicioComponent implements OnInit {
       console.log('error ', error);
     });
   }
+
+  listarPerdidos() {
+    this._platos.listaPedidos().subscribe(resp => {
+      if (resp['success']) {
+        this.listaPedidos = resp['msj'];
+      }
+    }, error => {
+      console.log('error ', error);
+    });
+  }
+
 
 
 }

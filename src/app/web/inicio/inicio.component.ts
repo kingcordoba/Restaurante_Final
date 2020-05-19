@@ -29,7 +29,6 @@ export class InicioComponent implements OnInit, OnDestroy {
   listaPlatosDia: Array<object> = [];
   listaPlatosPromo: Array<object> = [];
 
-
   fondo: any;
   page = 4;
   page1 = 5;

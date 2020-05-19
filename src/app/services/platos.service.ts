@@ -67,4 +67,8 @@ export class PlatosService {
     return this.http.post(this.urlApi + 'pedidos/crear', pedido);
   }
 
+  listaPedidos() {
+    return this.http.get(this.urlApi + 'pedidos/lista', { headers: this.headers });
+  }
+
 }
