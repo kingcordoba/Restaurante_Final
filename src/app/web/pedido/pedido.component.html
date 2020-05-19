@@ -1,4 +1,4 @@
-<div class="page-header" filter-color="orange" [ngClass]="{'not-read' : cargador ? true : false}">
+<div class="page-header" filter-color="orange" style="height: calc(100vh - 68px);" [ngClass]="{'not-read' : cargador ? true : false}">
   <div class="page-header-image" style="background-image:url(assets/img/bgLogin.jpg)"></div>
   <div class="container">
     <div class="content-center my-5 my-5 mt-md-0">
@@ -94,16 +94,7 @@
       </div>
     </div>
   </div>
-  <footer class="footer">
-    <div class="container">
-        <div class="copyright">
-          &copy;
-          {{data | date: 'yyyy'}}, Diseñador por
-          <a href="https://instagram.com/kingcordoba" target="_blank">Mateo</a>. Codificado por
-          <a href="https://instagram.com/anthonyurrego" target="_blank">Anthony</a>.
-        </div>
-    </div>
-  </footer>
+  <app-footer class="d-block d-md-none"></app-footer>
 </div>
 <app-loader [encender]="cargador" [mensaje]="mensajeCargador"></app-loader>
 
