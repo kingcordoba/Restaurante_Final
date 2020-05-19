@@ -26,7 +26,6 @@ export class InicioComponent implements OnInit, OnDestroy {
 
   cargador = false;
   mensajeCargador = 'Cargando';
-  imagenesSlider: object[] = [];
   listaPlatosDia: Array<object> = [];
   listaPlatosPromo: Array<object> = [];
 
@@ -54,7 +53,6 @@ export class InicioComponent implements OnInit, OnDestroy {
 
   ) {
     this.appService.pageTitle = 'Inicio';
-    this.imagenesSlider = _productos.productosMostrar;
     config.closeOthers = true;
     config.type = 'info';
   }

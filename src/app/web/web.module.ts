@@ -21,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PerfilComponent } from './perfil/perfil.component';
 import { LoaderModule } from '../shared/loader/loader.module';
 import { PedidoComponent } from './pedido/pedido.component';
+import { ModalTerminosComponent } from './modal-terminos/modal-terminos.component';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { PedidoComponent } from './pedido/pedido.component';
     FooterComponent,
     NotfoundComponent,
     PerfilComponent,
-    PedidoComponent
+    PedidoComponent,
+    ModalTerminosComponent
   ],
   providers: []
 })

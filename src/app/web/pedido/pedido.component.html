@@ -5,7 +5,7 @@
       <div class="row d-block my-5 my-md-0 d-md-flex justify-content-md-center">
         <div class="col-12 col-md-6 " style="margin-top: 76px;">
           <div class="card card-login card-plain">
-            <form class="form form-row" [formGroup]="formulario" [ngClass]="{'was-validated': validaFormulario}">
+            <form class="form form-row" id="formularioPedido" [formGroup]="formulario" [ngClass]="{'was-validated': validaFormulario}">
               <div class="col-12 col-md-6 form-group form-group-no-border mt-2">
                 <input type="tel" formControlName="nro_documento" required class="form-control rounded-pill text-white" autocomplete="off" (keypress)="soloNumeros($event)" pattern="^[0-9]*$" placeholder="Nro Documento" />
                 <div class="errores text-left pl-3">

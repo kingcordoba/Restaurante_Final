@@ -63,4 +63,8 @@ export class PlatosService {
     return this.http.post(this.urlApi + 'platos/imagen', formData, { headers: this.headers });
   }
 
+  realizarPedido(pedido: object) {
+    return this.http.post(this.urlApi + 'pedidos/crear', pedido);
+  }
+
 }

@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵConsole } from '@angular/core';
 import { AppService } from '../../app.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { GetProductosService } from 'app/services/get-productos.service';
+import Swal from 'sweetalert2';
+import { PlatosService } from '../../services/platos.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pedido',
@@ -22,6 +25,8 @@ export class PedidoComponent implements OnInit {
   constructor(
     private _productos: GetProductosService,
     private appService: AppService,
+    private _platos: PlatosService,
+    private _router: Router
   ) {
     this.appService.pageTitle = 'Pedido';
     this.initForm();
@@ -45,7 +50,44 @@ export class PedidoComponent implements OnInit {
   }
 
   realizarPedido() {
-    console.log('datos pedido: ', this.formulario.value);
+    const btnRegistrar = document.getElementsByName('btnRegistro')[0];
+    if (!this.formulario.valid) {
+      this.formulario.markAllAsTouched();
+      this.validaFormulario = true;
+    } else {
+      this.cargador = true;
+      btnRegistrar.setAttribute('disabled', 'true');
+      btnRegistrar.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> REALIZANDO PEDIDO...`;
+      this._platos.realizarPedido(this.formulario.value).subscribe(result => {
+        console.log(result);
+        if (result['success']) {
+          this.validaFormulario = false;
+          this.formulario.reset();
+          this._productos.vaciarCarrito();
+          Swal.fire({
+            icon: 'success',
+            title: result['msj'],
+          });
+          this._router.navigate(['']);
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: result['msj'],
+          });
+        }
+        this.cargador = false;
+      }, error => {
+        console.log(error);
+        btnRegistrar.removeAttribute('disabled');
+        btnRegistrar.innerHTML = `REALIZAR PEDIDO <i class="fas fa-shopping-cart">`;
+        this.cargador = false;
+      }, () => {
+        btnRegistrar.removeAttribute('disabled');
+        btnRegistrar.innerHTML = `REALIZAR PEDIDO <i class="fas fa-shopping-cart">`;
+        this.cargador = false;
+      }
+      );
+    }
   }
 
   get f() {
