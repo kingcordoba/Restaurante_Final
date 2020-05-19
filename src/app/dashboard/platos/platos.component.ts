@@ -423,10 +423,13 @@ export class PlatosComponent implements OnInit {
   }
 
   public cargandoImagen(files: FileList) {
+    const btnCerrar = document.getElementById('btnModalImagen');
+    btnCerrar.setAttribute('disabled', 'true');
     this.platosService.postFileImagen(files[0], this.idPlatoImagen).subscribe(
       response => {
         this.respuestaImagenEnviada = response;
         if (this.respuestaImagenEnviada <= 1) {
+          btnCerrar.removeAttribute('disabled');
           Swal.fire({
             icon: 'error',
             title: 'Error en el servidor'
@@ -442,7 +445,15 @@ export class PlatosComponent implements OnInit {
             $('#customFileLang').val('');
             $('.custom-file-label').html('Seleccionar Archivo');
             $('#modalFoto').modal('hide');
+            // Limpiamos la tabla
+            this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+              // Destroy the table first
+              dtInstance.destroy();
+            });
+            this.listarPlatos();
+            btnCerrar.removeAttribute('disabled');
           } else {
+            btnCerrar.removeAttribute('disabled');
             Swal.fire({
               icon: 'warning',
               title: this.respuestaImagenEnviada.msj
@@ -452,6 +463,7 @@ export class PlatosComponent implements OnInit {
         }
       },
       error => {
+        btnCerrar.removeAttribute('disabled');
         console.log(<any>error);
       }
     );
