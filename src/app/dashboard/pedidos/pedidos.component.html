@@ -1,18 +1,80 @@
-<!-- Content Header (Page header) -->
 <div div class="content-header">
   <div class="container-fliud">
     <div class="row mb-2">
       <div class="col-12">
         <h1 class="m-0 text-dark">{{titulo}}</h1>
-      </div><!-- /.col -->
-    </div><!-- /.row -->
-  </div><!-- /.container-fluid -->
+      </div>
+    </div>
+  </div>
 </div>
-<!-- /.content-header -->
-
-<!-- Main content -->
 <section class="content">
   <div class="container-fluid">
-
+    <div class="card">
+      <div class="card-body">
+        <table #idTabla datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+          class="row-border hover table table-bordered table-hover w-100">
+          <thead class="thead-light">
+            <tr>
+              <th>Nombre</th>
+              <th>Documento</th>
+              <th>Telefono</th>
+              <th>Dirección</th>
+              <th>Total</th>
+              <th>Estado</th>
+              <th>Creador</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pedido of listaPedidos">
+              <td>{{pedido['nombre_completo']}}</td>
+              <td>{{pedido['nro_documento']}}</td>
+              <td>{{pedido['telefono']}}</td>
+              <td>{{pedido['direccion']}}</td>
+              <td>{{pedido['total'] }}</td>
+              <td>{{pedido['estado'] ? 'Activo' : 'Inactivo'}}</td>
+              <td>{{pedido['created_at']}}</td>
+              <td class="d-flex justify-content-center">
+                <button class="btn btn-info mx-1" (click)="verDetallePedido(pedido)"><i
+                    class="far fa-kiss-beam fa-2x"></i></button>
+                <button class="btn btn-success mx-1" (click)="cambiarEstadoPedido(pedido)"><i
+                    class="fas fa-hand-peace"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </section>
+
+<!-- Modal platos pedido -->
+<div class="modal fade" id="modalPlatosPedido" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fas fa-meh-rolling-eyes"></i> Pedido - {{idPediddoSeleccionado}}</h5>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Plato</th>
+              <th scope="col">Precio</th>
+              <th scope="col">Cantidad</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let detalle of listaDetalles; let i = index;">
+              <th scope="row">{{ i + 1}}</th>
+              <td>{{ detalle['nombre']}}</td>
+              <td>{{ detalle['precio']}}</td>
+              <td>{{ detalle['cantidad']}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
