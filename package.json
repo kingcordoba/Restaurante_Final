@@ -27,7 +27,7 @@
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@ng-bootstrap/ng-bootstrap": "6.0.0",
     "admin-lte": "^3.0.4",
-    "ajv": "6.10.0",
+    "ajv": "6.12.3",
     "ajv-keywords": "3.4.0",
     "angular-datatables": "^9.0.2",
     "bootstrap": "^4.0.0",
